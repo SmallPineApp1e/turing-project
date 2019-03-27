@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turing.turing.dao.AwardMapper">
+  <resultMap id="BaseResultMap" type="com.turing.turing.entity.Award">
+    <id column="award_id" jdbcType="INTEGER" property="awardId" />
+    <result column="award_name" jdbcType="VARCHAR" property="awardName" />
+    <result column="award_time" jdbcType="TIMESTAMP" property="awardTime" />
+  </resultMap>
+  <resultMap id="WithPhotoBaseResultMap" type="com.turing.turing.entity.Award">
+    <id column="award_id" jdbcType="INTEGER" property="awardId" />
+    <result column="award_name" jdbcType="VARCHAR" property="awardName" />
+    <result column="award_time" jdbcType="TIMESTAMP" property="awardTime" />
+    <association property="photo" javaType="com.turing.turing.entity.Photo">
+      <id column="photo_id" jdbcType="INTEGER" property="photoId"/>
+      <result column="photo_loc" jdbcType="VARCHAR" property="photoLoc"/>
+      <result column="photo_type" jdbcType="VARCHAR" property="photoType"/>
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    award_id, award_name, award_time
+  </sql>
+
+  <sql id="With_Photo_Base_Column_List">
+    award_id, award_name, award_time, photo_id, photo_loc, photo_type
+  </sql>
+  <select id="selectByExample" parameterType="com.turing.turing.entity.AwardExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from award
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from award
+    where award_id = #{awardId,jdbcType=INTEGER}
+  </select>
+  <!--
+    查询奖项时也查询好图片
+    List<Award> selectByExampleWithPhoto(AwardExample example);
+    Award selectByPrimaryKeyWithPhoto(Integer awardId);
+  -->
+  <select id="selectByExampleWithPhoto" parameterType="com.turing.turing.entity.AwardExample"
+          resultMap="WithPhotoBaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="With_Photo_Base_Column_List" />
+    from award a left join photo p on a.award_name = p.photo_type
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKeyWithPhoto" parameterType="java.lang.Integer" resultMap="WithPhotoBaseResultMap">
+    select
+    <include refid="With_Photo_Base_Column_List" />
+    from award a left join photo p on a.award_name = p.photo_type
+    where award_id = #{awardId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from award
+    where award_id = #{awardId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.turing.turing.entity.AwardExample">
+    delete from award
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.turing.turing.entity.Award">
+    insert into award (award_id, award_name, award_time
+      )
+    values (#{awardId,jdbcType=INTEGER}, #{awardName,jdbcType=VARCHAR}, #{awardTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.turing.turing.entity.Award">
+    insert into award
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="awardId != null">
+        award_id,
+      </if>
+      <if test="awardName != null">
+        award_name,
+      </if>
+      <if test="awardTime != null">
+        award_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="awardId != null">
+        #{awardId,jdbcType=INTEGER},
+      </if>
+      <if test="awardName != null">
+        #{awardName,jdbcType=VARCHAR},
+      </if>
+      <if test="awardTime != null">
+        #{awardTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.turing.turing.entity.AwardExample" resultType="java.lang.Long">
+    select count(*) from award
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update award
+    <set>
+      <if test="record.awardId != null">
+        award_id = #{record.awardId,jdbcType=INTEGER},
+      </if>
+      <if test="record.awardName != null">
+        award_name = #{record.awardName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.awardTime != null">
+        award_time = #{record.awardTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update award
+    set award_id = #{record.awardId,jdbcType=INTEGER},
+      award_name = #{record.awardName,jdbcType=VARCHAR},
+      award_time = #{record.awardTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.turing.entity.Award">
+    update award
+    <set>
+      <if test="awardName != null">
+        award_name = #{awardName,jdbcType=VARCHAR},
+      </if>
+      <if test="awardTime != null">
+        award_time = #{awardTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where award_id = #{awardId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.turing.turing.entity.Award">
+    update award
+    set award_name = #{awardName,jdbcType=VARCHAR},
+      award_time = #{awardTime,jdbcType=TIMESTAMP}
+    where award_id = #{awardId,jdbcType=INTEGER}
+  </update>
+</mapper>

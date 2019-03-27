@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="turing-project:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="turing-project-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="turing-project:war exploded" />
+    </root>
+  </artifact>
+</component>
