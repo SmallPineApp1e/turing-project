@@ -2,23 +2,23 @@ package com.turing.turing.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Setter
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class Inform {
-
     private Integer informId;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
-    @NotBlank(message = "通知内容不能为空!")
+
     private String informInfo;
-    @NotBlank(message = "发布人姓名不能为空!")
+
     private String username;
 
 }

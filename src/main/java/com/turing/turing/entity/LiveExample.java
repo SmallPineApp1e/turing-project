@@ -233,6 +233,76 @@ public class LiveExample {
             addCriterion("live_name not between", value1, value2, "liveName");
             return (Criteria) this;
         }
+
+        public Criteria andLiveUsernameIsNull() {
+            addCriterion("live_username is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameIsNotNull() {
+            addCriterion("live_username is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameEqualTo(String value) {
+            addCriterion("live_username =", value, "liveUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameNotEqualTo(String value) {
+            addCriterion("live_username <>", value, "liveUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameGreaterThan(String value) {
+            addCriterion("live_username >", value, "liveUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameGreaterThanOrEqualTo(String value) {
+            addCriterion("live_username >=", value, "liveUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameLessThan(String value) {
+            addCriterion("live_username <", value, "liveUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameLessThanOrEqualTo(String value) {
+            addCriterion("live_username <=", value, "liveUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameLike(String value) {
+            addCriterion("live_username like", value, "liveUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameNotLike(String value) {
+            addCriterion("live_username not like", value, "liveUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameIn(List<String> values) {
+            addCriterion("live_username in", values, "liveUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameNotIn(List<String> values) {
+            addCriterion("live_username not in", values, "liveUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameBetween(String value1, String value2) {
+            addCriterion("live_username between", value1, value2, "liveUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andLiveUsernameNotBetween(String value1, String value2) {
+            addCriterion("live_username not between", value1, value2, "liveUsername");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

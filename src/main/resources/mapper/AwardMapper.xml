@@ -4,17 +4,8 @@
   <resultMap id="BaseResultMap" type="com.turing.turing.entity.Award">
     <id column="award_id" jdbcType="INTEGER" property="awardId" />
     <result column="award_name" jdbcType="VARCHAR" property="awardName" />
-    <result column="award_time" jdbcType="TIMESTAMP" property="awardTime" />
-  </resultMap>
-  <resultMap id="WithPhotoBaseResultMap" type="com.turing.turing.entity.Award">
-    <id column="award_id" jdbcType="INTEGER" property="awardId" />
-    <result column="award_name" jdbcType="VARCHAR" property="awardName" />
-    <result column="award_time" jdbcType="TIMESTAMP" property="awardTime" />
-    <association property="photo" javaType="com.turing.turing.entity.Photo">
-      <id column="photo_id" jdbcType="INTEGER" property="photoId"/>
-      <result column="photo_loc" jdbcType="VARCHAR" property="photoLoc"/>
-      <result column="photo_type" jdbcType="VARCHAR" property="photoType"/>
-    </association>
+    <result column="award_time" jdbcType="DATE" property="awardTime" />
+    <result column="award_username" jdbcType="VARCHAR" property="awardUsername" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,11 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    award_id, award_name, award_time
-  </sql>
-
-  <sql id="With_Photo_Base_Column_List">
-    award_id, award_name, award_time, photo_id, photo_loc, photo_type
+    award_id, award_name, award_time, award_username
   </sql>
   <select id="selectByExample" parameterType="com.turing.turing.entity.AwardExample" resultMap="BaseResultMap">
     select
@@ -101,29 +88,6 @@
     from award
     where award_id = #{awardId,jdbcType=INTEGER}
   </select>
-  <!--
-    查询奖项时也查询好图片
-    List<Award> selectByExampleWithPhoto(AwardExample example);
-    Award selectByPrimaryKeyWithPhoto(Integer awardId);
-  -->
-  <select id="selectByExampleWithPhoto" parameterType="com.turing.turing.entity.AwardExample"
-          resultMap="WithPhotoBaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="With_Photo_Base_Column_List" />
-    from award a left join photo p on a.award_name = p.photo_type
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKeyWithPhoto" parameterType="java.lang.Integer" resultMap="WithPhotoBaseResultMap">
-    select
-    <include refid="With_Photo_Base_Column_List" />
-    from award a left join photo p on a.award_name = p.photo_type
-    where award_id = #{awardId,jdbcType=INTEGER}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from award
     where award_id = #{awardId,jdbcType=INTEGER}
@@ -135,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.turing.turing.entity.Award">
-    insert into award (award_id, award_name, award_time
-      )
-    values (#{awardId,jdbcType=INTEGER}, #{awardName,jdbcType=VARCHAR}, #{awardTime,jdbcType=TIMESTAMP}
-      )
+    insert into award (award_id, award_name, award_time, 
+      award_username)
+    values (#{awardId,jdbcType=INTEGER}, #{awardName,jdbcType=VARCHAR}, #{awardTime,jdbcType=DATE}, 
+      #{awardUsername,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.turing.turing.entity.Award">
     insert into award
@@ -152,6 +116,9 @@
       <if test="awardTime != null">
         award_time,
       </if>
+      <if test="awardUsername != null">
+        award_username,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="awardId != null">
@@ -161,7 +128,10 @@
         #{awardName,jdbcType=VARCHAR},
       </if>
       <if test="awardTime != null">
-        #{awardTime,jdbcType=TIMESTAMP},
+        #{awardTime,jdbcType=DATE},
+      </if>
+      <if test="awardUsername != null">
+        #{awardUsername,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -181,7 +151,10 @@
         award_name = #{record.awardName,jdbcType=VARCHAR},
       </if>
       <if test="record.awardTime != null">
-        award_time = #{record.awardTime,jdbcType=TIMESTAMP},
+        award_time = #{record.awardTime,jdbcType=DATE},
+      </if>
+      <if test="record.awardUsername != null">
+        award_username = #{record.awardUsername,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -192,7 +165,8 @@
     update award
     set award_id = #{record.awardId,jdbcType=INTEGER},
       award_name = #{record.awardName,jdbcType=VARCHAR},
-      award_time = #{record.awardTime,jdbcType=TIMESTAMP}
+      award_time = #{record.awardTime,jdbcType=DATE},
+      award_username = #{record.awardUsername,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -204,7 +178,10 @@
         award_name = #{awardName,jdbcType=VARCHAR},
       </if>
       <if test="awardTime != null">
-        award_time = #{awardTime,jdbcType=TIMESTAMP},
+        award_time = #{awardTime,jdbcType=DATE},
+      </if>
+      <if test="awardUsername != null">
+        award_username = #{awardUsername,jdbcType=VARCHAR},
       </if>
     </set>
     where award_id = #{awardId,jdbcType=INTEGER}
@@ -212,7 +189,8 @@
   <update id="updateByPrimaryKey" parameterType="com.turing.turing.entity.Award">
     update award
     set award_name = #{awardName,jdbcType=VARCHAR},
-      award_time = #{awardTime,jdbcType=TIMESTAMP}
+      award_time = #{awardTime,jdbcType=DATE},
+      award_username = #{awardUsername,jdbcType=VARCHAR}
     where award_id = #{awardId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -34,14 +34,14 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         <!--指定每个表的生成策略-->
-        <!--<table tableName="award" domainObjectName="Award"></table>
+        <table tableName="award" domainObjectName="Award"></table>
         <table tableName="history" domainObjectName="History"></table>
         <table tableName="inform" domainObjectName="Inform"></table>
         <table tableName="live" domainObjectName="Live"></table>
         <table tableName="member" domainObjectName="Member"></table>
         <table tableName="photo" domainObjectName="Photo"></table>
         <table tableName="project" domainObjectName="Project"></table>
-        <table tableName="resume" domainObjectName="Resume"></table>-->
+        <table tableName="resume" domainObjectName="Resume"></table>
         <table tableName="collect_resume" domainObjectName="CollectResume"></table>
     </context>
 </generatorConfiguration>

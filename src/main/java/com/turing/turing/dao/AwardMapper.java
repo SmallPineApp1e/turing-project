@@ -21,10 +21,6 @@ public interface AwardMapper {
 
     Award selectByPrimaryKey(Integer awardId);
 
-    List<Award> selectByExampleWithPhoto(AwardExample example);
-
-    Award selectByPrimaryKeyWithPhoto(Integer awardId);
-
     int updateByExampleSelective(@Param("record") Award record, @Param("example") AwardExample example);
 
     int updateByExample(@Param("record") Award record, @Param("example") AwardExample example);

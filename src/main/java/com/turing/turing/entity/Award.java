@@ -5,24 +5,21 @@ import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class Award {
-
     private Integer awardId;
-    @NotBlank(message = "奖项名字不能为空!")
+    @NotBlank(message = "必须填写获奖名字!")
     private String awardName;
-    @NotNull(message = "获奖时间不能为空!")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date awardTime;
-
-    private Photo photo;
+    @NotBlank(message = "必须填写发布人名字!")
+    private String awardUsername;
 
 }

@@ -7,18 +7,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-@Setter
-@Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @ToString
 public class History {
-
     private Integer hisId;
-    @NotBlank(message = "团队历史内容不能为空!")
+    @NotBlank(message = "必须填写团队历史内容!")
     private String hisInfo;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date editTime;
-
+    @NotBlank(message = "必须填写修改人名字!")
+    private String editName;
 }

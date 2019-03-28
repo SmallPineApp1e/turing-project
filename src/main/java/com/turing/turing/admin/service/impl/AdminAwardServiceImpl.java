@@ -47,7 +47,7 @@ public class AdminAwardServiceImpl implements AdminAwardService {
     @Override
     public List<Award> getAwards() {
 
-        List<Award> awards = awardMapper.selectByExampleWithPhoto(null);
+        List<Award> awards = awardMapper.selectByExample(null);
         return awards;
 
     }

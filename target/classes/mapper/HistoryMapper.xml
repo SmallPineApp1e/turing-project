@@ -5,6 +5,7 @@
     <id column="his_id" jdbcType="INTEGER" property="hisId" />
     <result column="his_info" jdbcType="VARCHAR" property="hisInfo" />
     <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+    <result column="edit_name" jdbcType="VARCHAR" property="editName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    his_id, his_info, edit_time
+    his_id, his_info, edit_time, edit_name
   </sql>
   <select id="selectByExample" parameterType="com.turing.turing.entity.HistoryExample" resultMap="BaseResultMap">
     select
@@ -98,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.turing.turing.entity.History">
-    insert into history (his_id, his_info, edit_time
-      )
-    values (#{hisId,jdbcType=INTEGER}, #{hisInfo,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}
-      )
+    insert into history (his_id, his_info, edit_time, 
+      edit_name)
+    values (#{hisId,jdbcType=INTEGER}, #{hisInfo,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}, 
+      #{editName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.turing.turing.entity.History">
     insert into history
@@ -115,6 +116,9 @@
       <if test="editTime != null">
         edit_time,
       </if>
+      <if test="editName != null">
+        edit_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="hisId != null">
@@ -125,6 +129,9 @@
       </if>
       <if test="editTime != null">
         #{editTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editName != null">
+        #{editName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -146,6 +153,9 @@
       <if test="record.editTime != null">
         edit_time = #{record.editTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.editName != null">
+        edit_name = #{record.editName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,7 +165,8 @@
     update history
     set his_id = #{record.hisId,jdbcType=INTEGER},
       his_info = #{record.hisInfo,jdbcType=VARCHAR},
-      edit_time = #{record.editTime,jdbcType=TIMESTAMP}
+      edit_time = #{record.editTime,jdbcType=TIMESTAMP},
+      edit_name = #{record.editName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +180,17 @@
       <if test="editTime != null">
         edit_time = #{editTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="editName != null">
+        edit_name = #{editName,jdbcType=VARCHAR},
+      </if>
     </set>
     where his_id = #{hisId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.turing.turing.entity.History">
     update history
     set his_info = #{hisInfo,jdbcType=VARCHAR},
-      edit_time = #{editTime,jdbcType=TIMESTAMP}
+      edit_time = #{editTime,jdbcType=TIMESTAMP},
+      edit_name = #{editName,jdbcType=VARCHAR}
     where his_id = #{hisId,jdbcType=INTEGER}
   </update>
 </mapper>

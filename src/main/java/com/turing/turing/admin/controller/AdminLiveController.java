@@ -1,7 +1,5 @@
 package com.turing.turing.admin.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminLiveService;
 import com.turing.turing.entity.Live;
 import com.turing.turing.util.ImageUtil;
@@ -39,6 +37,10 @@ public class AdminLiveController {
                             @ModelAttribute("live")@Valid Live live,
                             BindingResult result, HttpServletRequest request) throws Exception {
 
+        if(files == null){
+            return Msg.fail().add("error","必须上传照片哦!");
+        }
+
         //只添加一次生活名称
         Integer count = 0;
         if(result.hasErrors()||files.length==0){
@@ -73,7 +75,8 @@ public class AdminLiveController {
                 //上传图片到指定目录下
                 ImageUtil.uploadPhoto(photoLocation, file);
                 //保存图片路径到数据库
-                String saveLocate = "\\static\\img\\" + fileName;
+                String saveLocate = System.getProperty("file.separator")+"static"+System.getProperty("file.separator")
+                        +"img"+ System.getProperty("file.separator") + fileName;
                 boolean isSuccess = adminLiveService.addLivePhoto(saveLocate, live);
                 if (isSuccess){
                     continue;
@@ -86,17 +89,14 @@ public class AdminLiveController {
     }
 
     /**
-     * 查询所有生活照(分页)
-     * @param pn
+     * 查询所有生活照
      * @return
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Msg getLive(@RequestParam(value = "pn", defaultValue = "1") Integer pn){
+    public Msg getLive(){
 
-        PageHelper.startPage(pn, 3);
         List<Live> lives = adminLiveService.getLive();
-        PageInfo pageInfo = new PageInfo(lives, 3);
-        return lives.size()!=0 ? Msg.success().add("pageInfo", pageInfo) :
+        return lives.size()!=0 ? Msg.success().add("lives", lives) :
                 Msg.fail().add("error", "无法查询到生活记录");
 
     }

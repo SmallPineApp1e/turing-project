@@ -60,7 +60,8 @@ public class AdminProjectController {
                 //获得图片后缀名
                 String type = ImageUtil.getSuffix(file);
                 //定义图片保存到数据库的路径
-                String locPath = "/static/img/"+project.getProName()+type;
+                String locPath = System.getProperty("file.separator")+"static"+System.getProperty("file.separator")
+                        +"img"+System.getProperty("file.separator")+project.getProName()+type;
                 isSuccess = adminProjectService.addProject(locPath, project);
                 return isSuccess? Msg.success():Msg.fail();
             }else {

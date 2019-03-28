@@ -25,7 +25,7 @@ public interface AdminLiveService {
     boolean addLivePhoto(String photoLocate, Live live);
 
     /**
-     * 获取生活及照片(分页)
+     * 获取生活及照片
      * @return
      */
     List<Live> getLive();

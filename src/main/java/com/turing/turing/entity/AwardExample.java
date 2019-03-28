@@ -2,6 +2,7 @@ package com.turing.turing.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class AwardExample {
@@ -103,6 +104,32 @@ public class AwardExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andAwardIdIsNull() {
@@ -246,52 +273,122 @@ public class AwardExample {
         }
 
         public Criteria andAwardTimeEqualTo(Date value) {
-            addCriterion("award_time =", value, "awardTime");
+            addCriterionForJDBCDate("award_time =", value, "awardTime");
             return (Criteria) this;
         }
 
         public Criteria andAwardTimeNotEqualTo(Date value) {
-            addCriterion("award_time <>", value, "awardTime");
+            addCriterionForJDBCDate("award_time <>", value, "awardTime");
             return (Criteria) this;
         }
 
         public Criteria andAwardTimeGreaterThan(Date value) {
-            addCriterion("award_time >", value, "awardTime");
+            addCriterionForJDBCDate("award_time >", value, "awardTime");
             return (Criteria) this;
         }
 
         public Criteria andAwardTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("award_time >=", value, "awardTime");
+            addCriterionForJDBCDate("award_time >=", value, "awardTime");
             return (Criteria) this;
         }
 
         public Criteria andAwardTimeLessThan(Date value) {
-            addCriterion("award_time <", value, "awardTime");
+            addCriterionForJDBCDate("award_time <", value, "awardTime");
             return (Criteria) this;
         }
 
         public Criteria andAwardTimeLessThanOrEqualTo(Date value) {
-            addCriterion("award_time <=", value, "awardTime");
+            addCriterionForJDBCDate("award_time <=", value, "awardTime");
             return (Criteria) this;
         }
 
         public Criteria andAwardTimeIn(List<Date> values) {
-            addCriterion("award_time in", values, "awardTime");
+            addCriterionForJDBCDate("award_time in", values, "awardTime");
             return (Criteria) this;
         }
 
         public Criteria andAwardTimeNotIn(List<Date> values) {
-            addCriterion("award_time not in", values, "awardTime");
+            addCriterionForJDBCDate("award_time not in", values, "awardTime");
             return (Criteria) this;
         }
 
         public Criteria andAwardTimeBetween(Date value1, Date value2) {
-            addCriterion("award_time between", value1, value2, "awardTime");
+            addCriterionForJDBCDate("award_time between", value1, value2, "awardTime");
             return (Criteria) this;
         }
 
         public Criteria andAwardTimeNotBetween(Date value1, Date value2) {
-            addCriterion("award_time not between", value1, value2, "awardTime");
+            addCriterionForJDBCDate("award_time not between", value1, value2, "awardTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameIsNull() {
+            addCriterion("award_username is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameIsNotNull() {
+            addCriterion("award_username is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameEqualTo(String value) {
+            addCriterion("award_username =", value, "awardUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameNotEqualTo(String value) {
+            addCriterion("award_username <>", value, "awardUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameGreaterThan(String value) {
+            addCriterion("award_username >", value, "awardUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameGreaterThanOrEqualTo(String value) {
+            addCriterion("award_username >=", value, "awardUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameLessThan(String value) {
+            addCriterion("award_username <", value, "awardUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameLessThanOrEqualTo(String value) {
+            addCriterion("award_username <=", value, "awardUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameLike(String value) {
+            addCriterion("award_username like", value, "awardUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameNotLike(String value) {
+            addCriterion("award_username not like", value, "awardUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameIn(List<String> values) {
+            addCriterion("award_username in", values, "awardUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameNotIn(List<String> values) {
+            addCriterion("award_username not in", values, "awardUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameBetween(String value1, String value2) {
+            addCriterion("award_username between", value1, value2, "awardUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andAwardUsernameNotBetween(String value1, String value2) {
+            addCriterion("award_username not between", value1, value2, "awardUsername");
             return (Criteria) this;
         }
     }

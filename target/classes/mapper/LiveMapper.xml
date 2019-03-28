@@ -4,15 +4,16 @@
   <resultMap id="BaseResultMap" type="com.turing.turing.entity.Live">
     <id column="live_id" jdbcType="INTEGER" property="liveId" />
     <result column="live_name" jdbcType="VARCHAR" property="liveName" />
+    <result column="live_username" jdbcType="VARCHAR" property="liveUsername" />
   </resultMap>
-  <resultMap id="WithPhotosBaseResultMap" type="com.turing.turing.entity.Live">
+  <resultMap id="WithPhotoBaseResultMap" type="com.turing.turing.entity.Live">
     <id column="live_id" jdbcType="INTEGER" property="liveId" />
     <result column="live_name" jdbcType="VARCHAR" property="liveName" />
-    <!--一对多关系-->
-    <collection property="photo"  ofType="com.turing.turing.entity.Photo">
-      <id column="photo_id" jdbcType="VARCHAR" property="photoId" />
-      <result column="photo_type" jdbcType="VARCHAR" property="photoType"/>
-      <result column="photo_loc" jdbcType="VARCHAR" property="photoLoc"/>
+    <result column="live_username" jdbcType="VARCHAR" property="liveUsername" />
+    <collection property="photos" ofType="com.turing.turing.entity.Photo">
+      <id column="photo_id" jdbcType="INTEGER" property="photoId" />
+      <result column="photo_loc" jdbcType="VARCHAR" property="photoLoc" />
+      <result column="photo_type" jdbcType="VARCHAR" property="photoType" />
     </collection>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -74,32 +75,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    live_id, live_name
+    live_id, live_name, live_username
   </sql>
-  <sql id="With_Photo_Base_Column_List">
-    live_id, live_name, photo_id, photo_loc, photo_type
+  <sql id="WithPhoto_Base_Column_List">
+    live_id, live_name, live_username, photo_id, photo_loc, photo_type
   </sql>
-  <!--
-    List<Live> selectByExampleWithPhotos(LiveExample example);
-    Live selectByPrimaryKeyWithPhotos(Integer liveId);
-  -->
-  <select id="selectByExampleWithPhotos" parameterType="com.turing.turing.entity.LiveExample" resultMap="WithPhotosBaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="With_Photo_Base_Column_List" />
-    from live l left join photo p on l.live_name = p.photo_type
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKeyWithPhotos" parameterType="java.lang.Integer" resultMap="WithPhotosBaseResultMap">
-    select 
-    <include refid="With_Photo_Base_Column_List" />
-    from live l left join photo p on l.live_name = p.photo_type
-    where live_id = #{liveId,jdbcType=INTEGER}
-  </select>
   <select id="selectByExample" parameterType="com.turing.turing.entity.LiveExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -115,9 +95,33 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from live
+    where live_id = #{liveId,jdbcType=INTEGER}
+  </select>
+  <!--
+    List<Live> selectByExampleWithPhotos(LiveExample example);
+    Live selectByPrimaryKeyWithPhotos(Integer liveId);
+  -->
+  <select id="selectByExampleWithPhotos" parameterType="com.turing.turing.entity.LiveExample" resultMap="WithPhotoBaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="WithPhoto_Base_Column_List" />
+    from live l left join photo p on l.live_name = p.photo_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKeyWithPhotos" parameterType="java.lang.Integer" resultMap="WithPhotoBaseResultMap">
+    select
+    <include refid="WithPhoto_Base_Column_List" />
+    from live l left join photo p on l.live_name = p.photo_type
     where live_id = #{liveId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -131,8 +135,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.turing.turing.entity.Live">
-    insert into live (live_id, live_name)
-    values (#{liveId,jdbcType=INTEGER}, #{liveName,jdbcType=VARCHAR})
+    insert into live (live_id, live_name, live_username
+      )
+    values (#{liveId,jdbcType=INTEGER}, #{liveName,jdbcType=VARCHAR}, #{liveUsername,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.turing.turing.entity.Live">
     insert into live
@@ -143,6 +149,9 @@
       <if test="liveName != null">
         live_name,
       </if>
+      <if test="liveUsername != null">
+        live_username,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="liveId != null">
@@ -150,6 +159,9 @@
       </if>
       <if test="liveName != null">
         #{liveName,jdbcType=VARCHAR},
+      </if>
+      <if test="liveUsername != null">
+        #{liveUsername,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -168,6 +180,9 @@
       <if test="record.liveName != null">
         live_name = #{record.liveName,jdbcType=VARCHAR},
       </if>
+      <if test="record.liveUsername != null">
+        live_username = #{record.liveUsername,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -176,7 +191,8 @@
   <update id="updateByExample" parameterType="map">
     update live
     set live_id = #{record.liveId,jdbcType=INTEGER},
-      live_name = #{record.liveName,jdbcType=VARCHAR}
+      live_name = #{record.liveName,jdbcType=VARCHAR},
+      live_username = #{record.liveUsername,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -187,12 +203,16 @@
       <if test="liveName != null">
         live_name = #{liveName,jdbcType=VARCHAR},
       </if>
+      <if test="liveUsername != null">
+        live_username = #{liveUsername,jdbcType=VARCHAR},
+      </if>
     </set>
     where live_id = #{liveId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.turing.turing.entity.Live">
     update live
-    set live_name = #{liveName,jdbcType=VARCHAR}
+    set live_name = #{liveName,jdbcType=VARCHAR},
+      live_username = #{liveUsername,jdbcType=VARCHAR}
     where live_id = #{liveId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -21,7 +21,7 @@ public class AwardServiceImpl implements AwardService {
     @Override
     public List<Award> getAward() {
 
-        List<Award> awards = awardMapper.selectByExampleWithPhoto(null);
+        List<Award> awards = awardMapper.selectByExample(null);
         return awards;
 
     }

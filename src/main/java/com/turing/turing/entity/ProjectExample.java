@@ -233,6 +233,76 @@ public class ProjectExample {
             addCriterion("pro_name not between", value1, value2, "proName");
             return (Criteria) this;
         }
+
+        public Criteria andProUsernameIsNull() {
+            addCriterion("pro_username is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameIsNotNull() {
+            addCriterion("pro_username is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameEqualTo(String value) {
+            addCriterion("pro_username =", value, "proUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameNotEqualTo(String value) {
+            addCriterion("pro_username <>", value, "proUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameGreaterThan(String value) {
+            addCriterion("pro_username >", value, "proUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameGreaterThanOrEqualTo(String value) {
+            addCriterion("pro_username >=", value, "proUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameLessThan(String value) {
+            addCriterion("pro_username <", value, "proUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameLessThanOrEqualTo(String value) {
+            addCriterion("pro_username <=", value, "proUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameLike(String value) {
+            addCriterion("pro_username like", value, "proUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameNotLike(String value) {
+            addCriterion("pro_username not like", value, "proUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameIn(List<String> values) {
+            addCriterion("pro_username in", values, "proUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameNotIn(List<String> values) {
+            addCriterion("pro_username not in", values, "proUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameBetween(String value1, String value2) {
+            addCriterion("pro_username between", value1, value2, "proUsername");
+            return (Criteria) this;
+        }
+
+        public Criteria andProUsernameNotBetween(String value1, String value2) {
+            addCriterion("pro_username not between", value1, value2, "proUsername");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
