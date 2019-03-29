@@ -1,5 +1,6 @@
 package com.turing.turing.entity;
 
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 @Setter
@@ -7,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@ApiModel(value = "照片")
 public class Photo {
     private Integer photoId;
     //图片存储路径

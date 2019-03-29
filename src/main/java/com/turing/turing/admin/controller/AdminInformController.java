@@ -5,6 +5,9 @@ import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminInformService;
 import com.turing.turing.entity.Inform;
 import com.turing.turing.util.Msg;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,7 @@ import java.util.List;
  * @author Jack
  * @date 2019-03-23-10:22
  */
+@Api(tags = "后台通告管理接口")
 @RestController
 @RequestMapping("/adminInform")
 public class AdminInformController {
@@ -24,6 +28,8 @@ public class AdminInformController {
     @Autowired
     AdminInformService adminInformService;
 
+    @ApiOperation(value = "发布通告", notes = "参数传递不能缺,日期和id会在后台生成,不用传这两个参数,发布人应该从当前登陆" +
+            "的用户进行自动传递,而不是让用户自己输入")
     /**
      * 发布通告
      * @param inform
@@ -52,6 +58,8 @@ public class AdminInformController {
         }
     }
 
+    @ApiOperation(value = "获得所有通告", notes = "采用分页形式, 每页显示5条, 分页条显示3页(1,2,3),(2,3,4)")
+    @ApiImplicitParam(name = "pn", value = "分页参数", paramType = "query", dataType = "integer")
     /**
      * 获得所有通告(分页)
      * @return
@@ -65,6 +73,8 @@ public class AdminInformController {
 
     }
 
+    @ApiOperation(value = "根据id删除通告")
+    @ApiImplicitParam(name = "informId", value = "通告id", paramType = "query", dataType = "integer")
     /**
      * 根据id删除通告
      * @param informId
@@ -78,6 +88,8 @@ public class AdminInformController {
 
     }
 
+    @ApiOperation(value = "按照id查询通告", notes = "在此路径下可以进行修改和删除操作")
+    @ApiImplicitParam(name = "informId", value = "通告id", paramType = "query", dataType = "integer")
     /**
      * 按照id查询通告(来到修改页面)
      * @param informId
@@ -90,6 +102,8 @@ public class AdminInformController {
         return inform != null ? Msg.success().add("inform", inform) : Msg.fail().add("error", "查询失败");
     }
 
+    @ApiOperation(value = "按照id查询通告", notes = "参数传递不能缺,否则会报错,自行测试")
+    @ApiImplicitParam(name = "informId", value = "通告id", paramType = "query", dataType = "integer")
     /**
      * 修改通告
      * @param inform

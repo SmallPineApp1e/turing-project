@@ -1,5 +1,6 @@
 package com.turing.turing.entity;
 
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@ApiModel(value = "简历")
 public class Resume {
     private Integer resuId;
     @NotBlank(message = "必须填写名字!")

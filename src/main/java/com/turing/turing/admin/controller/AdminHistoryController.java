@@ -3,6 +3,8 @@ package com.turing.turing.admin.controller;
 import com.turing.turing.admin.service.AdminHistoryService;
 import com.turing.turing.entity.History;
 import com.turing.turing.util.Msg;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import javax.validation.Valid;
  * @author Jack
  * @date 2019-03-23-23:08
  */
+@Api(tags = {"后台管理历史内容接口"})
 @RestController
 @RequestMapping("/adminHistory")
 public class AdminHistoryController {
@@ -20,6 +23,7 @@ public class AdminHistoryController {
     @Autowired
     AdminHistoryService adminHistoryService;
 
+    @ApiOperation(value = "修改团队历史内容", notes = "一定要先获得历史内容的ID号哦!")
     /**
      * 修改团队历史内容
      * @param history 团队历史实体类
@@ -43,6 +47,7 @@ public class AdminHistoryController {
         }
     }
 
+    @ApiOperation(value = "获取团队历史内容",notes = "这个路径下不可以直接对内容进行修改,而只是浏览")
     /**
      * 获取团队历史内容
      * @return
@@ -55,6 +60,7 @@ public class AdminHistoryController {
 
     }
 
+    @ApiOperation(value = "根据id查询团队历史内容", notes = "在这个路径,下一步可以进行修改操作")
     /**
      * 根据id查询团队历史内容(来到修改页面)
      * @param hisId

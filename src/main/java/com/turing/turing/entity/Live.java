@@ -1,5 +1,6 @@
 package com.turing.turing.entity;
 
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
+@ApiModel(value = "团队生活")
 public class Live {
     private Integer liveId;
     @NotBlank(message = "必须填写生活名字!")

@@ -4,6 +4,8 @@ import com.turing.turing.admin.service.AdminLiveService;
 import com.turing.turing.entity.Live;
 import com.turing.turing.util.ImageUtil;
 import com.turing.turing.util.Msg;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import java.util.List;
  * @author Jack
  * @date 2019-03-23-18:22
  */
+@Api(tags = "后台管理团队日常生活接口")
 @RestController
 @RequestMapping("/adminLive")
 public class AdminLiveController {
@@ -88,6 +91,7 @@ public class AdminLiveController {
         return Msg.success();
     }
 
+    @ApiOperation(value = "查询所有生活照")
     /**
      * 查询所有生活照
      * @return
@@ -101,6 +105,7 @@ public class AdminLiveController {
 
     }
 
+    @ApiOperation(value = "删除团队生活")
     /**
      * 删除生活及对应照片
      * @param liveId
@@ -116,6 +121,7 @@ public class AdminLiveController {
 
     }
 
+    @ApiOperation(value = "根据id查询团队生活", notes = "在此路径下可以进行修改和删除操作")
     @RequestMapping(value = "/{liveId}",method = RequestMethod.GET)
     public Msg getLiveById(@PathVariable Integer liveId){
 

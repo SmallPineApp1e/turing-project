@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminAwardService;
 import com.turing.turing.entity.Award;
 import com.turing.turing.util.Msg;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import java.util.List;
  * @author Jack
  * @date 2019-03-23-11:13
  */
+@Api(tags = "后台管理获奖情况接口")
 @RestController
 @RequestMapping(value = "/adminAward")
 public class AdminAwardController {
@@ -23,6 +26,8 @@ public class AdminAwardController {
     @Autowired
     AdminAwardService adminAwardService;
 
+    @ApiOperation(value = "添加获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;" +
+            "若传递参数不正确,会有对应的错误信息,请亲自测试!")
     /**
      * 添加获奖情况
      * @param award
@@ -39,16 +44,19 @@ public class AdminAwardController {
             result.getAllErrors().forEach(objectError -> msg.add(objectError.getCode()
                     , objectError.getDefaultMessage()));
             //设置错误码和消息
-            msg.setCode(200);
+            msg.setCode(100);
             msg.setMsg("添加失败!");
+            msg.add("error","发生错误!");
             return msg;
         }else {
             boolean isSuccess = adminAwardService.addAward(award);
-            return isSuccess ? Msg.success() : Msg.fail().add("info", "发生未知错误!程序猿哥哥正在路上!");
+            return isSuccess ? Msg.success() : Msg.fail().add("error", "发生未知错误!程序猿哥哥正在路上!");
         }
 
     }
 
+    @ApiOperation(value = "修改获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;" +
+            "若传递参数不正确,会有对应的错误信息,请亲自测试!")
     /**
      * 修改获奖情况
      * @param award
@@ -67,6 +75,7 @@ public class AdminAwardController {
                     , objectError.getDefaultMessage()));
             msg.setCode(100);
             msg.setMsg("修改失败");
+            msg.add("error","发生错误!");
             return msg;
         }else{
             boolean isSuccess = adminAwardService.updateAward(award, awardId);
@@ -75,6 +84,7 @@ public class AdminAwardController {
 
     }
 
+    @ApiOperation(value = "根据id删除获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
     /**
      * 根据id删除获奖情况
      * @param awardId
@@ -88,6 +98,7 @@ public class AdminAwardController {
 
     }
 
+    @ApiOperation(value = "获取所有获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
     /**
      * 获取所有获奖情况
      * @return
@@ -98,10 +109,12 @@ public class AdminAwardController {
         PageHelper.startPage(pn,5);
         List<Award> awards = adminAwardService.getAwards();
         PageInfo pageInfo = new PageInfo(awards, 3);
-        return Msg.success().add("pageInfo", pageInfo);
+        return awards.size()!=0 ? Msg.success().add("pageInfo", pageInfo) :
+                Msg.fail().add("error","暂时查询不到任何奖项!");
 
     }
 
+    @ApiOperation(value = "根据id查询获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
     /**
      * 根据id查询获奖情况(来到修改删除页面)
      * @param awardId

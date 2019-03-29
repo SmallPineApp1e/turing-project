@@ -22,16 +22,33 @@ public class Swagger2Config {
      * 添加摘要信息(Docket)
      */
     @Bean
-    public Docket controllerApi() {
+    public Docket guestControllerApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("前台用户API接口文档")
                 .apiInfo(new ApiInfoBuilder()
-                        .title("标题：图灵二轮考核接口文档")
-                        .description("描述：用于图灵团队的招新及对团队进行介绍,具体包括前台用户,后台管理模块...")
-                        .contact(new Contact("一只袜子", null, null))
+                        .title("图灵二轮考核接口文档")
+                        .description("用于图灵团队的招新及对团队进行介绍,用户可投递简历,看到团队的各种信息")
+                        .contact(new Contact("曾智杰",null , "jie534838094@163.com"))
                         .version("版本号:1.0")
                         .build())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.turing.turing"))
+                .apis(RequestHandlerSelectors.basePackage("com.turing.turing.guest"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    @Bean
+    public Docket adminControllerApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("后台管理API接口文档")
+                .apiInfo(new ApiInfoBuilder()
+                        .title("图灵二轮考核接口文档")
+                        .description("用于图灵团队的各项信息管理")
+                        .contact(new Contact("曾智杰", null, "jie534838094@163.com"))
+                        .version("版本号:1.0")
+                        .build())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.turing.turing.admin"))
                 .paths(PathSelectors.any())
                 .build();
     }

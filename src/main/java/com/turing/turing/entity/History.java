@@ -1,6 +1,7 @@
 package com.turing.turing.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,6 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@ApiModel(value = "团队历史")
 public class History {
     private Integer hisId;
     @NotBlank(message = "必须填写团队历史内容!")

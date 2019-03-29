@@ -53,6 +53,9 @@ public class AdminLiveServiceImpl implements AdminLiveService {
 
         //查询出生活名称
         Live live = liveMapper.selectByPrimaryKeyWithPhotos(liveId);
+        if (live==null){
+            return false;
+        }
         String liveName = live.getLiveName();
         int deleteLive = liveMapper.deleteByPrimaryKey(liveId);
         //删除项目路径下的生活照
