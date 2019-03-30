@@ -78,7 +78,7 @@ public class AdminMemberController {
 
         if (result.hasErrors()) {
             Msg msg = new Msg();
-            msg.setCode(200);
+            msg.setCode(100);
             msg.setMsg("修改失败");
             result.getAllErrors().forEach(objectError -> msg.add(objectError.getCode()
                     , objectError.getDefaultMessage()));

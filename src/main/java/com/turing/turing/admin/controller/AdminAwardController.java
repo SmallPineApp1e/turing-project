@@ -6,6 +6,8 @@ import com.turing.turing.admin.service.AdminAwardService;
 import com.turing.turing.entity.Award;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -26,8 +28,17 @@ public class AdminAwardController {
     @Autowired
     AdminAwardService adminAwardService;
 
-    @ApiOperation(value = "添加获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;" +
-            "若传递参数不正确,会有对应的错误信息,请亲自测试!")
+    @ApiOperation(value = "添加获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "awardName", value = "获奖名称", paramType = "query",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(name = "awardTime", value = "获奖时间(格式:yyyy-MM-dd)", paramType = "query",
+                    required = true, dataType = "date"),
+            @ApiImplicitParam(name = "awardUsername", value = "获奖名称", paramType = "query",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(name = "awardId", value = "获奖id(不用传这参数,后台自动生成)", paramType = "query",
+                    dataType = "int")
+    })
     /**
      * 添加获奖情况
      * @param award
@@ -55,8 +66,17 @@ public class AdminAwardController {
 
     }
 
-    @ApiOperation(value = "修改获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;" +
-            "若传递参数不正确,会有对应的错误信息,请亲自测试!")
+    @ApiOperation(value = "修改获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "awardName", value = "获奖名称", paramType = "query",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(name = "awardTime", value = "获奖时间(格式:yyyy-MM-dd)", paramType = "query",
+                    required = true, dataType = "date"),
+            @ApiImplicitParam(name = "awardUsername", value = "获奖名称", paramType = "query",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(name = "awardId", value = "获奖id", paramType = "path",
+                    required = true, dataType = "int")
+    })
     /**
      * 修改获奖情况
      * @param award
@@ -85,6 +105,8 @@ public class AdminAwardController {
     }
 
     @ApiOperation(value = "根据id删除获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
+    @ApiImplicitParam(name = "awardId", value = "获奖id", paramType = "path",
+            required = true, dataType = "int")
     /**
      * 根据id删除获奖情况
      * @param awardId
@@ -114,7 +136,10 @@ public class AdminAwardController {
 
     }
 
-    @ApiOperation(value = "根据id查询获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
+    @ApiOperation(value = "根据id查询获奖情况", notes = "来到修改删除页面;" +
+            "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
+    @ApiImplicitParam(name = "awardId", value = "获奖id", paramType = "path",
+            required = true, dataType = "int")
     /**
      * 根据id查询获奖情况(来到修改删除页面)
      * @param awardId

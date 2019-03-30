@@ -6,6 +6,10 @@ import com.turing.turing.admin.service.AdminProjectService;
 import com.turing.turing.entity.Project;
 import com.turing.turing.util.ImageUtil;
 import com.turing.turing.util.Msg;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +23,7 @@ import java.util.List;
  * @author Jack
  * @date 2019-03-23-15:28
  */
+@Api(tags = {"后台团队项目管理接口"})
 @RestController
 @RequestMapping("/adminProject")
 public class AdminProjectController {
@@ -26,6 +31,16 @@ public class AdminProjectController {
     @Autowired
     AdminProjectService adminProjectService;
 
+    @ApiOperation(value = "项目及图片上传", notes = "图片只允许上传一张,不可不上传")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "photo.photoId", value = "忽略(不用传递)", dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "photo.photoType", value = "忽略(不用传递)", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "photo.photoLoc", value = "忽略(不用传递)", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "proId", value = "项目id(不用传递)", dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "file", value = "项目图片", dataType = "file", paramType = "query", required = true),
+            @ApiImplicitParam(name = "proName", value = "项目名字", dataType = "string", paramType = "query", required = true),
+            @ApiImplicitParam(name = "proUsername", value = "发布人名称", dataType = "string", paramType = "query", required = true),
+    })
     /**
      * 项目及图片上传
      * @param file      图片
@@ -70,7 +85,8 @@ public class AdminProjectController {
         }
 
     }
-
+    @ApiOperation(value = "删除一个项目")
+    @ApiImplicitParam(name = "proId",value = "项目id", paramType = "path", dataType = "int", required = true)
     /**
      * 根据Id删除一个项目
      * @param proId
@@ -85,6 +101,8 @@ public class AdminProjectController {
 
     }
 
+    @ApiOperation(value = "查询所有项目", notes = "分页查询")
+    @ApiImplicitParam(name = "pn", value = "分页参数", paramType = "query", dataType = "int")
     /**
      * 查询所有项目(分页)
      * @param pn
@@ -100,6 +118,8 @@ public class AdminProjectController {
                 Msg.fail().add("error", "查询不到任何项目");
     }
 
+    @ApiOperation(value = "获取一个项目及它的图片",notes = "来到项目的删除和修改页面")
+    @ApiImplicitParam(name = "proId", value = "项目id", paramType = "path", dataType = "int", required = true)
     /**
      *  根据id获取一个项目及图片(来到删除页面)
      * @param proId

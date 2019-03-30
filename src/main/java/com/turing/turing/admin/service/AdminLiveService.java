@@ -1,6 +1,7 @@
 package com.turing.turing.admin.service;
 
 import com.turing.turing.entity.Live;
+import com.turing.turing.entity.Photo;
 
 import java.util.List;
 
@@ -43,4 +44,26 @@ public interface AdminLiveService {
      * @return
      */
     Live getLiveById(Integer liveId);
+
+    /**
+     * 修改生活照
+     * @param liveId
+     * @param live
+     * @return
+     */
+    boolean updateLive(Integer liveId, Live live);
+
+    /**
+     * 查找生活对应的图片
+     * @param liveId
+     * @return
+     */
+    List<Photo> getLivePhoto(Integer liveId);
+
+    /**
+     * 修改生活时把对应照片全部删除
+     * @param liveId
+     * @return
+     */
+    boolean deletePhoto(Integer liveId, String realPath);
 }

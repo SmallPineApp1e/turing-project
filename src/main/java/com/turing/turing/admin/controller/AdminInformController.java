@@ -7,6 +7,7 @@ import com.turing.turing.entity.Inform;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -29,7 +30,14 @@ public class AdminInformController {
     AdminInformService adminInformService;
 
     @ApiOperation(value = "发布通告", notes = "参数传递不能缺,日期和id会在后台生成,不用传这两个参数,发布人应该从当前登陆" +
-            "的用户进行自动传递,而不是让用户自己输入")
+            "的用户进行自动传递,而不是让用户自己输入;" +
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "informInfo",value = "通告内容", required = true, paramType = "query", dataType = "string"),
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, paramType = "query", dataType = "string"),
+            @ApiImplicitParam(name = "createTime",value = "发布时间(后台自动生成)", paramType = "query", dataType = "date-time"),
+            @ApiImplicitParam(name = "informId", value = "通告id(后台自动生成)", paramType = "query", dataType = "int")
+    })
     /**
      * 发布通告
      * @param inform
@@ -58,7 +66,8 @@ public class AdminInformController {
         }
     }
 
-    @ApiOperation(value = "获得所有通告", notes = "采用分页形式, 每页显示5条, 分页条显示3页(1,2,3),(2,3,4)")
+    @ApiOperation(value = "获得所有通告", notes = "采用分页形式, 每页显示5条, 分页条显示3页(1,2,3),(2,3,4);" +
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     @ApiImplicitParam(name = "pn", value = "分页参数", paramType = "query", dataType = "integer")
     /**
      * 获得所有通告(分页)
@@ -73,8 +82,8 @@ public class AdminInformController {
 
     }
 
-    @ApiOperation(value = "根据id删除通告")
-    @ApiImplicitParam(name = "informId", value = "通告id", paramType = "query", dataType = "integer")
+    @ApiOperation(value = "根据id删除通告",notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiImplicitParam(name = "informId", value = "通告id", paramType = "path", dataType = "integer",required = true)
     /**
      * 根据id删除通告
      * @param informId
@@ -88,22 +97,15 @@ public class AdminInformController {
 
     }
 
-    @ApiOperation(value = "按照id查询通告", notes = "在此路径下可以进行修改和删除操作")
-    @ApiImplicitParam(name = "informId", value = "通告id", paramType = "query", dataType = "integer")
-    /**
-     * 按照id查询通告(来到修改页面)
-     * @param informId
-     * @return
-     */
-    @RequestMapping(value = "/{informId}",method = RequestMethod.GET)
-    public Msg getInformById(@PathVariable Integer informId){
-
-        Inform inform = adminInformService.getInformById(informId);
-        return inform != null ? Msg.success().add("inform", inform) : Msg.fail().add("error", "查询失败");
-    }
-
-    @ApiOperation(value = "按照id查询通告", notes = "参数传递不能缺,否则会报错,自行测试")
-    @ApiImplicitParam(name = "informId", value = "通告id", paramType = "query", dataType = "integer")
+    @ApiOperation(value = "按照id修改通告", notes = "发布时间参数不必在前端传递, 后台会自动生成;" +
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "informId", value = "通告id", paramType = "path", dataType = "integer",required = true),
+            @ApiImplicitParam(name = "username", value = "发布人", paramType = "query", dataType = "string", required = true),
+            @ApiImplicitParam(name = "informInfo", value = "发布信息", paramType = "query", dataType = "string", required = true),
+            @ApiImplicitParam(name = "createTime", value = "发布时间(后台自动生成)",
+                    paramType = "query", dataType = "date-time")
+    })
     /**
      * 修改通告
      * @param inform
@@ -127,6 +129,21 @@ public class AdminInformController {
             return isSuccess ? Msg.success() : Msg.fail().add("error", "修改失败,请重试!");
         }
 
+    }
+
+    @ApiOperation(value = "按照id查询通告", notes = "在此路径下可以进行修改和删除操作;" +
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiImplicitParam(name = "informId", value = "通告id", paramType = "path", dataType = "integer",required = true)
+    /**
+     * 按照id查询通告(来到修改页面)
+     * @param informId
+     * @return
+     */
+    @RequestMapping(value = "/{informId}",method = RequestMethod.GET)
+    public Msg getInformById(@PathVariable Integer informId){
+
+        Inform inform = adminInformService.getInformById(informId);
+        return inform != null ? Msg.success().add("inform", inform) : Msg.fail().add("error", "查询失败");
     }
 
 

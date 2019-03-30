@@ -5,6 +5,8 @@ import com.turing.turing.entity.Live;
 import com.turing.turing.util.ImageUtil;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -27,6 +30,14 @@ public class AdminLiveController {
     @Autowired
     AdminLiveService adminLiveService;
 
+    @ApiOperation(value = "上传团队生活及图片",notes = "必须上传至少一张图片, 上传人名字应该自动写入, 而不是让用户自己填写")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "liveName", value = "本次团队生活名称", paramType = "query",
+                    dataType = "String", required = true),
+            @ApiImplicitParam(name = "liveUsername", value = "上传人名字", paramType = "query",
+                    dataType = "String", required = true),
+            @ApiImplicitParam(name = "photos", value = "生活照片(上传的时候不用传这些参数,这个属性只用于查询时封装返回)")
+    })
     /**
      * 团队生活及上传图片
      * @param files
@@ -52,14 +63,14 @@ public class AdminLiveController {
                     , objectError.getDefaultMessage()));
             msg.setCode(200);
             msg.setMsg("添加失败!");
-            return files.length==0 ? msg.add("FileError", "必须上传图片!") : msg;
+            return files.length==0 ? msg.add("error", "必须上传图片!") : msg;
         }else{
             //判断是否全部都是照片
             for (MultipartFile file : files){
                 if(ImageUtil.isPhoto(file)){
                     continue;
                 }else{
-                    return Msg.fail().add("Info", "不好意思, 仅支持jpg, jpeg, png格式的照片哦!");
+                    return Msg.fail().add("error", "不好意思, 仅支持jpg, jpeg, png格式的照片哦!");
                 }
             }
             for (MultipartFile file : files) {
@@ -73,8 +84,9 @@ public class AdminLiveController {
                 //将图片添加到项目指定目录下
                 String realPath = request.getSession().getServletContext().getRealPath("/");
                 System.out.println(realPath);
-                String photoLocation = realPath + "static\\img\\";
-                System.out.println(photoLocation);
+                String photoLocation = realPath + "static"+System.getProperty("file.separator")
+                        +"img"+System.getProperty("file.separator");
+//                System.out.println(photoLocation);
                 //上传图片到指定目录下
                 ImageUtil.uploadPhoto(photoLocation, file);
                 //保存图片路径到数据库
@@ -84,14 +96,14 @@ public class AdminLiveController {
                 if (isSuccess){
                     continue;
                 }else{
-                    return Msg.fail().add("error", "发生未知错误");
+                    return Msg.fail().add("error", "发生未知错误,程序猿小哥哥马上绝望处理!");
                 }
             }
         }
         return Msg.success();
     }
 
-    @ApiOperation(value = "查询所有生活照")
+    @ApiOperation(value = "查询所有生活照",notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     /**
      * 查询所有生活照
      * @return
@@ -105,7 +117,7 @@ public class AdminLiveController {
 
     }
 
-    @ApiOperation(value = "删除团队生活")
+    @ApiOperation(value = "删除团队生活", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     /**
      * 删除生活及对应照片
      * @param liveId
@@ -121,13 +133,96 @@ public class AdminLiveController {
 
     }
 
-    @ApiOperation(value = "根据id查询团队生活", notes = "在此路径下可以进行修改和删除操作")
+    @ApiOperation(value = "根据id查询团队生活", notes = "在此路径下可以进行修改和删除操作;" +
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    /**
+     * 根据id查询团队生活(来到修改和删除操作)
+     * @param liveId
+     * @return
+     */
     @RequestMapping(value = "/{liveId}",method = RequestMethod.GET)
     public Msg getLiveById(@PathVariable Integer liveId){
 
         Live live = adminLiveService.getLiveById(liveId);
         return live != null ? Msg.success().add("live", live) : Msg.fail().add("error", "查询失败!请重试!");
 
+    }
+
+    @ApiOperation(value = "修改团队生活", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "liveName", value = "生活名称", paramType = "query",
+                    required = true, dataType = "string"),
+            @ApiImplicitParam(name = "liveUsername", value = "发布人", paramType = "query",
+                    required = true, dataType = "date"),
+            @ApiImplicitParam(name = "liveId", value = "生活id", paramType = "path",
+                    required = true, dataType = "int"),
+            @ApiImplicitParam(name = "files", value = "多张图片(至少上传一张)", paramType = "form", dataType = "file"),
+    })
+    /**
+     * 修改团队生活
+     * @param liveId
+     * @param files
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/{liveId}", method = RequestMethod.PUT)
+    public Msg updateLive(@PathVariable Integer liveId,
+                          @RequestParam(value = "files",required = false) MultipartFile[] files,
+                          @ModelAttribute(value = "live") @Valid Live live,
+                          BindingResult result,
+                          HttpServletRequest request){
+
+        if (files.length == 0) {
+            return Msg.fail().add("error", "必须上传至少一张图片哦!");
+        }
+        //后端校验生活参数是否齐全
+        if(result.hasErrors()){
+            Msg msg = new Msg();
+            result.getAllErrors().forEach(objectError -> msg.add(objectError.getCode(), objectError.getDefaultMessage()));
+            return msg;
+        }
+        //判断是否全部都是图片
+        for (MultipartFile file :
+                files) {
+            if(ImageUtil.isPhoto(file)){
+                continue;
+            } else {
+                return Msg.fail().add("error", "不好意思, 仅支持jpg, jpeg, png格式的照片哦!");
+            }
+        }
+
+        //项目的绝对路径
+        String realPath = request.getSession().getServletContext().getRealPath("/");
+
+        boolean deletePhoto = adminLiveService.deletePhoto(liveId, realPath);
+        if (!deletePhoto)
+            return Msg.fail().add("error", "发生未知错误!请重试");
+        boolean updateLive = adminLiveService.updateLive(liveId, live);
+        if (!updateLive)
+            return Msg.fail().add("error", "发生未知错误!请重试");
+        //图片的数据库存储路径
+        String photoLoc = System.getProperty("file.separator") + "static" + System.getProperty("file.separator")
+                + "img" + System.getProperty("file.separator");
+
+        //图片的本地存储路径
+        String savePath = realPath + photoLoc;
+        for (MultipartFile file :
+                files) {
+            try {
+                //上传图片到存储路径下
+                ImageUtil.uploadPhoto(savePath, file);
+                //上传图片到数据库
+                boolean addLivePhoto = adminLiveService.addLivePhoto(photoLoc + file.getOriginalFilename(), live);
+                if (addLivePhoto){
+                    continue;
+                }else {
+                    return Msg.fail().add("error", "发生未知错误,程序猿小哥哥马上绝望处理!");
+                }
+            } catch (IOException e) {
+                return Msg.fail().add("error", "发生未知错误!程序猿马上绝望处理!");
+            }
+        }
+        return Msg.success();
     }
 
 }

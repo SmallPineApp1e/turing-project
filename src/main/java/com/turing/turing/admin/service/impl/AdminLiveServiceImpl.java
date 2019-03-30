@@ -80,4 +80,46 @@ public class AdminLiveServiceImpl implements AdminLiveService {
         return live;
 
     }
+
+    @Override
+    public boolean updateLive(Integer liveId, Live live) {
+
+        live.setLiveId(liveId);
+        int row = liveMapper.updateByPrimaryKey(live);
+        return row != 0;
+
+    }
+
+    @Override
+    public List<Photo> getLivePhoto(Integer liveId) {
+
+        //获取生活名称
+        Live live = liveMapper.selectByPrimaryKey(liveId);
+        String liveName = live.getLiveName();
+        //获取生活照
+        PhotoExample photoExample = new PhotoExample();
+        photoExample.createCriteria().andPhotoTypeEqualTo(liveName);
+        List<Photo> photos = photoMapper.selectByExample(photoExample);
+        return photos;
+
+
+    }
+
+    @Override
+    public boolean deletePhoto(Integer liveId, String realPath) {
+
+        Live live = liveMapper.selectByPrimaryKey(liveId);
+        String photoType = live.getLiveName();
+        PhotoExample photoExample = new PhotoExample();
+        photoExample.createCriteria().andPhotoTypeEqualTo(photoType);
+        List<Photo> photos = photoMapper.selectByExample(photoExample);
+        //删除本地的照片
+        for (Photo photo :
+                photos) {
+            new File(realPath + photo.getPhotoLoc()).delete();
+        }
+        //删除数据库中的照片
+        int row = photoMapper.deleteByExample(photoExample);
+        return row != 0;
+    }
 }

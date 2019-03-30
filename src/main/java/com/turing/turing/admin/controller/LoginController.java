@@ -23,6 +23,9 @@ import java.util.List;
 @RequestMapping(value = "/adminLogin")
 public class LoginController {
 
+    @Autowired
+    LoginService loginService;
+
     @ApiOperation(value = "成员登陆")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "password",paramType = "query", dataType = "String",
@@ -56,7 +59,6 @@ public class LoginController {
 
     }
 
-    @Autowired
-    LoginService loginService;
+
 
 }

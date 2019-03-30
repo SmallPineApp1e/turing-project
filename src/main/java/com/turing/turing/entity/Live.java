@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 @ApiModel(value = "团队生活")
 public class Live {
+
     private Integer liveId;
     @NotBlank(message = "必须填写生活名字!")
     private String liveName;
