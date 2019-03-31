@@ -2,38 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27703b85-c0d5-4c92-9c82-654566a8dcf6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/service/impl/AdminCollectResumeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminAwardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminAwardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminHistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminInformController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminInformController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminLiveController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminLiveController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminMemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminMemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminProjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminProjectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminResumeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminResumeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/service/AdminResumeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/service/AdminResumeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/service/impl/AdminResumeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/service/impl/AdminResumeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/entity/CollectResume.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/entity/CollectResume.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/AwardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/AwardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/HistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/HistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/InformController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/InformController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/LiveController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/LiveController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/MemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/ProjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/ProjectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/ResumeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/ResumeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/admin/controller/AdminLiveController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/admin/controller/AdminLiveController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/admin/controller/AdminMemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/admin/controller/AdminMemberController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/admin/controller/AdminResumeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/admin/controller/AdminResumeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/admin/service/AdminResumeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/admin/service/AdminResumeService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/admin/service/impl/AdminResumeServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/admin/service/impl/AdminResumeServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/entity/CollectResume.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/entity/CollectResume.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/AwardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/AwardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/HistoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/HistoryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/InformController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/InformController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/LiveController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/LiveController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/MemberController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/ProjectController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/ProjectController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/ResumeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/turing/turing/guest/controller/ResumeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminCollectResumeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminCollectResumeController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -90,7 +59,7 @@
           <entry key="CLASS" value="6" />
           <entry key="HTML" value="7" />
           <entry key="Image" value="2" />
-          <entry key="JAVA" value="795" />
+          <entry key="JAVA" value="798" />
           <entry key="JSP" value="2" />
           <entry key="Properties" value="1" />
           <entry key="SQL" value="1" />
@@ -111,7 +80,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="47" />
-          <entry key="JAVA" value="34427" />
+          <entry key="JAVA" value="34525" />
           <entry key="JSP" value="130" />
           <entry key="PLAIN_TEXT" value="29" />
           <entry key="SQL" value="4" />
@@ -124,19 +93,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminMemberController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminResumeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="97" column="92" selection-start-line="97" selection-start-column="47" selection-end-line="97" selection-end-column="92" />
+            <state relative-caret-position="1050">
+              <caret line="78" column="60" selection-start-line="78" selection-start-column="60" selection-end-line="78" selection-end-column="60" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminProjectController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminCollectResumeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="38" column="66" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
+            <state relative-caret-position="452">
+              <caret line="38" column="53" selection-start-line="38" selection-start-column="53" selection-end-line="38" selection-end-column="53" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -201,11 +173,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/entity/Project.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/service/AdminResumeService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/service/impl/AdminResumeServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminResumeController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/entity/CollectResume.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/service/AdminCollectResumeService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/service/impl/AdminCollectResumeServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminCollectResumeController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/AwardController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/ProjectController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/guest/controller/HistoryController.java" />
@@ -219,6 +189,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminLiveController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminMemberController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminProjectController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminResumeController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminCollectResumeController.java" />
       </list>
     </option>
   </component>
@@ -390,94 +362,7 @@
             <path>
               <item name="turing-project" type="b2602c69:ProjectViewProjectNode" />
               <item name="turing-project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="turing" type="462c0819:PsiDirectoryNode" />
-              <item name="turing" type="462c0819:PsiDirectoryNode" />
-              <item name="guest" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="turing-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="turing-project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="turing" type="462c0819:PsiDirectoryNode" />
-              <item name="turing" type="462c0819:PsiDirectoryNode" />
-              <item name="guest" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="turing-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="turing-project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="turing" type="462c0819:PsiDirectoryNode" />
-              <item name="turing" type="462c0819:PsiDirectoryNode" />
-              <item name="guest" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="turing-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="turing-project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="turing" type="462c0819:PsiDirectoryNode" />
-              <item name="turing" type="462c0819:PsiDirectoryNode" />
-              <item name="guest" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="turing-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="turing-project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="turing-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="turing-project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="mapper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="turing-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="turing-project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="turing-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="turing-project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="turing-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="turing-project" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="turing-project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="turing-project" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -496,7 +381,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://E:/IdeaProjects/turing-project/src/main/java/com/turing/turing/guest/service/impl/InformServiceImpl.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554022125154" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554022499048" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../todo" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -628,7 +513,7 @@
       <workItem from="1554000649229" duration="37000" />
       <workItem from="1554002028549" duration="19000" />
       <workItem from="1554002185862" duration="3275000" />
-      <workItem from="1554016692544" duration="5198000" />
+      <workItem from="1554016692544" duration="5550000" />
     </task>
     <servers />
   </component>
@@ -662,13 +547,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="165611000" />
+    <option name="totallyTimeSpent" value="165963000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.496788" visible="true" weight="0.27680966" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.496788" visible="true" weight="0.27680966" />
       <window_info id="Structure" order="1" sideWeight="0.503212" side_tool="true" weight="0.26206434" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -678,7 +563,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.24220963" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.19716312" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.19716312" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -826,13 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/entity/History.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -938,13 +816,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminResumeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="41" column="5" lean-forward="true" selection-start-line="28" selection-start-column="3" selection-end-line="41" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/service/impl/AdminCollectResumeServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="639">
@@ -963,13 +834,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="431">
           <caret line="43" column="15" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminCollectResumeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1378">
-          <caret line="53" column="63" selection-start-line="53" selection-start-column="63" selection-end-line="53" selection-end-column="63" />
         </state>
       </provider>
     </entry>
@@ -1074,6 +938,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminProjectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2173">
+          <caret line="38" column="66" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminMemberController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
@@ -1081,10 +952,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminProjectController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="38" column="66" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
+        <state relative-caret-position="350">
+          <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminResumeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="78" column="60" selection-start-line="78" selection-start-column="60" selection-end-line="78" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/turing/turing/admin/controller/AdminCollectResumeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="38" column="53" selection-start-line="38" selection-start-column="53" selection-end-line="38" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -48,6 +49,7 @@ public class AdminMemberController {
             @ApiImplicitParam(name = "memberPassword", value = "成员密码(默认为123123)",
                     paramType = "query", dataType = "string", required = true),
     })
+    @ApiIgnore
     /**
      * 添加成员
      * @param member 自动封装实体类

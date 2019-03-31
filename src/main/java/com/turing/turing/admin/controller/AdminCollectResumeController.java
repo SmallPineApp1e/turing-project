@@ -1,5 +1,7 @@
 package com.turing.turing.admin.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminCollectResumeService;
 import com.turing.turing.entity.CollectResume;
 import com.turing.turing.util.Msg;
@@ -23,20 +25,22 @@ public class AdminCollectResumeController {
     @Autowired
     AdminCollectResumeService adminCollectResumeService;
 
-    @ApiOperation(value = "获取所有第一轮通过的简历")
+    @ApiOperation(value = "获取所有第一轮通过的简历", notes = "分页, 每页显示5条,分页条连续显示3页")
     /**
      * 获取所有第一轮通过的简历
      * @return
      */
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public Msg getCollectResumes(){
+    public Msg getCollectResumes(@RequestParam(value = "pn", required = false) Integer pn){
 
+        PageHelper.startPage(pn, 5);
         List<CollectResume> collectResumes = adminCollectResumeService.getCollectResumes();
-        return Msg.success().add("collectResumes", collectResumes);
+        PageInfo pageInfo = new PageInfo(collectResumes, 3);
+        return Msg.success().add("pageInfo", pageInfo);
 
     }
 
-    @ApiOperation(value = "面试通过", notes = "加入到成员通讯录!" +
+    @ApiOperation(value = "面试通过(添加团队成员)", notes = "加入到成员通讯录!" +
             "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     /**
      * 面试通过
