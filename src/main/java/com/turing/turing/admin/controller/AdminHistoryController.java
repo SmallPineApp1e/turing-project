@@ -25,17 +25,15 @@ public class AdminHistoryController {
     @Autowired
     AdminHistoryService adminHistoryService;
 
-    @ApiOperation(value = "修改团队历史内容", notes = "没有required的hisId不需要在前端传递, 后台自动生成;" +
-            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "修改团队历史内容", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "hisId", value = "历史内容Id号(不用传)", paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "hisId", value = "历史内容Id号", paramType = "path", dataType = "int",
             required = true),
             @ApiImplicitParam(name = "hisInfo", value = "历史内容", paramType = "query", dataType = "String",
                     required = true),
             @ApiImplicitParam(name = "editName", value = "修改人名字", paramType = "query", dataType = "String",
                     required = true),
-            @ApiImplicitParam(name = "editTime", value = "修改时间(不用传)", paramType = "query", dataType = "date")
+            @ApiImplicitParam(name = "editTime", value = "修改时间(后台自动生成)", paramType = "query", dataType = "date-time")
     })
     /**
      * 修改团队历史内容
@@ -50,18 +48,17 @@ public class AdminHistoryController {
         if(result.hasErrors()){
             Msg msg = new Msg();
             msg.setMsg("修改失败!");
-            msg.setCode(200);
+            msg.setCode(100);
             result.getAllErrors().forEach(objectError -> msg.add(objectError.getCode()
                     , objectError.getDefaultMessage()));
             return msg;
         }else{
             boolean isSuccess = adminHistoryService.updateHistory(hisId, history);
-            return isSuccess ? Msg.success().add("Info", "修改成功!"):Msg.fail().add("Info", "修改失败!未知错误!");
+            return isSuccess ? Msg.success() : Msg.fail().add("error", "修改失败!未知错误!");
         }
     }
 
-    @ApiOperation(value = "获取团队历史内容",notes = "这个路径下不可以直接对内容进行修改,而只是浏览;" +
-            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "获取团队历史内容",notes = "")
     /**
      * 获取团队历史内容
      * @return
@@ -74,7 +71,7 @@ public class AdminHistoryController {
 
     }
 
-    @ApiOperation(value = "根据id查询团队历史内容", notes = "在这个路径,下一步可以进行修改操作;" +
+    @ApiOperation(value = "根据id查询团队历史内容", notes = "进入可执行修改操作的页面;" +
             "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     /**
      * 根据id查询团队历史内容(来到修改页面)
@@ -85,7 +82,7 @@ public class AdminHistoryController {
     public Msg getHistoryById(@PathVariable Integer hisId){
 
         History history = adminHistoryService.getHistoryById(hisId);
-        return history != null ? Msg.success().add("history", history) : Msg.fail().add("error", "查询失败!");
+        return history != null ? Msg.success().add("history", history) : Msg.fail().add("error", "查询失败!请重试!");
 
     }
 

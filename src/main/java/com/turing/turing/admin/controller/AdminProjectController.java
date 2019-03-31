@@ -31,12 +31,13 @@ public class AdminProjectController {
     @Autowired
     AdminProjectService adminProjectService;
 
-    @ApiOperation(value = "项目及图片上传", notes = "图片只允许上传一张,不可不上传")
+    @ApiOperation(value = "项目及图片上传", notes = "图片只允许上传一张,不可不上传;" +
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "photo.photoId", value = "忽略(不用传递)", dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "photo.photoType", value = "忽略(不用传递)", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "photo.photoLoc", value = "忽略(不用传递)", dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "proId", value = "项目id(不用传递)", dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "photo.photoId", value = "忽略", dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "photo.photoType", value = "忽略", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "photo.photoLoc", value = "忽略", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "proId", value = "项目id(后台自动生成)", dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "file", value = "项目图片", dataType = "file", paramType = "query", required = true),
             @ApiImplicitParam(name = "proName", value = "项目名字", dataType = "string", paramType = "query", required = true),
             @ApiImplicitParam(name = "proUsername", value = "发布人名称", dataType = "string", paramType = "query", required = true),
@@ -61,15 +62,16 @@ public class AdminProjectController {
             result.getAllErrors().forEach(objectError -> msg.add(objectError.getCode()
                     , objectError.getDefaultMessage()));
             msg.setMsg("添加失败!");
-            msg.setCode(200);
-            return file == null ? msg.add("FileError","必须上传图片!") : msg;
+            msg.setCode(100);
+            return file == null ? msg.add("error","必须上传图片!") : msg;
         }else{
             boolean isSuccess = false;
             if(ImageUtil.isPhoto(file)){
                 //获取项目在容器中发布出去的根路径
                 String realPath = request.getSession().getServletContext().getRealPath("/");
                 //发送图片到指定/webapp/static/img目录
-                String photoLocate = realPath + "/static/img/";
+                String photoLocate = realPath +System.getProperty("file.separator")+"static"
+                        +System.getProperty("file.separator")+"img"+System.getProperty("file.separator");
                 //上传图片
                 ImageUtil.uploadPhoto(photoLocate, file);
                 //获得图片后缀名
@@ -80,12 +82,12 @@ public class AdminProjectController {
                 isSuccess = adminProjectService.addProject(locPath, project);
                 return isSuccess? Msg.success():Msg.fail();
             }else {
-                return Msg.fail().add("Info", "不好意思, 仅支持jpg, jpeg, png格式的照片哦");
+                return Msg.fail().add("error", "不好意思, 仅支持jpg, jpeg, png格式的照片哦");
             }
         }
 
     }
-    @ApiOperation(value = "删除一个项目")
+    @ApiOperation(value = "删除一个项目", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     @ApiImplicitParam(name = "proId",value = "项目id", paramType = "path", dataType = "int", required = true)
     /**
      * 根据Id删除一个项目
@@ -101,7 +103,7 @@ public class AdminProjectController {
 
     }
 
-    @ApiOperation(value = "查询所有项目", notes = "分页查询")
+    @ApiOperation(value = "查询所有项目", notes = "分页查询, 每页显示3条,连续显示3页")
     @ApiImplicitParam(name = "pn", value = "分页参数", paramType = "query", dataType = "int")
     /**
      * 查询所有项目(分页)
@@ -114,11 +116,11 @@ public class AdminProjectController {
         PageHelper.startPage(pn, 3);
         List<Project> projects = adminProjectService.getProject();
         PageInfo pageInfo = new PageInfo(projects, 3);
-        return projects.size() != 0 ? Msg.success().add("pageInfo", pageInfo) :
-                Msg.fail().add("error", "查询不到任何项目");
+        return Msg.success().add("pageInfo", pageInfo);
     }
 
-    @ApiOperation(value = "获取一个项目及它的图片",notes = "来到项目的删除和修改页面")
+    @ApiOperation(value = "获取一个项目及它的图片",notes = "来到可以执行项目的删除和修改操作页面;" +
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     @ApiImplicitParam(name = "proId", value = "项目id", paramType = "path", dataType = "int", required = true)
     /**
      *  根据id获取一个项目及图片(来到删除页面)

@@ -22,7 +22,7 @@ public class InformController {
     @Autowired
     InformService informService;
 
-    @ApiOperation(value = "获取最新通告", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "获取最新通告", notes = "username为发布通告的成员名字")
     /**
      * 获取最新通告
      */
@@ -30,7 +30,7 @@ public class InformController {
     public Msg getInform(){
 
         Inform inform = informService.getInform();
-        return inform!=null ? Msg.success().add("inform",inform) : Msg.fail().add("error", "没有任何通告!");
+        return Msg.success().add("inform",inform);
 
     }
 

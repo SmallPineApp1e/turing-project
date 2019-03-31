@@ -28,19 +28,19 @@ public class ResumeController {
     @Autowired
     ResumeService resumeService;
 
-    @ApiOperation(value = "前台投递简历", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;" +
-            "若传递参数不正确,会有对应的错误信息,请亲自测试!事实上除了Id, 每个字段都必填")
+    @ApiOperation(value = "前台投递简历", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "resuName", value = "简历人名字", dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "resuNumber", value = "联系方式", dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "resuMajor", value = "专业班级", dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "resuWechat", value = "微信号/QQ号", dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "resuDirect", value = "面试方向", dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "resuEvaluation", value = "自我评价", dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "resuSkills", value = "掌握技能", dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "resuExp", value = "项目经验", dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "resuExpect", value = "未来期望", dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "resuOther", value = "其它优势", dataType = "String", paramType = "query")
+            @ApiImplicitParam(name = "resuId", value = "简历人Id(后台自动生成)", dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "resuName", value = "简历人名字", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "resuNumber", value = "联系方式", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "resuMajor", value = "专业班级", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "resuWechat", value = "微信号/QQ号", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "resuDirect", value = "面试方向", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "resuEvaluation", value = "自我评价", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "resuSkills", value = "掌握技能", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "resuExp", value = "项目经验", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "resuExpect", value = "未来期望", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "resuOther", value = "其它优势", dataType = "String", paramType = "query", required = true)
     })
     /**
      * 投放简历

@@ -27,9 +27,7 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    @ApiOperation(value = "获取成员信息", notes = "没有返回成员的密码;" +
-            "采用了分页;" +
-            "正确码为200, 错误码为100,,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "获取成员信息", notes = "没有返回成员的密码;采用了分页;每页显示5条数据,分页条连续显示3页")
     /**
      * 获取成员通讯录(分页)
      */
@@ -39,7 +37,7 @@ public class MemberController {
         PageHelper.startPage(pn, 5);
         List<Member> members = memberService.getMembers();
         PageInfo pageInfo = new PageInfo(members, 3);
-        return members.size() != 0 ? Msg.success().add("pageInfo", pageInfo) : Msg.fail();
+        return Msg.success().add("pageInfo", pageInfo);
 
     }
 

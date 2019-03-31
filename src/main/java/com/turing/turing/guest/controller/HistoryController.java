@@ -22,7 +22,7 @@ public class HistoryController {
     @Autowired
     HistoryService historyService;
 
-    @ApiOperation(value = "获取团队历史内容",notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "获取团队历史内容",notes = "editName为最后一次编辑内容的团队成员名字")
     /**
      * 获取团队历史内容
      * @return
@@ -31,7 +31,7 @@ public class HistoryController {
     public Msg getHistory(){
 
         History history = historyService.getHistory();
-        return history!=null ? Msg.success().add("history", history):Msg.fail().add("error", "尚未填写团队历史介绍");
+        return  Msg.success().add("history", history);
 
     }
 

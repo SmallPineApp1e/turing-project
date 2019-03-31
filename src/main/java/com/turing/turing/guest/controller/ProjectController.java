@@ -24,8 +24,7 @@ public class ProjectController {
     @Autowired
     ProjectService projectService;
 
-    @ApiOperation(value = "获取项目名称及图片", notes = "没有进行分页;" +
-            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "获取项目名称及图片", notes = "没有进行分页;proUsername为上传人")
     /**
      * 获取项目名称及图片
      */
@@ -33,8 +32,7 @@ public class ProjectController {
     public Msg getProjectsPhoto(){
 
         List<Project> projectsPhoto = projectService.getProjectsPhoto();
-        return projectsPhoto.size()!=0?Msg.success().add("projectsPhoto", projectsPhoto):
-                Msg.fail().add("error","没有查出任何项目!");
+        return Msg.success().add("projectsPhoto", projectsPhoto);
 
     }
 

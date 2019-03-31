@@ -36,7 +36,7 @@ public class AdminAwardController {
                     required = true, dataType = "date"),
             @ApiImplicitParam(name = "awardUsername", value = "获奖名称", paramType = "query",
                     required = true, dataType = "string"),
-            @ApiImplicitParam(name = "awardId", value = "获奖id(不用传这参数,后台自动生成)", paramType = "query",
+            @ApiImplicitParam(name = "awardId", value = "获奖id(后台自动生成)", paramType = "query",
                     dataType = "int")
     })
     /**

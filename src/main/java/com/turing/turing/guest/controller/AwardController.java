@@ -24,7 +24,8 @@ public class AwardController {
     @Autowired
     AwardService awardService;
 
-    @ApiOperation(value = "获取所有奖项",notes ="正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "获取所有奖项",notes ="正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值;" +
+            "awardUsername属性为上传人名称")
     /**
      * 获取团队获奖信息
      * @return

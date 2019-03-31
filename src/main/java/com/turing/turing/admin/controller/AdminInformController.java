@@ -29,8 +29,7 @@ public class AdminInformController {
     @Autowired
     AdminInformService adminInformService;
 
-    @ApiOperation(value = "发布通告", notes = "参数传递不能缺,日期和id会在后台生成,不用传这两个参数,发布人应该从当前登陆" +
-            "的用户进行自动传递,而不是让用户自己输入;" +
+    @ApiOperation(value = "发布通告", notes = "用户名自动填入参数" +
             "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "informInfo",value = "通告内容", required = true, paramType = "query", dataType = "string"),
@@ -50,7 +49,7 @@ public class AdminInformController {
         //判断是否输入格式有误
         if(result.hasErrors()){
             Msg msg = new Msg();
-            msg.setCode(200);
+            msg.setCode(100);
             msg.setMsg("添加失败!");
             result.getAllErrors().forEach(objectError -> msg.add(objectError.getCode()
                     , objectError.getDefaultMessage()));
@@ -59,9 +58,9 @@ public class AdminInformController {
             //判断发布通告是否成功
             boolean isSuccess = adminInformService.addInform(inform);
             if (isSuccess){
-                return Msg.success().add("Info", "发布成功!");
+                return Msg.success();
             }else {
-                return Msg.fail().add("Info", "发生未知错误!请重试!");
+                return Msg.fail().add("error", "发生未知错误!请重试!");
             }
         }
     }
@@ -93,16 +92,18 @@ public class AdminInformController {
     public Msg deleteInform(@PathVariable Integer informId){
 
         boolean isSuccess = adminInformService.deleteInform(informId);
-        return isSuccess ? Msg.success():Msg.fail().add("error", "数据库不存在这条通告");
+        return isSuccess ? Msg.success() : Msg.fail().add("error", "无法查询到这条通告!");
 
     }
 
-    @ApiOperation(value = "按照id修改通告", notes = "发布时间参数不必在前端传递, 后台会自动生成;" +
-            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "按照id修改通告", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "informId", value = "通告id", paramType = "path", dataType = "integer",required = true),
-            @ApiImplicitParam(name = "username", value = "发布人", paramType = "query", dataType = "string", required = true),
-            @ApiImplicitParam(name = "informInfo", value = "发布信息", paramType = "query", dataType = "string", required = true),
+            @ApiImplicitParam(name = "informId", value = "通告id",
+                    paramType = "path", dataType = "integer",required = true),
+            @ApiImplicitParam(name = "username", value = "发布人",
+                    paramType = "query", dataType = "string", required = true),
+            @ApiImplicitParam(name = "informInfo", value = "发布信息",
+                    paramType = "query", dataType = "string", required = true),
             @ApiImplicitParam(name = "createTime", value = "发布时间(后台自动生成)",
                     paramType = "query", dataType = "date-time")
     })
@@ -131,7 +132,7 @@ public class AdminInformController {
 
     }
 
-    @ApiOperation(value = "按照id查询通告", notes = "在此路径下可以进行修改和删除操作;" +
+    @ApiOperation(value = "按照id查询通告", notes = "进入可执行修改和删除操作的页面;" +
             "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     @ApiImplicitParam(name = "informId", value = "通告id", paramType = "path", dataType = "integer",required = true)
     /**

@@ -26,17 +26,23 @@ import java.util.List;
 @RestController
 @RequestMapping("/adminLive")
 public class AdminLiveController {
-
-    @Autowired
-    AdminLiveService adminLiveService;
-
     @ApiOperation(value = "上传团队生活及图片",notes = "必须上传至少一张图片, 上传人名字应该自动写入, 而不是让用户自己填写")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "liveId", value = "生活id(后台自动生成)", paramType = "query",
+                    dataType = "int"),
             @ApiImplicitParam(name = "liveName", value = "本次团队生活名称", paramType = "query",
                     dataType = "String", required = true),
             @ApiImplicitParam(name = "liveUsername", value = "上传人名字", paramType = "query",
                     dataType = "String", required = true),
-            @ApiImplicitParam(name = "photos", value = "生活照片(上传的时候不用传这些参数,这个属性只用于查询时封装返回)")
+            @ApiImplicitParam(name = "photos", value = "生活照片类(不用传参)"),
+            @ApiImplicitParam(name = "files", value = "多张图片(至少一张生活照)", paramType = "form",
+                    dataType = "file", allowMultiple = true),
+            @ApiImplicitParam(name = "photos[0].photoId", value = "忽略", paramType = "query",
+                    dataType = "int"),
+            @ApiImplicitParam(name = "photos[0].photoLoc", value = "忽略", paramType = "query",
+                    dataType = "String"),
+            @ApiImplicitParam(name = "photos[0].photoType", value = "忽略", paramType = "query",
+                    dataType = "String")
     })
     /**
      * 团队生活及上传图片
@@ -103,7 +109,11 @@ public class AdminLiveController {
         return Msg.success();
     }
 
-    @ApiOperation(value = "查询所有生活照",notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+
+    @Autowired
+    AdminLiveService adminLiveService;
+
+    @ApiOperation(value = "查询所有生活照",notes = "没有进行分页")
     /**
      * 查询所有生活照
      * @return
@@ -112,8 +122,7 @@ public class AdminLiveController {
     public Msg getLive(){
 
         List<Live> lives = adminLiveService.getLive();
-        return lives.size()!=0 ? Msg.success().add("lives", lives) :
-                Msg.fail().add("error", "无法查询到生活记录");
+        return Msg.success().add("lives", lives);
 
     }
 
@@ -133,7 +142,7 @@ public class AdminLiveController {
 
     }
 
-    @ApiOperation(value = "根据id查询团队生活", notes = "在此路径下可以进行修改和删除操作;" +
+    @ApiOperation(value = "根据id查询团队生活", notes = "进入可执行修改和删除操作的页面;" +
             "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     /**
      * 根据id查询团队生活(来到修改和删除操作)
@@ -144,7 +153,7 @@ public class AdminLiveController {
     public Msg getLiveById(@PathVariable Integer liveId){
 
         Live live = adminLiveService.getLiveById(liveId);
-        return live != null ? Msg.success().add("live", live) : Msg.fail().add("error", "查询失败!请重试!");
+        return live != null ? Msg.success().add("live", live) : Msg.fail().add("error", "无法查询到生活记录!");
 
     }
 
@@ -153,10 +162,17 @@ public class AdminLiveController {
             @ApiImplicitParam(name = "liveName", value = "生活名称", paramType = "query",
                     required = true, dataType = "string"),
             @ApiImplicitParam(name = "liveUsername", value = "发布人", paramType = "query",
-                    required = true, dataType = "date"),
+                    required = true, dataType = "string"),
             @ApiImplicitParam(name = "liveId", value = "生活id", paramType = "path",
                     required = true, dataType = "int"),
-            @ApiImplicitParam(name = "files", value = "多张图片(至少上传一张)", paramType = "form", dataType = "file"),
+            @ApiImplicitParam(name = "files", value = "多张图片(至少上传一张)",
+                    paramType = "form", dataType = "file", allowMultiple = true ),
+            @ApiImplicitParam(name = "photos[0].photoId", value = "忽略", paramType = "query",
+                    dataType = "int"),
+            @ApiImplicitParam(name = "photos[0].photoLoc", value = "忽略", paramType = "query",
+                    dataType = "String"),
+            @ApiImplicitParam(name = "photos[0].photoType", value = "忽略", paramType = "query",
+                    dataType = "String")
     })
     /**
      * 修改团队生活
@@ -203,7 +219,6 @@ public class AdminLiveController {
         //图片的数据库存储路径
         String photoLoc = System.getProperty("file.separator") + "static" + System.getProperty("file.separator")
                 + "img" + System.getProperty("file.separator");
-
         //图片的本地存储路径
         String savePath = realPath + photoLoc;
         for (MultipartFile file :

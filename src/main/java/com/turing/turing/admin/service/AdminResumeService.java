@@ -35,7 +35,7 @@ public interface AdminResumeService {
      * @param resume
      * @return
      */
-    boolean collectResume(Resume resume);
+    boolean collectResume(Resume resume, Integer resuId);
 
     /**
      * 根据Id查询简历
@@ -44,13 +44,5 @@ public interface AdminResumeService {
      */
     Resume getResumeById(Integer resuId);
 
-    /**
-     * 面试通过
-     * @param resuName
-     * @param resuMajor
-     * @param resuNumber
-     * @param resuDirect
-     * @return
-     */
-    boolean setPassInterview(String resuName, String resuMajor, String resuNumber, String resuDirect);
+
 }
