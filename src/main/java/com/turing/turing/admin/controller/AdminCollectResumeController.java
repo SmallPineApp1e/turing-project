@@ -7,6 +7,7 @@ import com.turing.turing.entity.CollectResume;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,18 @@ public class AdminCollectResumeController {
 
     @ApiOperation(value = "面试通过(添加团队成员)", notes = "加入到成员通讯录!" +
             "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "colResuName", value = "收藏简历的名字",
+                    paramType = "query", dataType = "string", required = true),
+            @ApiImplicitParam(name = "colResuMajor", value = "收藏简历的专业班级",
+                    paramType = "query", dataType = "string", required = true),
+            @ApiImplicitParam(name = "colResuNumber", value = "收藏简历的手机号码",
+                    paramType = "query", dataType = "string", required = true),
+            @ApiImplicitParam(name = "colResuDirect", value = "收藏简历的学习方向",
+                    paramType = "query", dataType = "string", required = true),
+            @ApiImplicitParam(name = "colResuId", value = "收藏简历的Id号",
+                    paramType = "path", dataType = "int", required = true),
+    })
     /**
      * 面试通过
      * @param resuName 面试者姓名
