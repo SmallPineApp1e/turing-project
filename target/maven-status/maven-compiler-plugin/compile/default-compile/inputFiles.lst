@@ -15,6 +15,7 @@ E:\IdeaProjects\turing-project\src\main\java\com\turing\turing\entity\Resume.jav
 E:\IdeaProjects\turing-project\src\main\java\com\turing\turing\admin\controller\AdminCollectResumeController.java
 E:\IdeaProjects\turing-project\src\main\java\com\turing\turing\admin\service\impl\LoginServiceImpl.java
 E:\IdeaProjects\turing-project\src\main\java\com\turing\turing\TuringProjectApplication.java
+E:\IdeaProjects\turing-project\src\main\java\com\turing\turing\configuration\WebMvcConfig.java
 E:\IdeaProjects\turing-project\src\main\java\com\turing\turing\test\MapperTest.java
 E:\IdeaProjects\turing-project\src\main\java\com\turing\turing\util\ImageUtil.java
 E:\IdeaProjects\turing-project\src\main\java\com\turing\turing\dao\ResumeMapper.java

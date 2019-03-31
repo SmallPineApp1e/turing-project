@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.turing.turing.TuringProjectApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.716 sec - in com.turing.turing.TuringProjectApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.869 sec - in com.turing.turing.TuringProjectApplicationTests
