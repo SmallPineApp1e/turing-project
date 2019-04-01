@@ -3,9 +3,9 @@ server:
 spring:
   datasource:
     username: root
-    password: root
+    password: 1030jie
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/turing?characterEncoding=UTF-8
+    url: jdbc:mysql://120.79.73.140:3306/turing?characterEncoding=UTF-8
     type: com.alibaba.druid.pool.DruidDataSource
 mybatis:
   type-aliases-package: com.turing.turing.entity

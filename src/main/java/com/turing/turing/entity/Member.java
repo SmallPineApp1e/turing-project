@@ -1,12 +1,12 @@
 package com.turing.turing.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.istack.internal.NotNull;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
