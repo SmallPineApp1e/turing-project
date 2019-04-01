@@ -6,6 +6,7 @@ import com.turing.turing.entity.Inform;
 import com.turing.turing.entity.InformExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
  * @date 2019-03-23-10:27
  */
 @Service
+@Transactional
 public class AdminInformServiceImpl implements AdminInformService {
 
     @Autowired

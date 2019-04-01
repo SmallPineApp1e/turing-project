@@ -3,7 +3,10 @@ package com.turing.turing.admin.controller;
 import com.turing.turing.admin.service.LoginService;
 import com.turing.turing.entity.Member;
 import com.turing.turing.util.Msg;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,12 +29,12 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @ApiOperation(value = "成员登陆")
+    @ApiOperation(value = "成员登陆", httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "password",paramType = "query", dataType = "String",
-                    required = true, value = "用户名"),
+                    required = true, value = "密码"),
             @ApiImplicitParam(name = "username",paramType = "query", dataType = "String",
-                    required = true, value = "密码")
+                    required = true, value = "用户名")
     })
     /**
      * 成员登陆

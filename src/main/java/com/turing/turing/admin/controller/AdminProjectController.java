@@ -32,15 +32,18 @@ public class AdminProjectController {
     AdminProjectService adminProjectService;
 
     @ApiOperation(value = "项目及图片上传", notes = "图片只允许上传一张,不可不上传;" +
-            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值", httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "photo.photoId", value = "忽略", dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "photo.photoType", value = "忽略", dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "photo.photoLoc", value = "忽略", dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "proId", value = "项目id(后台自动生成)", dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "file", value = "项目图片", dataType = "file", paramType = "query", required = true),
-            @ApiImplicitParam(name = "proName", value = "项目名字", dataType = "string", paramType = "query", required = true),
-            @ApiImplicitParam(name = "proUsername", value = "发布人名称", dataType = "string", paramType = "query", required = true),
+            @ApiImplicitParam(name = "file", value = "项目图片",
+                    dataType = "file", paramType = "form", required = true),
+            @ApiImplicitParam(name = "proName", value = "项目名字",
+                    dataType = "string", paramType = "query", required = true),
+            @ApiImplicitParam(name = "proUsername", value = "发布人名称",
+                    dataType = "string", paramType = "query", required = true),
     })
     /**
      * 项目及图片上传
@@ -87,7 +90,8 @@ public class AdminProjectController {
         }
 
     }
-    @ApiOperation(value = "删除一个项目", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "删除一个项目", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值"
+            ,httpMethod = "DELETE")
     @ApiImplicitParam(name = "proId",value = "项目id", paramType = "path", dataType = "int", required = true)
     /**
      * 根据Id删除一个项目
@@ -103,8 +107,8 @@ public class AdminProjectController {
 
     }
 
-    @ApiOperation(value = "查询所有项目", notes = "分页查询, 每页显示3条,连续显示3页")
-    @ApiImplicitParam(name = "pn", value = "分页参数", paramType = "query", dataType = "int")
+    @ApiOperation(value = "查询所有项目", notes = "分页查询, 每页显示3条,连续显示3页", httpMethod = "GET")
+    @ApiImplicitParam(name = "pn", value = "分页参数", paramType = "query", dataType = "int", defaultValue = "1")
     /**
      * 查询所有项目(分页)
      * @param pn
@@ -120,7 +124,7 @@ public class AdminProjectController {
     }
 
     @ApiOperation(value = "获取一个项目及它的图片",notes = "来到可以执行项目的删除和修改操作页面;" +
-            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",httpMethod = "GET")
     @ApiImplicitParam(name = "proId", value = "项目id", paramType = "path", dataType = "int", required = true)
     /**
      *  根据id获取一个项目及图片(来到删除页面)

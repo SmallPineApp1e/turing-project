@@ -262,6 +262,76 @@ public class MemberExample {
             return (Criteria) this;
         }
 
+        public Criteria andMemberStudentidIsNull() {
+            addCriterion("member_studentId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidIsNotNull() {
+            addCriterion("member_studentId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidEqualTo(String value) {
+            addCriterion("member_studentId =", value, "memberStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidNotEqualTo(String value) {
+            addCriterion("member_studentId <>", value, "memberStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidGreaterThan(String value) {
+            addCriterion("member_studentId >", value, "memberStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidGreaterThanOrEqualTo(String value) {
+            addCriterion("member_studentId >=", value, "memberStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidLessThan(String value) {
+            addCriterion("member_studentId <", value, "memberStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidLessThanOrEqualTo(String value) {
+            addCriterion("member_studentId <=", value, "memberStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidLike(String value) {
+            addCriterion("member_studentId like", value, "memberStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidNotLike(String value) {
+            addCriterion("member_studentId not like", value, "memberStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidIn(List<String> values) {
+            addCriterion("member_studentId in", values, "memberStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidNotIn(List<String> values) {
+            addCriterion("member_studentId not in", values, "memberStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidBetween(String value1, String value2) {
+            addCriterion("member_studentId between", value1, value2, "memberStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberStudentidNotBetween(String value1, String value2) {
+            addCriterion("member_studentId not between", value1, value2, "memberStudentid");
+            return (Criteria) this;
+        }
+
         public Criteria andPhoneNumberIsNull() {
             addCriterion("phone_number is null");
             return (Criteria) this;

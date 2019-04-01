@@ -37,9 +37,10 @@ public class AdminCollectResumeServiceImpl implements AdminCollectResumeService 
     }
 
     @Override
-    public boolean setPassInterview(String resuName, String resuMajor, String resuNumber, String resuDirect) {
+    public boolean setPassInterview(String resuName, String resuMajor,String colResuStudentId,
+                                    String resuNumber, String resuDirect) {
         //新添加成员
-        int add_Row = memberMapper.insert(new Member(null, resuName, resuNumber, new Date(),
+        int add_Row = memberMapper.insert(new Member(null, resuName,colResuStudentId, resuNumber, new Date(),
                 "暂无", resuMajor, resuDirect, MD5Util.getHexPassword("123123")));
         //删除收藏简历表
         CollectResumeExample collectResumeExample = new CollectResumeExample();

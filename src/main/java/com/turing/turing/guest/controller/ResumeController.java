@@ -32,6 +32,7 @@ public class ResumeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "resuId", value = "简历人Id(后台自动生成)", dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "resuName", value = "简历人名字", dataType = "String", paramType = "query", required = true),
+            @ApiImplicitParam(name = "resuStudentid", value = "简历人学号", dataType = "String", paramType = "query", required = true),
             @ApiImplicitParam(name = "resuNumber", value = "联系方式", dataType = "String", paramType = "query", required = true),
             @ApiImplicitParam(name = "resuMajor", value = "专业班级", dataType = "String", paramType = "query", required = true),
             @ApiImplicitParam(name = "resuWechat", value = "微信号/QQ号", dataType = "String", paramType = "query", required = true),

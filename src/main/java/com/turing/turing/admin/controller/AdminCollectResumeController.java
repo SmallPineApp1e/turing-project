@@ -32,10 +32,11 @@ public class AdminCollectResumeController {
      * @return
      */
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public Msg getCollectResumes(@RequestParam(value = "pn", required = false) Integer pn){
+    public Msg getCollectResumes(@RequestParam(value = "pn",defaultValue = "1", required = false) Integer pn){
 
         PageHelper.startPage(pn, 5);
         List<CollectResume> collectResumes = adminCollectResumeService.getCollectResumes();
+        System.out.println(collectResumes);
         PageInfo pageInfo = new PageInfo(collectResumes, 3);
         return Msg.success().add("pageInfo", pageInfo);
 
@@ -45,6 +46,8 @@ public class AdminCollectResumeController {
             "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "colResuName", value = "收藏简历的名字",
+                    paramType = "query", dataType = "string", required = true),
+            @ApiImplicitParam(name = "colResuStudentid", value = "收藏简历的学号",
                     paramType = "query", dataType = "string", required = true),
             @ApiImplicitParam(name = "colResuMajor", value = "收藏简历的专业班级",
                     paramType = "query", dataType = "string", required = true),
@@ -65,12 +68,13 @@ public class AdminCollectResumeController {
      */
     @RequestMapping(value = "/{colResuId}",method = RequestMethod.POST)
     public Msg setPassInterView(@RequestParam(value = "colResuName") String colResuName,
+                                @RequestParam(value = "colResuStudentid") String colResuStudentId,
                                 @RequestParam(value = "colResuMajor") String colResuMajor,
                                 @RequestParam(value = "colResuNumber")String colResuNumber,
                                 @RequestParam(value = "colResuDirect")String colResuDirect,
                                 @PathVariable Integer colResuId){
 
-        boolean isSuccess = adminCollectResumeService.setPassInterview(colResuName, colResuMajor,
+        boolean isSuccess = adminCollectResumeService.setPassInterview(colResuName, colResuMajor, colResuStudentId,
                 colResuNumber, colResuDirect);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "添加失败!请重试");
 

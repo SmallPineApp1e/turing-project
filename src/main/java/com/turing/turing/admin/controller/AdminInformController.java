@@ -30,7 +30,8 @@ public class AdminInformController {
     AdminInformService adminInformService;
 
     @ApiOperation(value = "发布通告", notes = "用户名自动填入参数" +
-            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
+            httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "informInfo",value = "通告内容", required = true, paramType = "query", dataType = "string"),
             @ApiImplicitParam(name = "username", value = "用户名", required = true, paramType = "query", dataType = "string"),
@@ -66,8 +67,9 @@ public class AdminInformController {
     }
 
     @ApiOperation(value = "获得所有通告", notes = "采用分页形式, 每页显示5条, 分页条显示3页(1,2,3),(2,3,4);" +
-            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
-    @ApiImplicitParam(name = "pn", value = "分页参数", paramType = "query", dataType = "integer")
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值"
+            ,httpMethod = "GET")
+    @ApiImplicitParam(name = "pn", value = "分页参数", paramType = "query", dataType = "integer", defaultValue = "1")
     /**
      * 获得所有通告(分页)
      * @return
@@ -81,7 +83,9 @@ public class AdminInformController {
 
     }
 
-    @ApiOperation(value = "根据id删除通告",notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "根据id删除通告",
+            notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
+            httpMethod = "DELETE")
     @ApiImplicitParam(name = "informId", value = "通告id", paramType = "path", dataType = "integer",required = true)
     /**
      * 根据id删除通告
@@ -96,7 +100,9 @@ public class AdminInformController {
 
     }
 
-    @ApiOperation(value = "按照id修改通告", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "按照id修改通告",
+            notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
+            httpMethod = "PUT")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "informId", value = "通告id",
                     paramType = "path", dataType = "integer",required = true),
@@ -133,7 +139,8 @@ public class AdminInformController {
     }
 
     @ApiOperation(value = "按照id查询通告", notes = "进入可执行修改和删除操作的页面;" +
-            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
+            httpMethod = "GET")
     @ApiImplicitParam(name = "informId", value = "通告id", paramType = "path", dataType = "integer",required = true)
     /**
      * 按照id查询通告(来到修改页面)

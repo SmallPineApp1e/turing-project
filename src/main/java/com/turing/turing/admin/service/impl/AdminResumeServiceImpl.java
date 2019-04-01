@@ -53,12 +53,16 @@ public class AdminResumeServiceImpl implements AdminResumeService {
     }
 
     @Override
-    public boolean collectResume(Resume resume, Integer resuId) {
+    public boolean collectResume(Integer resuId) {
+        Resume resume = resumeMapper.selectByPrimaryKey(resuId);
+        if(resume==null){
+            return false;
+        }
         //插入到收藏简历表中
-        int collect_row = collectResumeMapper.insert(
-                new CollectResume(null, resume.getResuName(), resume.getResuNumber(),
-                resume.getResuMajor(), resume.getResuWechat(), resume.getResuDirect(), resume.getResuEvaluation(),
-                resume.getResuSkills(), resume.getResuExp(), resume.getResuExpect(), resume.getResuOther()));
+        int collect_row = collectResumeMapper.insert(new CollectResume(resume.getResuId(), resume.getResuName(),
+                resume.getResuStudentid(),resume.getResuNumber(),resume.getResuMajor(),resume.getResuWechat(),
+                resume.getResuDirect(),resume.getResuEvaluation(),resume.getResuSkills(),resume.getResuExp(),
+                resume.getResuExpect(),resume.getResuOther()));
         //删除原来简历表当中的这个人
         int row = resumeMapper.deleteByPrimaryKey(resuId);
         return row != 0 && collect_row != 0;

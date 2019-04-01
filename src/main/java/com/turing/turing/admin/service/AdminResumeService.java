@@ -32,10 +32,9 @@ public interface AdminResumeService {
 
     /**
      * 收藏简历
-     * @param resume
      * @return
      */
-    boolean collectResume(Resume resume, Integer resuId);
+    boolean collectResume(Integer resuId);
 
     /**
      * 根据Id查询简历

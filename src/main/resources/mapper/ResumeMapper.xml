@@ -1,38 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.turing.turing.dao.ResumeMapper">
-  <resultMap id="BaseResultMap" type="com.turing.turing.entity.Resume">
-    <id column="resu_id" jdbcType="INTEGER" property="resuId" />
-    <result column="resu_name" jdbcType="VARCHAR" property="resuName" />
-    <result column="resu_number" jdbcType="CHAR" property="resuNumber" />
-    <result column="resu_major" jdbcType="VARCHAR" property="resuMajor" />
-    <result column="resu_wechat" jdbcType="VARCHAR" property="resuWechat" />
-    <result column="resu_direct" jdbcType="VARCHAR" property="resuDirect" />
-    <result column="resu_evaluation" jdbcType="VARCHAR" property="resuEvaluation" />
-    <result column="resu_skills" jdbcType="VARCHAR" property="resuSkills" />
-    <result column="resu_exp" jdbcType="VARCHAR" property="resuExp" />
-    <result column="resu_expect" jdbcType="VARCHAR" property="resuExpect" />
-    <result column="resu_other" jdbcType="VARCHAR" property="resuOther" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.turing.turing.dao.ResumeMapper" >
+  <resultMap id="BaseResultMap" type="com.turing.turing.entity.Resume" >
+    <id column="resu_id" property="resuId" jdbcType="INTEGER" />
+    <result column="resu_name" property="resuName" jdbcType="VARCHAR" />
+    <result column="resu_studentId" property="resuStudentid" jdbcType="CHAR" />
+    <result column="resu_number" property="resuNumber" jdbcType="CHAR" />
+    <result column="resu_major" property="resuMajor" jdbcType="VARCHAR" />
+    <result column="resu_wechat" property="resuWechat" jdbcType="VARCHAR" />
+    <result column="resu_direct" property="resuDirect" jdbcType="VARCHAR" />
+    <result column="resu_evaluation" property="resuEvaluation" jdbcType="VARCHAR" />
+    <result column="resu_skills" property="resuSkills" jdbcType="VARCHAR" />
+    <result column="resu_exp" property="resuExp" jdbcType="VARCHAR" />
+    <result column="resu_expect" property="resuExpect" jdbcType="VARCHAR" />
+    <result column="resu_other" property="resuOther" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -43,25 +44,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -72,174 +73,186 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
-    resu_id, resu_name, resu_number, resu_major, resu_wechat, resu_direct, resu_evaluation, 
-    resu_skills, resu_exp, resu_expect, resu_other
+  <sql id="Base_Column_List" >
+    resu_id, resu_name, resu_studentId, resu_number, resu_major, resu_wechat, resu_direct, 
+    resu_evaluation, resu_skills, resu_exp, resu_expect, resu_other
   </sql>
-  <select id="selectByExample" parameterType="com.turing.turing.entity.ResumeExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.turing.turing.entity.ResumeExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
     from resume
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from resume
     where resu_id = #{resuId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from resume
     where resu_id = #{resuId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.turing.turing.entity.ResumeExample">
+  <delete id="deleteByExample" parameterType="com.turing.turing.entity.ResumeExample" >
     delete from resume
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.turing.turing.entity.Resume">
-    insert into resume (resu_id, resu_name, resu_number, 
-      resu_major, resu_wechat, resu_direct, 
-      resu_evaluation, resu_skills, resu_exp, 
-      resu_expect, resu_other)
-    values (#{resuId,jdbcType=INTEGER}, #{resuName,jdbcType=VARCHAR}, #{resuNumber,jdbcType=CHAR}, 
-      #{resuMajor,jdbcType=VARCHAR}, #{resuWechat,jdbcType=VARCHAR}, #{resuDirect,jdbcType=VARCHAR}, 
-      #{resuEvaluation,jdbcType=VARCHAR}, #{resuSkills,jdbcType=VARCHAR}, #{resuExp,jdbcType=VARCHAR}, 
-      #{resuExpect,jdbcType=VARCHAR}, #{resuOther,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.turing.turing.entity.Resume" >
+    insert into resume (resu_id, resu_name, resu_studentId, 
+      resu_number, resu_major, resu_wechat, 
+      resu_direct, resu_evaluation, resu_skills, 
+      resu_exp, resu_expect, resu_other
+      )
+    values (#{resuId,jdbcType=INTEGER}, #{resuName,jdbcType=VARCHAR}, #{resuStudentid,jdbcType=CHAR}, 
+      #{resuNumber,jdbcType=CHAR}, #{resuMajor,jdbcType=VARCHAR}, #{resuWechat,jdbcType=VARCHAR}, 
+      #{resuDirect,jdbcType=VARCHAR}, #{resuEvaluation,jdbcType=VARCHAR}, #{resuSkills,jdbcType=VARCHAR}, 
+      #{resuExp,jdbcType=VARCHAR}, #{resuExpect,jdbcType=VARCHAR}, #{resuOther,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.turing.turing.entity.Resume">
+  <insert id="insertSelective" parameterType="com.turing.turing.entity.Resume" >
     insert into resume
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="resuId != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resuId != null" >
         resu_id,
       </if>
-      <if test="resuName != null">
+      <if test="resuName != null" >
         resu_name,
       </if>
-      <if test="resuNumber != null">
+      <if test="resuStudentid != null" >
+        resu_studentId,
+      </if>
+      <if test="resuNumber != null" >
         resu_number,
       </if>
-      <if test="resuMajor != null">
+      <if test="resuMajor != null" >
         resu_major,
       </if>
-      <if test="resuWechat != null">
+      <if test="resuWechat != null" >
         resu_wechat,
       </if>
-      <if test="resuDirect != null">
+      <if test="resuDirect != null" >
         resu_direct,
       </if>
-      <if test="resuEvaluation != null">
+      <if test="resuEvaluation != null" >
         resu_evaluation,
       </if>
-      <if test="resuSkills != null">
+      <if test="resuSkills != null" >
         resu_skills,
       </if>
-      <if test="resuExp != null">
+      <if test="resuExp != null" >
         resu_exp,
       </if>
-      <if test="resuExpect != null">
+      <if test="resuExpect != null" >
         resu_expect,
       </if>
-      <if test="resuOther != null">
+      <if test="resuOther != null" >
         resu_other,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="resuId != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resuId != null" >
         #{resuId,jdbcType=INTEGER},
       </if>
-      <if test="resuName != null">
+      <if test="resuName != null" >
         #{resuName,jdbcType=VARCHAR},
       </if>
-      <if test="resuNumber != null">
+      <if test="resuStudentid != null" >
+        #{resuStudentid,jdbcType=CHAR},
+      </if>
+      <if test="resuNumber != null" >
         #{resuNumber,jdbcType=CHAR},
       </if>
-      <if test="resuMajor != null">
+      <if test="resuMajor != null" >
         #{resuMajor,jdbcType=VARCHAR},
       </if>
-      <if test="resuWechat != null">
+      <if test="resuWechat != null" >
         #{resuWechat,jdbcType=VARCHAR},
       </if>
-      <if test="resuDirect != null">
+      <if test="resuDirect != null" >
         #{resuDirect,jdbcType=VARCHAR},
       </if>
-      <if test="resuEvaluation != null">
+      <if test="resuEvaluation != null" >
         #{resuEvaluation,jdbcType=VARCHAR},
       </if>
-      <if test="resuSkills != null">
+      <if test="resuSkills != null" >
         #{resuSkills,jdbcType=VARCHAR},
       </if>
-      <if test="resuExp != null">
+      <if test="resuExp != null" >
         #{resuExp,jdbcType=VARCHAR},
       </if>
-      <if test="resuExpect != null">
+      <if test="resuExpect != null" >
         #{resuExpect,jdbcType=VARCHAR},
       </if>
-      <if test="resuOther != null">
+      <if test="resuOther != null" >
         #{resuOther,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.turing.turing.entity.ResumeExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.turing.turing.entity.ResumeExample" resultType="java.lang.Integer" >
     select count(*) from resume
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update resume
-    <set>
-      <if test="record.resuId != null">
+    <set >
+      <if test="record.resuId != null" >
         resu_id = #{record.resuId,jdbcType=INTEGER},
       </if>
-      <if test="record.resuName != null">
+      <if test="record.resuName != null" >
         resu_name = #{record.resuName,jdbcType=VARCHAR},
       </if>
-      <if test="record.resuNumber != null">
+      <if test="record.resuStudentid != null" >
+        resu_studentId = #{record.resuStudentid,jdbcType=CHAR},
+      </if>
+      <if test="record.resuNumber != null" >
         resu_number = #{record.resuNumber,jdbcType=CHAR},
       </if>
-      <if test="record.resuMajor != null">
+      <if test="record.resuMajor != null" >
         resu_major = #{record.resuMajor,jdbcType=VARCHAR},
       </if>
-      <if test="record.resuWechat != null">
+      <if test="record.resuWechat != null" >
         resu_wechat = #{record.resuWechat,jdbcType=VARCHAR},
       </if>
-      <if test="record.resuDirect != null">
+      <if test="record.resuDirect != null" >
         resu_direct = #{record.resuDirect,jdbcType=VARCHAR},
       </if>
-      <if test="record.resuEvaluation != null">
+      <if test="record.resuEvaluation != null" >
         resu_evaluation = #{record.resuEvaluation,jdbcType=VARCHAR},
       </if>
-      <if test="record.resuSkills != null">
+      <if test="record.resuSkills != null" >
         resu_skills = #{record.resuSkills,jdbcType=VARCHAR},
       </if>
-      <if test="record.resuExp != null">
+      <if test="record.resuExp != null" >
         resu_exp = #{record.resuExp,jdbcType=VARCHAR},
       </if>
-      <if test="record.resuExpect != null">
+      <if test="record.resuExpect != null" >
         resu_expect = #{record.resuExpect,jdbcType=VARCHAR},
       </if>
-      <if test="record.resuOther != null">
+      <if test="record.resuOther != null" >
         resu_other = #{record.resuOther,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update resume
     set resu_id = #{record.resuId,jdbcType=INTEGER},
       resu_name = #{record.resuName,jdbcType=VARCHAR},
+      resu_studentId = #{record.resuStudentid,jdbcType=CHAR},
       resu_number = #{record.resuNumber,jdbcType=CHAR},
       resu_major = #{record.resuMajor,jdbcType=VARCHAR},
       resu_wechat = #{record.resuWechat,jdbcType=VARCHAR},
@@ -249,49 +262,53 @@
       resu_exp = #{record.resuExp,jdbcType=VARCHAR},
       resu_expect = #{record.resuExpect,jdbcType=VARCHAR},
       resu_other = #{record.resuOther,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.turing.turing.entity.Resume">
+  <update id="updateByPrimaryKeySelective" parameterType="com.turing.turing.entity.Resume" >
     update resume
-    <set>
-      <if test="resuName != null">
+    <set >
+      <if test="resuName != null" >
         resu_name = #{resuName,jdbcType=VARCHAR},
       </if>
-      <if test="resuNumber != null">
+      <if test="resuStudentid != null" >
+        resu_studentId = #{resuStudentid,jdbcType=CHAR},
+      </if>
+      <if test="resuNumber != null" >
         resu_number = #{resuNumber,jdbcType=CHAR},
       </if>
-      <if test="resuMajor != null">
+      <if test="resuMajor != null" >
         resu_major = #{resuMajor,jdbcType=VARCHAR},
       </if>
-      <if test="resuWechat != null">
+      <if test="resuWechat != null" >
         resu_wechat = #{resuWechat,jdbcType=VARCHAR},
       </if>
-      <if test="resuDirect != null">
+      <if test="resuDirect != null" >
         resu_direct = #{resuDirect,jdbcType=VARCHAR},
       </if>
-      <if test="resuEvaluation != null">
+      <if test="resuEvaluation != null" >
         resu_evaluation = #{resuEvaluation,jdbcType=VARCHAR},
       </if>
-      <if test="resuSkills != null">
+      <if test="resuSkills != null" >
         resu_skills = #{resuSkills,jdbcType=VARCHAR},
       </if>
-      <if test="resuExp != null">
+      <if test="resuExp != null" >
         resu_exp = #{resuExp,jdbcType=VARCHAR},
       </if>
-      <if test="resuExpect != null">
+      <if test="resuExpect != null" >
         resu_expect = #{resuExpect,jdbcType=VARCHAR},
       </if>
-      <if test="resuOther != null">
+      <if test="resuOther != null" >
         resu_other = #{resuOther,jdbcType=VARCHAR},
       </if>
     </set>
     where resu_id = #{resuId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.turing.turing.entity.Resume">
+  <update id="updateByPrimaryKey" parameterType="com.turing.turing.entity.Resume" >
     update resume
     set resu_name = #{resuName,jdbcType=VARCHAR},
+      resu_studentId = #{resuStudentid,jdbcType=CHAR},
       resu_number = #{resuNumber,jdbcType=CHAR},
       resu_major = #{resuMajor,jdbcType=VARCHAR},
       resu_wechat = #{resuWechat,jdbcType=VARCHAR},

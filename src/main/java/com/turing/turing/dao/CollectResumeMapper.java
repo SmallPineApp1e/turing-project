@@ -2,11 +2,12 @@ package com.turing.turing.dao;
 
 import com.turing.turing.entity.CollectResume;
 import com.turing.turing.entity.CollectResumeExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface CollectResumeMapper {
-    long countByExample(CollectResumeExample example);
+    int countByExample(CollectResumeExample example);
 
     int deleteByExample(CollectResumeExample example);
 

@@ -25,7 +25,9 @@ public class AdminHistoryController {
     @Autowired
     AdminHistoryService adminHistoryService;
 
-    @ApiOperation(value = "修改团队历史内容", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "修改团队历史内容",
+            notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
+            httpMethod = "PUT")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "hisId", value = "历史内容Id号", paramType = "path", dataType = "int",
             required = true),
@@ -58,7 +60,7 @@ public class AdminHistoryController {
         }
     }
 
-    @ApiOperation(value = "获取团队历史内容",notes = "")
+    @ApiOperation(value = "获取团队历史内容",httpMethod = "GET")
     /**
      * 获取团队历史内容
      * @return
@@ -72,7 +74,8 @@ public class AdminHistoryController {
     }
 
     @ApiOperation(value = "根据id查询团队历史内容", notes = "进入可执行修改操作的页面;" +
-            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
+            httpMethod = "GET")
     /**
      * 根据id查询团队历史内容(来到修改页面)
      * @param hisId

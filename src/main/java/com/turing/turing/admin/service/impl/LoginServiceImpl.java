@@ -27,7 +27,7 @@ public class LoginServiceImpl implements LoginService {
         //获得加密后的密码
         String hexPassword = MD5Util.getHexPassword(password);
         MemberExample memberExample = new MemberExample();
-        memberExample.createCriteria().andMemberNameEqualTo(username).andMemberPasswordEqualTo(hexPassword);
+        memberExample.createCriteria().andMemberStudentidEqualTo(username).andMemberPasswordEqualTo(hexPassword);
         List<Member> members = memberMapper.selectByExample(memberExample);
         return members;
 

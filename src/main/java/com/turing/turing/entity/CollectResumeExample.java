@@ -164,6 +164,76 @@ public class CollectResumeExample {
             return (Criteria) this;
         }
 
+        public Criteria andColResuStudentidIsNull() {
+            addCriterion("col_resu_studentId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidIsNotNull() {
+            addCriterion("col_resu_studentId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidEqualTo(String value) {
+            addCriterion("col_resu_studentId =", value, "colResuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidNotEqualTo(String value) {
+            addCriterion("col_resu_studentId <>", value, "colResuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidGreaterThan(String value) {
+            addCriterion("col_resu_studentId >", value, "colResuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidGreaterThanOrEqualTo(String value) {
+            addCriterion("col_resu_studentId >=", value, "colResuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidLessThan(String value) {
+            addCriterion("col_resu_studentId <", value, "colResuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidLessThanOrEqualTo(String value) {
+            addCriterion("col_resu_studentId <=", value, "colResuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidLike(String value) {
+            addCriterion("col_resu_studentId like", value, "colResuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidNotLike(String value) {
+            addCriterion("col_resu_studentId not like", value, "colResuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidIn(List<String> values) {
+            addCriterion("col_resu_studentId in", values, "colResuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidNotIn(List<String> values) {
+            addCriterion("col_resu_studentId not in", values, "colResuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidBetween(String value1, String value2) {
+            addCriterion("col_resu_studentId between", value1, value2, "colResuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andColResuStudentidNotBetween(String value1, String value2) {
+            addCriterion("col_resu_studentId not between", value1, value2, "colResuStudentid");
+            return (Criteria) this;
+        }
+
         public Criteria andColResuNameIsNull() {
             addCriterion("col_resu_name is null");
             return (Criteria) this;

@@ -28,7 +28,9 @@ public class AdminAwardController {
     @Autowired
     AdminAwardService adminAwardService;
 
-    @ApiOperation(value = "添加获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
+    @ApiOperation(value = "添加获奖情况",
+            notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;",
+            httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "awardName", value = "获奖名称", paramType = "query",
                     required = true, dataType = "string"),
@@ -66,7 +68,9 @@ public class AdminAwardController {
 
     }
 
-    @ApiOperation(value = "修改获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "修改获奖情况",
+            notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值",
+            httpMethod = "PUT")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "awardName", value = "获奖名称", paramType = "query",
                     required = true, dataType = "string"),
@@ -104,7 +108,9 @@ public class AdminAwardController {
 
     }
 
-    @ApiOperation(value = "根据id删除获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
+    @ApiOperation(value = "根据id删除获奖情况",
+            notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;",
+            httpMethod = "DELETE")
     @ApiImplicitParam(name = "awardId", value = "获奖id", paramType = "path",
             required = true, dataType = "int")
     /**
@@ -120,7 +126,11 @@ public class AdminAwardController {
 
     }
 
-    @ApiOperation(value = "获取所有获奖情况", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
+    @ApiOperation(value = "获取所有获奖情况",
+            notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;",
+            httpMethod = "GET")
+    @ApiImplicitParam(name = "pn", value = "分页参数",
+            dataType = "int", paramType = "query", defaultValue = "1")
     /**
      * 获取所有获奖情况
      * @return
@@ -137,7 +147,8 @@ public class AdminAwardController {
     }
 
     @ApiOperation(value = "根据id查询获奖情况", notes = "来到修改删除页面;" +
-            "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
+            "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;",
+            httpMethod = "GET")
     @ApiImplicitParam(name = "awardId", value = "获奖id", paramType = "path",
             required = true, dataType = "int")
     /**

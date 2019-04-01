@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Setter
 @Getter
@@ -16,6 +17,8 @@ public class Resume {
     private Integer resuId;
     @NotBlank(message = "必须填写名字!")
     private String resuName;
+    @Size(min=12, max=12, message="学号必须为12位!")
+    private String resuStudentid;
     @Pattern(regexp =
             "^[1](([3][0-9])|([4][5,7,9])|([5][4,6,9])|([6][6])|([7][3,5,6,7,8])|([8][0-9])|([9][8,9]))[0-9]{8}$",
             message = "手机号码格式不正确!")

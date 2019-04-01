@@ -26,7 +26,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/adminLive")
 public class AdminLiveController {
-    @ApiOperation(value = "上传团队生活及图片",notes = "必须上传至少一张图片, 上传人名字应该自动写入, 而不是让用户自己填写")
+
+    @Autowired
+    AdminLiveService adminLiveService;
+
+    @ApiOperation(value = "上传团队生活及图片",
+            notes = "必须上传至少一张图片, 上传人名字应该自动写入, 而不是让用户自己填写",
+            httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "liveId", value = "生活id(后台自动生成)", paramType = "query",
                     dataType = "int"),
@@ -92,7 +98,6 @@ public class AdminLiveController {
                 System.out.println(realPath);
                 String photoLocation = realPath + "static"+System.getProperty("file.separator")
                         +"img"+System.getProperty("file.separator");
-//                System.out.println(photoLocation);
                 //上传图片到指定目录下
                 ImageUtil.uploadPhoto(photoLocation, file);
                 //保存图片路径到数据库
@@ -110,10 +115,7 @@ public class AdminLiveController {
     }
 
 
-    @Autowired
-    AdminLiveService adminLiveService;
-
-    @ApiOperation(value = "查询所有生活照",notes = "没有进行分页")
+    @ApiOperation(value = "查询所有生活照",notes = "没有进行分页", httpMethod = "GET")
     /**
      * 查询所有生活照
      * @return
@@ -126,7 +128,9 @@ public class AdminLiveController {
 
     }
 
-    @ApiOperation(value = "删除团队生活", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "删除团队生活",
+            notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
+            httpMethod = "DELETE")
     /**
      * 删除生活及对应照片
      * @param liveId
@@ -143,7 +147,8 @@ public class AdminLiveController {
     }
 
     @ApiOperation(value = "根据id查询团队生活", notes = "进入可执行修改和删除操作的页面;" +
-            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
+                httpMethod = "GET")
     /**
      * 根据id查询团队生活(来到修改和删除操作)
      * @param liveId
@@ -157,7 +162,9 @@ public class AdminLiveController {
 
     }
 
-    @ApiOperation(value = "修改团队生活", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "修改团队生活",
+            notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
+            httpMethod = "PUT")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "liveName", value = "生活名称", paramType = "query",
                     required = true, dataType = "string"),
@@ -209,7 +216,7 @@ public class AdminLiveController {
 
         //项目的绝对路径
         String realPath = request.getSession().getServletContext().getRealPath("/");
-
+        //删除照片
         boolean deletePhoto = adminLiveService.deletePhoto(liveId, realPath);
         if (!deletePhoto)
             return Msg.fail().add("error", "发生未知错误!请重试");
@@ -217,7 +224,8 @@ public class AdminLiveController {
         if (!updateLive)
             return Msg.fail().add("error", "发生未知错误!请重试");
         //图片的数据库存储路径
-        String photoLoc = System.getProperty("file.separator") + "static" + System.getProperty("file.separator")
+        String photoLoc = System.getProperty("file.separator")
+                + "static" + System.getProperty("file.separator")
                 + "img" + System.getProperty("file.separator");
         //图片的本地存储路径
         String savePath = realPath + photoLoc;

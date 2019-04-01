@@ -234,6 +234,76 @@ public class ResumeExample {
             return (Criteria) this;
         }
 
+        public Criteria andResuStudentidIsNull() {
+            addCriterion("resu_studentId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidIsNotNull() {
+            addCriterion("resu_studentId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidEqualTo(String value) {
+            addCriterion("resu_studentId =", value, "resuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidNotEqualTo(String value) {
+            addCriterion("resu_studentId <>", value, "resuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidGreaterThan(String value) {
+            addCriterion("resu_studentId >", value, "resuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidGreaterThanOrEqualTo(String value) {
+            addCriterion("resu_studentId >=", value, "resuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidLessThan(String value) {
+            addCriterion("resu_studentId <", value, "resuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidLessThanOrEqualTo(String value) {
+            addCriterion("resu_studentId <=", value, "resuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidLike(String value) {
+            addCriterion("resu_studentId like", value, "resuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidNotLike(String value) {
+            addCriterion("resu_studentId not like", value, "resuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidIn(List<String> values) {
+            addCriterion("resu_studentId in", values, "resuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidNotIn(List<String> values) {
+            addCriterion("resu_studentId not in", values, "resuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidBetween(String value1, String value2) {
+            addCriterion("resu_studentId between", value1, value2, "resuStudentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andResuStudentidNotBetween(String value1, String value2) {
+            addCriterion("resu_studentId not between", value1, value2, "resuStudentid");
+            return (Criteria) this;
+        }
+
         public Criteria andResuNumberIsNull() {
             addCriterion("resu_number is null");
             return (Criteria) this;

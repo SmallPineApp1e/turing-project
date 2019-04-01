@@ -30,11 +30,14 @@ public class AdminMemberController {
     AdminMemberService adminMemberService;
 
     @ApiOperation(value = "添加成员",notes = "除id外都为必填选项;只能在简历通过后进行添加,不能让成员自己手动输入添加;" +
-            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+            "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
+            httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "memberId", value = "成员id(后台自动生成)",
                     paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "memberName", value = "成员姓名",
+                    paramType = "query", dataType = "string", required = true),
+            @ApiImplicitParam(name = "memberStudentId", value = "成员学号",
                     paramType = "query", dataType = "string", required = true),
             @ApiImplicitParam(name = "phoneNumber", value = "成员手机号码",
                     paramType = "query", dataType = "string", required = true),
@@ -67,8 +70,10 @@ public class AdminMemberController {
 
     }
 
-    @ApiOperation(value = "删除一个成员", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
-    @ApiImplicitParam(name = "memberId", value = "成员id", paramType = "path", dataType = "int", required = true)
+    @ApiOperation(value = "删除一个成员", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
+            httpMethod = "DELETE")
+    @ApiImplicitParam(name = "memberId", value = "成员id",
+            paramType = "path", dataType = "int", required = true)
     /**
      * 根据id删除成员
      * @param memberId 成员id
@@ -82,14 +87,15 @@ public class AdminMemberController {
 
     }
 
-    @ApiOperation(value = "获取所有团队成员", notes = "分页显示;每页显示5条,分页条连续显示3页")
-    @ApiImplicitParam(name = "pn", value = "分页参数", paramType = "query", dataType = "int")
+    @ApiOperation(value = "获取所有团队成员", notes = "分页显示;每页显示5条,分页条连续显示3页", httpMethod = "GET")
+    @ApiImplicitParam(name = "pn", value = "分页参数",
+            paramType = "query", dataType = "int", defaultValue = "1")
     /**
      * 获取所有团队成员(分页)
      * @return
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Msg getAllMembers(@RequestParam(value = "pn", defaultValue = "1")Integer pn){
+    public Msg getAllMembers(@RequestParam(value = "pn", defaultValue = "1",required = false)Integer pn){
         PageHelper.startPage(pn, 5);
         List<Member> members = adminMemberService.getMembers();
         PageInfo pageInfo = new PageInfo(members, 3);
@@ -97,11 +103,15 @@ public class AdminMemberController {
 
     }
 
-    @ApiOperation(value = "修改团队成员信息", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值")
+    @ApiOperation(value = "修改团队成员信息",
+            notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
+            httpMethod = "PUT")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "memberId", value = "成员id",
                     paramType = "path", dataType = "int", required = true),
             @ApiImplicitParam(name = "memberName", value = "成员姓名",
+                    paramType = "query", dataType = "string", required = true),
+            @ApiImplicitParam(name = "memberStudentid", value = "成员学号",
                     paramType = "query", dataType = "string", required = true),
             @ApiImplicitParam(name = "phoneNumber", value = "成员手机号码",
                     paramType = "query", dataType = "string", required = true),
@@ -140,8 +150,9 @@ public class AdminMemberController {
 
     }
 
-    @ApiOperation(value = "获取一个团队成员", notes = "来到修改删除页面")
-    @ApiImplicitParam(name = "memberId", value = "成员id", paramType = "path", dataType = "int", required = true)
+    @ApiOperation(value = "获取一个团队成员", notes = "来到修改删除页面", httpMethod = "GET")
+    @ApiImplicitParam(name = "memberId", value = "成员id",
+            paramType = "path", dataType = "int", required = true)
     /**
      * 根据id查询某个成员(来到修改删除页面)
      * @return

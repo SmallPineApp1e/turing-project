@@ -24,7 +24,7 @@ public interface AdminCollectResumeService {
      * @param resuDirect
      * @return
      */
-    boolean setPassInterview(String resuName, String resuMajor, String resuNumber, String resuDirect);
+    boolean setPassInterview(String resuName, String resuMajor, String colResuStudentId, String resuNumber, String resuDirect);
 
     /**
      * 根据名字搜寻第一轮通过的简历
