@@ -4,10 +4,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminResumeService;
 import com.turing.turing.entity.Resume;
+import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +28,8 @@ public class AdminResumeController {
     @Autowired
     AdminResumeService adminResumeService;
 
+    private static Logger logger = LoggerFactory.getLogger(AdminResumeController.class);
+
     @ApiOperation(value = "删除不通过的简历",
             notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
             httpMethod = "DELETE")
@@ -37,6 +42,7 @@ public class AdminResumeController {
     @RequestMapping(value = "/{resuId}",method = RequestMethod.DELETE)
     public Msg deleteResume(@PathVariable Integer resuId){
 
+        logger.info(DateFormat.getNowTime()+"删除简历");
         boolean isSuccess = adminResumeService.deleteResume(resuId);
         return isSuccess ? Msg.success(): Msg.fail().add("error", "删除失败!");
 
@@ -92,6 +98,7 @@ public class AdminResumeController {
     @RequestMapping(value = "/{resuId}", method = RequestMethod.POST)
     public Msg collectResume(@PathVariable Integer resuId){
 
+        logger.info(DateFormat.getNowTime()+"收藏简历");
         boolean isSuccess = adminResumeService.collectResume(resuId);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "收藏失败!请重试!");
 

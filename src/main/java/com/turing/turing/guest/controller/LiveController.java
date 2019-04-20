@@ -24,6 +24,7 @@ public class LiveController {
     @Autowired
     LiveService liveService;
 
+
     @ApiOperation(value = "获取团队日常活动及照片",notes = "没有进行分页;liveUsername为上传人")
     /**
      * 获取团队日常活动及照片

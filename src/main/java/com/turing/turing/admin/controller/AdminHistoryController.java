@@ -2,11 +2,14 @@ package com.turing.turing.admin.controller;
 
 import com.turing.turing.admin.service.AdminHistoryService;
 import com.turing.turing.entity.History;
+import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,8 @@ public class AdminHistoryController {
 
     @Autowired
     AdminHistoryService adminHistoryService;
+
+    private static Logger logger = LoggerFactory.getLogger(AdminHistoryController.class);
 
     @ApiOperation(value = "修改团队历史内容",
             notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
@@ -55,6 +60,7 @@ public class AdminHistoryController {
                     , objectError.getDefaultMessage()));
             return msg;
         }else{
+            logger.info(DateFormat.getNowTime()+"有人修改团队历史内容");
             boolean isSuccess = adminHistoryService.updateHistory(hisId, history);
             return isSuccess ? Msg.success() : Msg.fail().add("error", "修改失败!未知错误!");
         }

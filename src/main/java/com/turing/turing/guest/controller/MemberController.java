@@ -27,6 +27,7 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
+
     @ApiOperation(value = "获取成员信息", notes = "没有返回成员的密码;采用了分页;每页显示5条数据,分页条连续显示3页")
     /**
      * 获取成员通讯录(分页)

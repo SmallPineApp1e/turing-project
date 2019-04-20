@@ -4,11 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminCollectResumeService;
 import com.turing.turing.entity.CollectResume;
+import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +29,8 @@ public class AdminCollectResumeController {
     @Autowired
     AdminCollectResumeService adminCollectResumeService;
 
+    private static Logger logger = LoggerFactory.getLogger(AdminCollectResumeController.class);
+
     @ApiOperation(value = "获取所有第一轮通过的简历", notes = "分页, 每页显示5条,分页条连续显示3页")
     /**
      * 获取所有第一轮通过的简历
@@ -33,7 +38,6 @@ public class AdminCollectResumeController {
      */
     @RequestMapping(value = "",method = RequestMethod.GET)
     public Msg getCollectResumes(@RequestParam(value = "pn",defaultValue = "1", required = false) Integer pn){
-
         PageHelper.startPage(pn, 5);
         List<CollectResume> collectResumes = adminCollectResumeService.getCollectResumes();
         System.out.println(collectResumes);
@@ -73,7 +77,7 @@ public class AdminCollectResumeController {
                                 @RequestParam(value = "colResuNumber")String colResuNumber,
                                 @RequestParam(value = "colResuDirect")String colResuDirect,
                                 @PathVariable Integer colResuId){
-
+        logger.info(DateFormat.getNowTime()+"访问了二轮面试通过API，添加团队成员");
         boolean isSuccess = adminCollectResumeService.setPassInterview(colResuName, colResuMajor, colResuStudentId,
                 colResuNumber, colResuDirect);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "添加失败!请重试");
@@ -90,6 +94,7 @@ public class AdminCollectResumeController {
     @RequestMapping(value = "/colResuName", method = RequestMethod.GET)
     public Msg getResumeByName(@RequestParam(value = "colResuName") String colResuName){
 
+        logger.info(DateFormat.getNowTime()+"查询"+colResuName+"的简历");
         List<CollectResume> resumeByName = adminCollectResumeService.getResumeByName(colResuName);
         if(resumeByName.size()!=0){
             CollectResume collectResume = resumeByName.get(0);
@@ -126,6 +131,7 @@ public class AdminCollectResumeController {
     @RequestMapping(value = "/{colResuId}",method = RequestMethod.DELETE)
     public Msg deleteResume(@PathVariable Integer colResuId){
 
+        logger.info(DateFormat.getNowTime()+"删除简历");
         boolean isSuccess = adminCollectResumeService.deleteResume(colResuId);
         return isSuccess ? Msg.success(): Msg.fail().add("error", "删除失败!");
 

@@ -4,11 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminMemberService;
 import com.turing.turing.entity.Member;
+import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +31,9 @@ public class AdminMemberController {
 
     @Autowired
     AdminMemberService adminMemberService;
+
+    private static Logger logger = LoggerFactory.getLogger(AdminMemberController.class);
+
 
     @ApiOperation(value = "添加成员",notes = "除id外都为必填选项;只能在简历通过后进行添加,不能让成员自己手动输入添加;" +
             "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
@@ -63,6 +69,7 @@ public class AdminMemberController {
 
         boolean isSuccess = adminMemberService.addMember(member);
         if (isSuccess) {
+            logger.info(DateFormat.getNowTime()+"添加团队成员");
             return Msg.success();
         }else{
             return Msg.fail().add("error", "添加失败!发生无法预知的错误!程序猿正在路上!");
@@ -82,6 +89,7 @@ public class AdminMemberController {
     @RequestMapping(value = "/{memberId}", method = RequestMethod.DELETE)
     public Msg deleteMember(@PathVariable Integer memberId){
 
+        logger.info(DateFormat.getNowTime()+"删除团队成员");
         boolean isSuccess = adminMemberService.deleteMember(memberId);
         return isSuccess ? Msg.success():Msg.fail().add("error", "数据库无此成员信息");
 
@@ -145,6 +153,7 @@ public class AdminMemberController {
             return msg;
         }else{
             boolean isSuccess = adminMemberService.updateMember(member, memberId);
+            logger.info(DateFormat.getNowTime()+"修改团队成员信息");
             return isSuccess ? Msg.success() : Msg.fail();
         }
 

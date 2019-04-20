@@ -4,12 +4,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminProjectService;
 import com.turing.turing.entity.Project;
+import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.ImageUtil;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +33,8 @@ public class AdminProjectController {
 
     @Autowired
     AdminProjectService adminProjectService;
+
+    private static Logger logger = LoggerFactory.getLogger(AdminProjectController.class);
 
     @ApiOperation(value = "项目及图片上传", notes = "图片只允许上传一张,不可不上传;" +
             "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值", httpMethod = "POST")
@@ -83,6 +88,7 @@ public class AdminProjectController {
                 String locPath = System.getProperty("file.separator")+"static"+System.getProperty("file.separator")
                         +"img"+System.getProperty("file.separator")+project.getProName()+type;
                 isSuccess = adminProjectService.addProject(locPath, project);
+                logger.info(DateFormat.getNowTime()+"上传团队项目及照片");
                 return isSuccess? Msg.success():Msg.fail();
             }else {
                 return Msg.fail().add("error", "不好意思, 仅支持jpg, jpeg, png格式的照片哦");
@@ -101,6 +107,7 @@ public class AdminProjectController {
     @RequestMapping(value = "/{proId}",method = RequestMethod.DELETE)
     public Msg deleteProjectById(@PathVariable Integer proId, HttpServletRequest request){
 
+        logger.info(DateFormat.getNowTime()+"删除团队项目及照片");
         String realPath = request.getSession().getServletContext().getRealPath("/");
         boolean isSuccess = adminProjectService.deleteProject(proId, realPath);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "删除失败!请重试");

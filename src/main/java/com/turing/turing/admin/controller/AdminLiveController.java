@@ -2,12 +2,15 @@ package com.turing.turing.admin.controller;
 
 import com.turing.turing.admin.service.AdminLiveService;
 import com.turing.turing.entity.Live;
+import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.ImageUtil;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +32,8 @@ public class AdminLiveController {
 
     @Autowired
     AdminLiveService adminLiveService;
+
+    private static Logger logger = LoggerFactory.getLogger(AdminLiveController.class);
 
     @ApiOperation(value = "上传团队生活及图片",
             notes = "必须上传至少一张图片, 上传人名字应该自动写入, 而不是让用户自己填写",
@@ -111,6 +116,7 @@ public class AdminLiveController {
                 }
             }
         }
+        logger.info(DateFormat.getNowTime()+"上传团队生活及照片");
         return Msg.success();
     }
 
@@ -140,6 +146,7 @@ public class AdminLiveController {
     @RequestMapping(value = "/{liveId}",method = RequestMethod.DELETE)
     public Msg deleteLive(@PathVariable Integer liveId, HttpServletRequest request) {
 
+        logger.info(DateFormat.getNowTime()+"删除团队生活及照片");
         String realPath = request.getSession().getServletContext().getRealPath("/");
         boolean isSuccess = adminLiveService.deleteLive(liveId, realPath);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "删除失败!请重试!");
@@ -245,6 +252,7 @@ public class AdminLiveController {
                 return Msg.fail().add("error", "发生未知错误!程序猿马上绝望处理!");
             }
         }
+        logger.info(DateFormat.getNowTime()+"修改团队生活及照片");
         return Msg.success();
     }
 

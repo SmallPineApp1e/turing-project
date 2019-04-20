@@ -21,6 +21,7 @@ import java.util.List;
 @RequestMapping(value = "/guestAward")
 public class AwardController {
 
+
     @Autowired
     AwardService awardService;
 

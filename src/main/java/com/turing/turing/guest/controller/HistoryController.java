@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/guestHistory")
 public class HistoryController {
 
+
     @Autowired
     HistoryService historyService;
 

@@ -2,11 +2,14 @@ package com.turing.turing.guest.controller;
 
 import com.turing.turing.entity.Resume;
 import com.turing.turing.guest.service.ResumeService;
+import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,6 +30,8 @@ public class ResumeController {
 
     @Autowired
     ResumeService resumeService;
+
+    private static Logger logger = LoggerFactory.getLogger(LiveController.class);
 
     @ApiOperation(value = "前台投递简历", notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;")
     @ApiImplicitParams({
@@ -55,6 +60,7 @@ public class ResumeController {
             msg.setMsg("处理失败!");
             return msg;
         }else{
+            logger.info(DateFormat.getNowTime()+":"+resume.getResuName()+"投放简历");
             boolean isSuccess = resumeService.setResume(resume);
             return isSuccess ? Msg.success() : Msg.fail().add("error", "发生未知错误!请重试!");
         }

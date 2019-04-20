@@ -4,11 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminAwardService;
 import com.turing.turing.entity.Award;
+import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,8 @@ public class AdminAwardController {
 
     @Autowired
     AdminAwardService adminAwardService;
+
+    private static Logger logger = LoggerFactory.getLogger(AdminAwardController.class);
 
     @ApiOperation(value = "添加获奖情况",
             notes = "正确码200,错误码100,出现错误时在extends中可以取出\"error\"的值;",
@@ -60,9 +65,11 @@ public class AdminAwardController {
             msg.setCode(100);
             msg.setMsg("添加失败!");
             msg.add("error","发生错误!");
+            logger.error(DateFormat.getNowTime()+"上传获奖情况失败");
             return msg;
         }else {
             boolean isSuccess = adminAwardService.addAward(award);
+            logger.info(DateFormat.getNowTime()+"上传获奖情况成功");
             return isSuccess ? Msg.success() : Msg.fail().add("error", "发生未知错误!程序猿哥哥正在路上!");
         }
 

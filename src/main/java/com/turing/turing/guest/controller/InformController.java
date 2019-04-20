@@ -22,6 +22,7 @@ public class InformController {
     @Autowired
     InformService informService;
 
+
     @ApiOperation(value = "获取最新通告", notes = "username为发布通告的成员名字")
     /**
      * 获取最新通告

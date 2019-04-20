@@ -4,11 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminInformService;
 import com.turing.turing.entity.Inform;
+import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +31,8 @@ public class AdminInformController {
 
     @Autowired
     AdminInformService adminInformService;
+
+    private static Logger logger = LoggerFactory.getLogger(AdminCollectResumeController.class);
 
     @ApiOperation(value = "发布通告", notes = "用户名自动填入参数" +
             "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值",
@@ -59,6 +64,7 @@ public class AdminInformController {
             //判断发布通告是否成功
             boolean isSuccess = adminInformService.addInform(inform);
             if (isSuccess){
+                logger.info(DateFormat.getNowTime()+"发布通告");
                 return Msg.success();
             }else {
                 return Msg.fail().add("error", "发生未知错误!请重试!");
@@ -95,6 +101,7 @@ public class AdminInformController {
     @RequestMapping(value = "/{informId}", method = RequestMethod.DELETE)
     public Msg deleteInform(@PathVariable Integer informId){
 
+        logger.info(DateFormat.getNowTime()+"删除通告");
         boolean isSuccess = adminInformService.deleteInform(informId);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "无法查询到这条通告!");
 
@@ -131,6 +138,7 @@ public class AdminInformController {
             msg.setMsg("修改失败");
             return msg;
         }else{
+            logger.info(DateFormat.getNowTime()+"修改通告");
             inform.setCreateTime(new Date());
             boolean isSuccess = adminInformService.updateInform(inform, informId);
             return isSuccess ? Msg.success() : Msg.fail().add("error", "修改失败,请重试!");
