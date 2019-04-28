@@ -1,6 +1,8 @@
 package com.turing.turing.configuration;
 
+import com.turing.turing.Interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -12,13 +14,24 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/admin*").excludePathPatterns("/adminLogin");
+        super.addInterceptors(registry);
+    }
+
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        registry.addResourceHandler("swagger-ui.html")
+        registry.addResourceHandler("/resources/**")
                 .addResourceLocations("classpath:META-INF/resources/");
 
-        registry.addResourceHandler("logo_small.png")
-                .addResourceLocations("classpath:META-INF/resources/");
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:META-INF/resources/static/");
+
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:META-INF/resources/swagger-ui.html");
+
 
     }
+
 }

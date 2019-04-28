@@ -1,0 +1,29 @@
+body {
+    font-family: "Microsoft YaHei" !important;
+}
+.card {
+    border-radius: 20px;
+    width: 250px;
+    box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.2), 4px 4px 20px 0px rgba(0, 0, 0, 0.19);
+    text-align: left;
+    display: inline-block;
+    margin: 50px;
+}
+
+.header {   
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    font-size: 16px;
+    line-height: 30px;
+    font-weight: 700;
+}
+
+.body {
+    padding: 10px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+}

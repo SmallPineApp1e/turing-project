@@ -7,9 +7,29 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://120.79.73.140:3306/turing?characterEncoding=UTF-8
     type: com.alibaba.druid.pool.DruidDataSource
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+  mvc:
+    static-path-pattern: /resources/**
+    view:
+      prefix: /resources/
+      suffix: .html
+    favicon:
+      enabled: false
+  resources:
+    static-locations: /resources/
+
 mybatis:
   type-aliases-package: com.turing.turing.entity
   mapper-locations: classpath:mapper/*.xml
 pagehelper:
   reasonable: true
   helper-dialect: mysql
+logging:
+  path: /var/log
+  file: turing-project.log
+  pattern:
+    console: %d{yyyy-MM-dd} -- [%Thread] -- %-5level -- %logger{50} -- %msg%n
+    file: %d{yyyy-MM-dd HH:mm:ss} -- [%Thread] -- %-5level -- %logger{50} -- %msg%n

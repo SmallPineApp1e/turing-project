@@ -26,6 +26,7 @@ import java.util.List;
  */
 @Api(tags = {"后台团队成员管理接口"})
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/adminMember")
 public class AdminMemberController {
 
@@ -95,7 +96,7 @@ public class AdminMemberController {
 
     }
 
-    @ApiOperation(value = "获取所有团队成员", notes = "分页显示;每页显示5条,分页条连续显示3页", httpMethod = "GET")
+    @ApiOperation(value = "获取所有团队成员", notes = "分页显示;每页显示7条,分页条连续显示3页", httpMethod = "GET")
     @ApiImplicitParam(name = "pn", value = "分页参数",
             paramType = "query", dataType = "int", defaultValue = "1")
     /**
@@ -104,7 +105,7 @@ public class AdminMemberController {
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Msg getAllMembers(@RequestParam(value = "pn", defaultValue = "1",required = false)Integer pn){
-        PageHelper.startPage(pn, 5);
+        PageHelper.startPage(pn, 7);
         List<Member> members = adminMemberService.getMembers();
         PageInfo pageInfo = new PageInfo(members, 3);
         return Msg.success().add("pageInfo", pageInfo);

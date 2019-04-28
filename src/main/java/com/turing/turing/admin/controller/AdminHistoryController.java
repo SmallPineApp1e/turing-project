@@ -73,7 +73,6 @@ public class AdminHistoryController {
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Msg getHistory(){
-
         History history = adminHistoryService.getHistory();
         return Msg.success().add("history", history);
 

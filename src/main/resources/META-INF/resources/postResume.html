@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>投递简历</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
+    <script src="./static/js/jquery.js"></script>
+    <script src="./static/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#form").submit(function () {
+                $.ajax({
+                    async: false,
+                    type: "POST",
+                    url: "http://localhost:8081/guestResume",
+                    data: {
+                        resuName: $("#resuName").val(),
+                        resuStudentid: $("#resuStudentid").val(),
+                        resuNumber: $("#resuNumber").val(),
+                        resuWechat: $("#resuWechat").val(),
+                        resuMajor: $("#resuMajor").val(),
+                        resuDirect: $("#resuDirect").val(),
+                        resuEvaluation: $("#resuEvaluation").val(),
+                        resuSkills: $("#resuSkills").val(),
+                        resuExp: $("#resuExp").val(),
+                        resuExpect: $("#resuExpect").val(),
+                        resuOther: $("#resuOther").val()
+                    },
+                    dataType: "json",
+                    success: function (result) {
+                        alert(result.msg);
+                    },
+                    error: function (result) {
+                        alert(result.msg);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body style="background-image:url('./static/img/简历背景.jpg');font-family: Microsoft YaHei">
+    <div class="row">
+        <ul class="nav" style="text-align:center;margin-top:20px">
+            <li style="margin-left:4px;display:inline"><button id="introduce" class="btn btn-primary"
+                    onclick="location.href='/index'">返回首页</button></li>
+            <li style="margin-left:4px;display:inline"><button id="introduce" class="btn btn-primary"
+                    onclick="location.href='/about'">团队介绍</button></li>
+            <li style="margin-left:4px;display:inline"><button class="btn btn-success"
+                    onclick="location.href='/postResume'">加入我们</button></li>
+            <li style="margin-left:4px;display:inline"><button class="btn btn-danger"><a target="_blank" href="/login"
+                        style="color:white;text-decoration: none">管理员登陆</a></button></li>
+        </ul>
+    </div>
+    <hr style="border-color:black" />
+    <h3 style="color:red;margin-left: 30%">全部都是必填项!写得越多我们越了解你!</h3>
+    <div class="row" style="text-align:center;margin-top:1%">
+        <form class="form-horizontal" id="form">
+            <label for="resuName" class="col-sm-4 control-label">姓名</label>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="resuName" placeholder="请填写您的姓名"
+                        oninput="setCustomValidity('')" oninvalid="setCustomValidity('必须填写姓名')" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resuStudentid" class="col-sm-4 control-label">学号</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="resuStudentid" placeholder="请填写您的学号" pattern="\d{12}$"
+                        oninput="setCustomValidity('')" oninvalid="setCustomValidity('学号格式不正确')" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resuNumber" class="col-sm-4 control-label">手机号码</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="resuNumber" placeholder="请填写您的手机号码"
+                        pattern="^1(3|4|5|7|8)\d{9}$" oninput="setCustomValidity('')"
+                        oninvalid="setCustomValidity('手机号码格式不正确')" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resuWechat" class="col-sm-4 control-label">微信号码</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="resuWechat" placeholder="请填写您的微信号" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resuMajor" class="col-sm-4 control-label">专业班级</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="resuMajor" placeholder="请填写您的专业及班级" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resuDirect" class="col-sm-4 control-label">学习方向</label>
+                <div class="col-sm-2">
+                    <select class="form-control" id="resuDirect" style="border:1px solid blue">
+                        <option value="后台">后台</option>
+                        <option value="前端">前端</option>
+                        <option value="自然语言处理">自然语言处理</option>
+                        <option value="计算机视觉">计算机视觉</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resuEvaluation" class="col-sm-4 control-label">自我评价</label>
+                <div class="col-sm-4">
+                    <textarea class="form-control" id="resuEvaluation" placeholder="请填写你的自我评价(100字左右)"
+                        required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resuSkills" class="col-sm-4 control-label">学习技能</label>
+                <div class="col-sm-4">
+                    <textarea class="form-control" id="resuSkills" placeholder="请填写你目前已学习的技能(100字左右)"
+                        required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resuExp" class="col-sm-4 control-label">项目经验</label>
+                <div class="col-sm-4">
+                    <textarea class="form-control" id="resuExp" placeholder="请填写你的项目经验(若没有则填无)" required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resuExpect" class="col-sm-4 control-label">未来期望</label>
+                <div class="col-sm-4">
+                    <textarea class="form-control" id="resuExpect" placeholder="请填写你进团队后的期望(若没有则填无)"
+                        required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="resuOther" class="col-sm-4 control-label">其它优势</label>
+                <div class="col-sm-4">
+                    <textarea class="form-control" id="resuOther" placeholder="请填写你的其它优势(学生会、班委、社团......)"
+                        required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class=" col-sm-10">
+                    <button type="submit" class="btn btn-success">提交简历</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

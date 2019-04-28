@@ -75,8 +75,7 @@
     major, member_direct, member_password
   </sql>
   <sql id="WithoutPassword_Base_Column_List" >
-    member_id, member_name, member_studentId, phone_number, birthday, after_graduated,
-    major, member_direct
+    member_id, member_name, member_studentId, phone_number, birthday, after_graduated,major, member_direct
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.turing.turing.entity.MemberExample" >
     select

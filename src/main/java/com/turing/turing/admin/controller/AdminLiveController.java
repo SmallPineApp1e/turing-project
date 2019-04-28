@@ -101,12 +101,12 @@ public class AdminLiveController {
                 //将图片添加到项目指定目录下
                 String realPath = request.getSession().getServletContext().getRealPath("/");
                 System.out.println(realPath);
-                String photoLocation = realPath + "static"+System.getProperty("file.separator")
+                String photoLocation = realPath + "META-INF/resources/static" +System.getProperty("file.separator")
                         +"img"+System.getProperty("file.separator");
                 //上传图片到指定目录下
                 ImageUtil.uploadPhoto(photoLocation, file);
                 //保存图片路径到数据库
-                String saveLocate = System.getProperty("file.separator")+"static"+System.getProperty("file.separator")
+                String saveLocate = System.getProperty("file.separator")+ "META-INF/resources/static" +System.getProperty("file.separator")
                         +"img"+ System.getProperty("file.separator") + fileName;
                 boolean isSuccess = adminLiveService.addLivePhoto(saveLocate, live);
                 if (isSuccess){
@@ -232,7 +232,7 @@ public class AdminLiveController {
             return Msg.fail().add("error", "发生未知错误!请重试");
         //图片的数据库存储路径
         String photoLoc = System.getProperty("file.separator")
-                + "static" + System.getProperty("file.separator")
+                + "META-INF/resources/static" + System.getProperty("file.separator")
                 + "img" + System.getProperty("file.separator");
         //图片的本地存储路径
         String savePath = realPath + photoLoc;

@@ -78,14 +78,14 @@ public class AdminProjectController {
                 //获取项目在容器中发布出去的根路径
                 String realPath = request.getSession().getServletContext().getRealPath("/");
                 //发送图片到指定/webapp/static/img目录
-                String photoLocate = realPath +System.getProperty("file.separator")+"static"
+                String photoLocate = realPath +System.getProperty("file.separator")+ "META-INF/resources/static"
                         +System.getProperty("file.separator")+"img"+System.getProperty("file.separator");
                 //上传图片
                 ImageUtil.uploadPhoto(photoLocate, file);
                 //获得图片后缀名
                 String type = ImageUtil.getSuffix(file);
                 //定义图片保存到数据库的路径
-                String locPath = System.getProperty("file.separator")+"static"+System.getProperty("file.separator")
+                String locPath = System.getProperty("file.separator")+ "META-INF/resources/static" +System.getProperty("file.separator")
                         +"img"+System.getProperty("file.separator")+project.getProName()+type;
                 isSuccess = adminProjectService.addProject(locPath, project);
                 logger.info(DateFormat.getNowTime()+"上传团队项目及照片");

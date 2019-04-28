@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>人工智能方向成员</title>
+    <link href="./static/css/style.css" rel="stylesheet">
+    <link href="./static/css/member.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="./static/css/bootstrap.css" rel="stylesheet">
+    <link href="./static/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- SCRIPT -->
+    <script src="./static/js/jquery.js"></script>
+    <script src="./static/js/bootstrap.min.js"></script>
+    <script src="./static/js/guest.js"></script>
+
+    <script type="text/javaScript">
+        $(function(){
+           getAi();
+        });
+    </script>
+</head>
+
+<body class="all">
+    <!--HEADER ROW-->
+    <div id="header-row">
+        <div class="container">
+            <div class="row">
+                <!--LOGO-->
+                <div class="span3">
+                    <a class="brand" href="/index"><img src="./static/img/logo_small.png"
+                                                            style="width:20%;height:20%" /></a>
+                    <span style="margin-left: 10px;font-size:25px; color:black;">
+                        图灵智能创新团队
+                    </span>
+                </div>
+                <!-- /LOGO -->
+
+                <!-- MAIN NAVIGATION -->
+                <div class="span9">
+                    <div class="navbar  pull-right">
+                        <div class="navbar-inner">
+                            <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </a>
+                            <div class="nav-collapse collapse navbar-responsive-collapse">
+                                <ul class="nav">
+                                    <li class="active" style="margin-right:4px"><button class="btn btn-primary"><a
+                                                href="/index"
+                                                style="color:white;text-decoration: none">返回首页</a></button></li>
+                                    <li style="margin-right:4px"><button id="introduce" class="btn btn-primary"
+                                            onclick="location.href='/about'">团队介绍</button></li>
+                                    <li style="margin-right:4px"><button class="btn btn-success"
+                                            onclick="location.href='/postResume'">加入我们</button></li>
+                                    <li><button class="btn btn-danger"><a target="_blank" href="/login"
+                                                style="color:white;text-decoration: none">管理员登陆</a></button></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- MAIN NAVIGATION -->
+            </div>
+        </div>
+    </div>
+    <!-- /HEADER ROW -->
+    <div class="card-side">
+
+    </div>
+    <!--Footer-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="span6">团队位于就业楼101、110室，欢迎前来参观！<button onclick="location.href='/postResume'"
+                        class="btn btn-success">加入我们</button>
+                </div>
+                <div class="span6">
+                    <div class="social pull-right">
+                        <div>联系人:曾智杰</div>
+                        <div>联系方式:13712345678</div>
+                        <div>学习方向：JAVA后台</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!--/Footer-->
+</body>
+
+</html>
