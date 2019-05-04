@@ -18,9 +18,8 @@ spring:
       suffix: .html
     favicon:
       enabled: false
-  resources:
-    static-locations: /resources/
-
+    resources:
+      static-locations: /resources/
 mybatis:
   type-aliases-package: com.turing.turing.entity
   mapper-locations: classpath:mapper/*.xml

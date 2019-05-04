@@ -8,46 +8,42 @@
     <title>登陆页面</title>
 
     <!-- Bootstrap -->
-    <link href="./static/css/bootstrap.css" rel="stylesheet">
-    <link href="./static/css/bootstrap-responsive.css" rel="stylesheet">
-    <script src="./static/js/jquery.js"></script>
-    <script src="./static/js/guest.js"></script>
-    <script src="./static/js/bootstrap.min.js"></script>
-    <link href="./static/css/style.css" rel="stylesheet">
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+    <link href="static/css/bootstrap-responsive.css" rel="stylesheet">
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/guest.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <link href="static/css/style.css" rel="stylesheet">
 
     <script type="text/javascript">
-        $(function () {
-            $("#form").submit(function () {
-                var username = $("#username").val();
-                var password = $("#password").val();
-                $.ajax({
-                    async: false,
-                    type: "POST",
-                    url: "http://localhost:8081/adminLogin",
-                    data: {
-                        "username": username,
-                        "password": password
-                    },
-                    dataType: "json",
-                    success: function (result) {
-                        if (result.code == 200) {
-                            alert("登陆成功!");
-                            window.close();
-                            window.open("backStage");
-                        } else {
-                            alert(result.extended.error);
-                        }
-                    },
-                    error: function (result) {
-                        alert("error");
+        function submit() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            $.ajax({
+                type: "POST",
+                url: "/adminLogin",
+                data: {
+                    "username": username,
+                    "password": password
+                },
+                dataType: "JSON",
+                success: function (result) {
+                    if (result.code == 200) {
+                        alert("登陆成功!");
+                        window.location.href = "/pageAdminBackStage";
+                    } else {
+                        alert(result.extended.error);
                     }
-                });
+                },
+                error: function (result) {
+                    alert("error");
+                }
             });
-        });
+        }
     </script>
 </head>
 
-<body style="font-family: Microsoft YaHei;background-image:url('./static/img/登陆背景.jpg');background-repeat: no-repeat">
+<body style="font-family: Microsoft YaHei;background-image:url('static/img/登陆背景.jpg');background-repeat: no-repeat">
     <!--HEADER ROW-->
     <div id="header-row">
         <div class="container">
@@ -55,7 +51,7 @@
                 <!--LOGO-->
                 <div class="span3">
                     <a class="brand" href="index.html"><img src="static/img/logo_small.png"
-                            style="width:20%;height:20%" /></a>
+                                                            style="width:20%;height:20%" /></a>
                     <span style="margin-left: 10px;font-size:25px; color:black;">
                         图灵智能创新团队
                     </span>
@@ -88,30 +84,30 @@
     </div>
     <!-- /HEADER ROW -->
     <div>
-        <form class="form-horizontal" id="form">
-            <div class="form-group" style="margin:5%">
-                <div class="col-sm-2" style="text-align:center">
-                    <span style="color:white;">用户名：</span>
-                    <input type="text" class="form-control" id="username" pattern="\d{12}" name="username"
-                        oninput="setCustomValidity('')" oninvalid="setCustomValidity('必须填写12位学号')"
-                        placeholder="Username" required>
-                </div>
+        <!-- <form class="form-horizontal" id="form" method="POST"> -->
+        <div class="form-group" style="margin:5%">
+            <div class="col-sm-2" style="text-align:center">
+                <span style="color:white;">用户名：</span>
+                <input type="text" class="form-control" id="username" pattern="\d{12}" name="username"
+                    oninput="setCustomValidity('')" oninvalid="setCustomValidity('必须填写12位学号')" placeholder="Username"
+                    required>
             </div>
-            <div class="form-group">
-                <div class="col-sm-2" style="text-align:center">
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2" style="text-align:center">
 
-                    <span style="color:white;">密码：</span>
-                    <input type="password" class="form-control" maxlength="16" minlength="6" id="password"
-                        name="password" oninput="setCustomValidity('')" oninvalid="setCustomValidity('密码长度为6-16位')"
-                        placeholder="Password" required>
-                </div>
+                <span style="color:white;">密码：</span>
+                <input type="password" class="form-control" maxlength="16" minlength="6" id="password" name="password"
+                    oninput="setCustomValidity('')" oninvalid="setCustomValidity('密码长度为6-16位')" placeholder="Password"
+                    required>
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10" style="text-align:center;margin-top:50px">
-                    <button type="submit" class="btn btn-info" style="width:100px">登陆</button>
-                </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10" style="text-align:center;margin-top:50px">
+                <button type="button" onclick="submit()" class="btn btn-info" style="width:100px">登陆</button>
             </div>
-        </form>
+        </div>
+        <!-- </form> -->
     </div>
 </body>
 

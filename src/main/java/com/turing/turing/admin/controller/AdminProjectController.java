@@ -3,6 +3,7 @@ package com.turing.turing.admin.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminProjectService;
+import com.turing.turing.entity.Member;
 import com.turing.turing.entity.Project;
 import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.ImageUtil;
@@ -14,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -61,40 +63,48 @@ public class AdminProjectController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Msg addProject(@RequestParam(value = "file",required = false) MultipartFile file,
                           @ModelAttribute(value = "project") @Valid Project project,
-                          BindingResult result, HttpServletRequest request)
+                          BindingResult result,HttpServletRequest request)
             throws Exception {
-
+        Member member = (Member) request.getSession().getAttribute("member");
         //判断项目名字和文件是否为空
-        if(result.hasErrors()||file == null){
+        if(result.hasErrors() || file == null){
             Msg msg = new Msg();
             result.getAllErrors().forEach(objectError -> msg.add(objectError.getCode()
                     , objectError.getDefaultMessage()));
             msg.setMsg("添加失败!");
             msg.setCode(100);
+            logger.error(msg.toString());
             return file == null ? msg.add("error","必须上传图片!") : msg;
         }else{
+
             boolean isSuccess = false;
             if(ImageUtil.isPhoto(file)){
-                //获取项目在容器中发布出去的根路径
-                String realPath = request.getSession().getServletContext().getRealPath("/");
+                //获取resources的全路径
+                String ServletPath = request.getServletPath();
+                String contextPath = request.getContextPath();
+                String realPath = request.getServletContext().getRealPath("/");
+                String resourcesPath = ResourceUtils.getURL("classpath:").getPath();
+                System.out.println("ServletPath:"+ServletPath);
+                System.out.println("contextPath:"+contextPath);
+                System.out.println("realPath:"+realPath);
+                System.out.println("resourcesPath:"+resourcesPath);
                 //发送图片到指定/webapp/static/img目录
-                String photoLocate = realPath +System.getProperty("file.separator")+ "META-INF/resources/static"
-                        +System.getProperty("file.separator")+"img"+System.getProperty("file.separator");
+                String photoLocate = "classpath:" + "static"
+                        + System.getProperty("file.separator") + "img" + System.getProperty("file.separator");
+                System.out.println(photoLocate);
                 //上传图片
                 ImageUtil.uploadPhoto(photoLocate, file);
-                //获得图片后缀名
-                String type = ImageUtil.getSuffix(file);
                 //定义图片保存到数据库的路径
-                String locPath = System.getProperty("file.separator")+ "META-INF/resources/static" +System.getProperty("file.separator")
-                        +"img"+System.getProperty("file.separator")+project.getProName()+type;
+                String locPath = System.getProperty("file.separator")+ "static" +System.getProperty("file.separator")
+                        +"img"+System.getProperty("file.separator")+file.getOriginalFilename();
+                System.out.println(locPath);
                 isSuccess = adminProjectService.addProject(locPath, project);
-                logger.info(DateFormat.getNowTime()+"上传团队项目及照片");
+                logger.info(DateFormat.getNowTime()+member.getMemberName()+"上传团队项目及照片");
                 return isSuccess? Msg.success():Msg.fail();
             }else {
                 return Msg.fail().add("error", "不好意思, 仅支持jpg, jpeg, png格式的照片哦");
             }
         }
-
     }
     @ApiOperation(value = "删除一个项目", notes = "正确码为200,错误码为100,出现错误时在extends中可以取出\"error\"的值"
             ,httpMethod = "DELETE")
@@ -107,7 +117,8 @@ public class AdminProjectController {
     @RequestMapping(value = "/{proId}",method = RequestMethod.DELETE)
     public Msg deleteProjectById(@PathVariable Integer proId, HttpServletRequest request){
 
-        logger.info(DateFormat.getNowTime()+"删除团队项目及照片");
+        Member member = (Member) request.getSession().getAttribute("member");
+        logger.info(DateFormat.getNowTime()+member.getMemberName()+"删除团队项目及照片");
         String realPath = request.getSession().getServletContext().getRealPath("/");
         boolean isSuccess = adminProjectService.deleteProject(proId, realPath);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "删除失败!请重试");
@@ -124,7 +135,7 @@ public class AdminProjectController {
     @RequestMapping(value = "",method = RequestMethod.GET)
     public Msg getProject(@RequestParam(value = "pn", defaultValue = "1") Integer pn){
 
-        PageHelper.startPage(pn, 3);
+        PageHelper.startPage(pn, 5);
         List<Project> projects = adminProjectService.getProject();
         PageInfo pageInfo = new PageInfo(projects, 3);
         return Msg.success().add("pageInfo", pageInfo);

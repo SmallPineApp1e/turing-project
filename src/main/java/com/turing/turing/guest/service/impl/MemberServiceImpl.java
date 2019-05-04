@@ -46,12 +46,10 @@ public class MemberServiceImpl implements MemberService {
         List<Member> aiMembers = new ArrayList<>();
         for (Member member :
                 members) {
-                System.out.println(member.getMemberDirect());
             if("计算机视觉".equals(member.getMemberDirect()) || "自然语言处理".equals(member.getMemberDirect())){
                 aiMembers.add(member);
             }
         }
-
         return aiMembers;
 
     }

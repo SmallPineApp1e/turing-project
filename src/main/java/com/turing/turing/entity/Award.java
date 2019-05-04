@@ -18,7 +18,7 @@ public class Award {
     private Integer awardId;
     @NotBlank(message = "必须填写获奖名字!")
         private String awardName;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date awardTime;
     @NotBlank(message = "必须填写发布人名字!")

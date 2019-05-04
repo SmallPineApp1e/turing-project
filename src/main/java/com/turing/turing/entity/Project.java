@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Setter
 @ApiModel(value = "团队项目")
 public class Project {
+
     private Integer proId;
     @NotBlank(message = "必须填写项目名字!")
     private String proName;

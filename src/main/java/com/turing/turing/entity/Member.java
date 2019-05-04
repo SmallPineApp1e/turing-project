@@ -27,7 +27,7 @@ public class Member {
             "^[1](([3][0-9])|([4][5,7,9])|([5][4,6,9])|([6][6])|([7][3,5,6,7,8])|([8][0-9])|([9][8,9]))[0-9]{8}$"
             , message = "手机号码格式有错!")
     private String phoneNumber;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     private Date birthday;

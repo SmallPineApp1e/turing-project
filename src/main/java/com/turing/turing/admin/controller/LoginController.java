@@ -66,10 +66,11 @@ public class LoginController {
     }
 
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public Member getLoginMember(HttpServletRequest request){
+    public Msg getLoginMember(HttpServletRequest request){
 
         Member member = (Member) request.getSession().getAttribute("member");
-        return member;
+        return Msg.success().add("member",member);
+
     }
 
 }

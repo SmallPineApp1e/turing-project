@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminCollectResumeService;
 import com.turing.turing.entity.CollectResume;
+import com.turing.turing.entity.Member;
 import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -40,7 +42,6 @@ public class AdminCollectResumeController {
     public Msg getCollectResumes(@RequestParam(value = "pn",defaultValue = "1", required = false) Integer pn){
         PageHelper.startPage(pn, 5);
         List<CollectResume> collectResumes = adminCollectResumeService.getCollectResumes();
-        System.out.println(collectResumes);
         PageInfo pageInfo = new PageInfo(collectResumes, 3);
         return Msg.success().add("pageInfo", pageInfo);
 
@@ -76,8 +77,10 @@ public class AdminCollectResumeController {
                                 @RequestParam(value = "colResuMajor") String colResuMajor,
                                 @RequestParam(value = "colResuNumber")String colResuNumber,
                                 @RequestParam(value = "colResuDirect")String colResuDirect,
-                                @PathVariable Integer colResuId){
-        logger.info(DateFormat.getNowTime()+"访问了二轮面试通过API，添加团队成员");
+                                @PathVariable Integer colResuId,
+                                HttpServletRequest request){
+        Member member = (Member) request.getSession().getAttribute("member");
+        logger.info(DateFormat.getNowTime()+member.getMemberName()+"访问了二轮面试通过API，添加团队成员");
         boolean isSuccess = adminCollectResumeService.setPassInterview(colResuName, colResuMajor, colResuStudentId,
                 colResuNumber, colResuDirect);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "添加失败!请重试");
@@ -129,9 +132,10 @@ public class AdminCollectResumeController {
      * @return
      */
     @RequestMapping(value = "/{colResuId}",method = RequestMethod.DELETE)
-    public Msg deleteResume(@PathVariable Integer colResuId){
+    public Msg deleteResume(@PathVariable Integer colResuId,HttpServletRequest request){
 
-        logger.info(DateFormat.getNowTime()+"删除简历");
+        Member member = (Member) request.getSession().getAttribute("member");
+        logger.info(DateFormat.getNowTime()+member.getMemberName()+"删除简历");
         boolean isSuccess = adminCollectResumeService.deleteResume(colResuId);
         return isSuccess ? Msg.success(): Msg.fail().add("error", "删除失败!");
 

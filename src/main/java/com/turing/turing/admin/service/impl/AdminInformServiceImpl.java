@@ -34,7 +34,9 @@ public class AdminInformServiceImpl implements AdminInformService {
     @Override
     public List<Inform> getInforms() {
 
-        List<Inform> informs = informMapper.selectByExample(null);
+        InformExample informExample = new InformExample();
+        informExample.setOrderByClause("create_time desc");
+        List<Inform> informs = informMapper.selectByExample(informExample);
         return informs;
 
     }

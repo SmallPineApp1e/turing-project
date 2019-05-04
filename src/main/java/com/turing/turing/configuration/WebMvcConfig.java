@@ -15,7 +15,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/admin*").excludePathPatterns("/adminLogin");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/admin*").addPathPatterns("/pageAdmin*")
+                .excludePathPatterns("/adminLogin");
         super.addInterceptors(registry);
     }
 
@@ -30,6 +31,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
         registry.addResourceHandler("swagger-ui.html")
                 .addResourceLocations("classpath:META-INF/resources/swagger-ui.html");
+
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:webapp/static/");
 
 
     }

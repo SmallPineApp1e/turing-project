@@ -2,6 +2,7 @@ package com.turing.turing.admin.controller;
 
 import com.turing.turing.admin.service.AdminHistoryService;
 import com.turing.turing.entity.History;
+import com.turing.turing.entity.Member;
 import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -50,19 +52,24 @@ public class AdminHistoryController {
      */
     @RequestMapping(value = "/{hisId}", method = RequestMethod.PUT)
     public Msg updateHistory(@ModelAttribute(value = "history") @Valid History history, BindingResult result,
-                             @PathVariable Integer hisId){
+                             @PathVariable Integer hisId,
+                             HttpServletRequest request){
 
+        Member member = (Member) request.getSession().getAttribute("member");
         if(result.hasErrors()){
             Msg msg = new Msg();
             msg.setMsg("修改失败!");
             msg.setCode(100);
             result.getAllErrors().forEach(objectError -> msg.add(objectError.getCode()
                     , objectError.getDefaultMessage()));
+            logger.error(msg.toString());
             return msg;
         }else{
-            logger.info(DateFormat.getNowTime()+"有人修改团队历史内容");
+
+            logger.info(DateFormat.getNowTime()+member.getMemberName()+"修改团队历史内容");
             boolean isSuccess = adminHistoryService.updateHistory(hisId, history);
             return isSuccess ? Msg.success() : Msg.fail().add("error", "修改失败!未知错误!");
+
         }
     }
 
@@ -73,6 +80,7 @@ public class AdminHistoryController {
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Msg getHistory(){
+
         History history = adminHistoryService.getHistory();
         return Msg.success().add("history", history);
 

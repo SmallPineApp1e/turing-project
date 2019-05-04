@@ -2,7 +2,7 @@
 function getLive() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8081/guestLive",
+        url: "/guestLive",
         success: function (result) {
             var lives = result.extended.live;
             $.each(lives, function (each, item) {
@@ -56,7 +56,7 @@ function getLive() {
 function getAward() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8081/guestAward",
+        url: "/guestAward",
         success: function (result) {
             var awards = result.extended.award;
             $.each(awards, function (each, item) {
@@ -79,7 +79,7 @@ function getAward() {
 function getHistory() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8081/guestHistory",
+        url: "/guestHistory",
         success: function (result) {
             var history = result.extended.history.hisInfo;
             $("#history").append(history);
@@ -91,7 +91,7 @@ function getHistory() {
 function getProject() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8081/guestProject",
+        url: "/guestProject",
         success: function (result) {
             var projectsPhotos = result.extended.projectsPhoto;
             $.each(projectsPhotos, function (each, item) {
@@ -118,7 +118,7 @@ function getProject() {
 function getBackside(){
     $.ajax({
         type:"GET",
-        url: "http://localhost:8081/guestMember/backside",
+        url: "/guestMember/backside",
         dataType:"JSON",
         success:function(result){
             var memberList = result.extended.pageInfo.list;
@@ -142,7 +142,7 @@ function getBackside(){
 function getAi(){
     $.ajax({
         type:"GET",
-        url: "http://localhost:8081/guestMember/ai",
+        url: "/guestMember/ai",
         dataType:"JSON",
         success:function(result){
             var memberList = result.extended.pageInfo.list;
@@ -166,7 +166,7 @@ function getAi(){
 function getFrontside(){
     $.ajax({
         type:"GET",
-        url: "http://localhost:8081/guestMember/frontside", 
+        url: "/guestMember/frontside", 
         dataType:"JSON",
         success:function(result){
             var memberList = result.extended.pageInfo.list;

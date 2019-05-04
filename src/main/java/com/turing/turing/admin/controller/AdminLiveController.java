@@ -2,6 +2,7 @@ package com.turing.turing.admin.controller;
 
 import com.turing.turing.admin.service.AdminLiveService;
 import com.turing.turing.entity.Live;
+import com.turing.turing.entity.Member;
 import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.ImageUtil;
 import com.turing.turing.util.Msg;
@@ -12,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,7 +48,7 @@ public class AdminLiveController {
             @ApiImplicitParam(name = "liveUsername", value = "上传人名字", paramType = "query",
                     dataType = "String", required = true),
             @ApiImplicitParam(name = "photos", value = "生活照片类(不用传参)"),
-            @ApiImplicitParam(name = "files", value = "多张图片(至少一张生活照)", paramType = "form",
+            @ApiImplicitParam(name = "  ", value = "多张图片(至少一张生活照)", paramType = "form",
                     dataType = "file", allowMultiple = true),
             @ApiImplicitParam(name = "photos[0].photoId", value = "忽略", paramType = "query",
                     dataType = "int"),
@@ -66,7 +68,10 @@ public class AdminLiveController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Msg addLivePhoto(@RequestParam(value = "files",required = false) MultipartFile[] files,
                             @ModelAttribute("live")@Valid Live live,
-                            BindingResult result, HttpServletRequest request) throws Exception {
+                            BindingResult result,
+                            HttpServletRequest request) throws Exception {
+
+        Member member = (Member) request.getSession().getAttribute("member");
 
         if(files == null){
             return Msg.fail().add("error","必须上传照片哦!");
@@ -80,6 +85,7 @@ public class AdminLiveController {
                     , objectError.getDefaultMessage()));
             msg.setCode(200);
             msg.setMsg("添加失败!");
+            logger.error(msg.toString());
             return files.length==0 ? msg.add("error", "必须上传图片!") : msg;
         }else{
             //判断是否全部都是照片
@@ -99,14 +105,15 @@ public class AdminLiveController {
                 //取出图片的名字
                 String fileName = file.getOriginalFilename();
                 //将图片添加到项目指定目录下
-                String realPath = request.getSession().getServletContext().getRealPath("/");
+                String realPath = ResourceUtils.getURL("classpath:").getPath();
                 System.out.println(realPath);
-                String photoLocation = realPath + "META-INF/resources/static" +System.getProperty("file.separator")
+                //图片所在目录
+                String photoLocation = realPath + "static" +System.getProperty("file.separator")
                         +"img"+System.getProperty("file.separator");
                 //上传图片到指定目录下
                 ImageUtil.uploadPhoto(photoLocation, file);
                 //保存图片路径到数据库
-                String saveLocate = System.getProperty("file.separator")+ "META-INF/resources/static" +System.getProperty("file.separator")
+                String saveLocate = System.getProperty("file.separator")+ "static"+System.getProperty("file.separator")
                         +"img"+ System.getProperty("file.separator") + fileName;
                 boolean isSuccess = adminLiveService.addLivePhoto(saveLocate, live);
                 if (isSuccess){
@@ -116,7 +123,7 @@ public class AdminLiveController {
                 }
             }
         }
-        logger.info(DateFormat.getNowTime()+"上传团队生活及照片");
+        logger.info(DateFormat.getNowTime()+member.getMemberName()+"上传团队生活及照片");
         return Msg.success();
     }
 
@@ -146,7 +153,8 @@ public class AdminLiveController {
     @RequestMapping(value = "/{liveId}",method = RequestMethod.DELETE)
     public Msg deleteLive(@PathVariable Integer liveId, HttpServletRequest request) {
 
-        logger.info(DateFormat.getNowTime()+"删除团队生活及照片");
+        Member member = (Member) request.getSession().getAttribute("member");
+        logger.info(DateFormat.getNowTime()+member.getMemberName()+"删除团队生活及照片");
         String realPath = request.getSession().getServletContext().getRealPath("/");
         boolean isSuccess = adminLiveService.deleteLive(liveId, realPath);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "删除失败!请重试!");
@@ -232,7 +240,7 @@ public class AdminLiveController {
             return Msg.fail().add("error", "发生未知错误!请重试");
         //图片的数据库存储路径
         String photoLoc = System.getProperty("file.separator")
-                + "META-INF/resources/static" + System.getProperty("file.separator")
+                + "static" + System.getProperty("file.separator")
                 + "img" + System.getProperty("file.separator");
         //图片的本地存储路径
         String savePath = realPath + photoLoc;

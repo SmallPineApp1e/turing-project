@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminInformService;
 import com.turing.turing.entity.Inform;
+import com.turing.turing.entity.Member;
 import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
@@ -50,8 +52,10 @@ public class AdminInformController {
      * @return
      */
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public Msg addInform(@ModelAttribute(value = "inform")@Valid Inform inform, BindingResult result){
+    public Msg addInform(@ModelAttribute(value = "inform")@Valid Inform inform, BindingResult result,
+                         HttpServletRequest request){
 
+        Member member = (Member) request.getSession().getAttribute("member");
         //判断是否输入格式有误
         if(result.hasErrors()){
             Msg msg = new Msg();
@@ -59,12 +63,13 @@ public class AdminInformController {
             msg.setMsg("添加失败!");
             result.getAllErrors().forEach(objectError -> msg.add(objectError.getCode()
                     , objectError.getDefaultMessage()));
+            logger.error(msg.toString());
             return msg;
         }else{
             //判断发布通告是否成功
             boolean isSuccess = adminInformService.addInform(inform);
             if (isSuccess){
-                logger.info(DateFormat.getNowTime()+"发布通告");
+                logger.info(DateFormat.getNowTime()+member.getMemberName()+"发布通告");
                 return Msg.success();
             }else {
                 return Msg.fail().add("error", "发生未知错误!请重试!");
@@ -82,7 +87,7 @@ public class AdminInformController {
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Msg getAllInform(@RequestParam(value = "pn", defaultValue = "1") Integer pn){
-        PageHelper.startPage(pn, 5);
+        PageHelper.startPage(pn, 10);
         List<Inform> informs = adminInformService.getInforms();
         PageInfo pageInfo = new PageInfo(informs, 3);
         return Msg.success().add("pageInfo", pageInfo);
@@ -99,9 +104,9 @@ public class AdminInformController {
      * @return
      */
     @RequestMapping(value = "/{informId}", method = RequestMethod.DELETE)
-    public Msg deleteInform(@PathVariable Integer informId){
-
-        logger.info(DateFormat.getNowTime()+"删除通告");
+    public Msg deleteInform(@PathVariable Integer informId, HttpServletRequest request){
+        Member member = (Member) request.getSession().getAttribute("member");
+        logger.info(DateFormat.getNowTime()+member.getMemberName()+"删除通告");
         boolean isSuccess = adminInformService.deleteInform(informId);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "无法查询到这条通告!");
 
@@ -128,7 +133,8 @@ public class AdminInformController {
      */
     @RequestMapping(value = "/{informId}", method = RequestMethod.PUT)
     public Msg updateInform(@ModelAttribute(value = "inform") @Valid Inform inform, BindingResult result,
-                            @PathVariable Integer informId){
+                            @PathVariable Integer informId, HttpServletRequest request){
+
 
         if (result.hasErrors()){
             Msg msg = new Msg();
@@ -136,9 +142,11 @@ public class AdminInformController {
                     objectError.getDefaultMessage()));
             msg.setCode(100);
             msg.setMsg("修改失败");
+            logger.error(msg.toString());
             return msg;
         }else{
-            logger.info(DateFormat.getNowTime()+"修改通告");
+            Member member = (Member) request.getSession().getAttribute("member");
+            logger.info(DateFormat.getNowTime()+member.getMemberName()+"修改通告");
             inform.setCreateTime(new Date());
             boolean isSuccess = adminInformService.updateInform(inform, informId);
             return isSuccess ? Msg.success() : Msg.fail().add("error", "修改失败,请重试!");

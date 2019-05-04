@@ -47,7 +47,9 @@ public class AdminAwardServiceImpl implements AdminAwardService {
     @Override
     public List<Award> getAwards() {
 
-        List<Award> awards = awardMapper.selectByExample(null);
+        AwardExample awardExample = new AwardExample();
+        awardExample.setOrderByClause("award_time desc");
+        List<Award> awards = awardMapper.selectByExample(awardExample);
         return awards;
 
     }

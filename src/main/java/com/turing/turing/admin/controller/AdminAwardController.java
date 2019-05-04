@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminAwardService;
 import com.turing.turing.entity.Award;
+import com.turing.turing.entity.Member;
 import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.Msg;
 import io.swagger.annotations.Api;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -53,8 +55,10 @@ public class AdminAwardController {
      * @return
      */
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public Msg addAward(@ModelAttribute(value = "award")@Valid Award award, BindingResult result){
+    public Msg addAward(@ModelAttribute(value = "award")@Valid Award award, BindingResult result,
+                        HttpServletRequest request){
 
+        Member member = (Member) request.getSession().getAttribute("member");
         //判断是否有错误信息
         if (result.hasErrors()) {
             //定制错误信息
@@ -65,11 +69,12 @@ public class AdminAwardController {
             msg.setCode(100);
             msg.setMsg("添加失败!");
             msg.add("error","发生错误!");
-            logger.error(DateFormat.getNowTime()+"上传获奖情况失败");
+            logger.error(DateFormat.getNowTime()+member.getMemberName()+"上传获奖情况失败");
+            logger.error(msg.toString());
             return msg;
         }else {
             boolean isSuccess = adminAwardService.addAward(award);
-            logger.info(DateFormat.getNowTime()+"上传获奖情况成功");
+            logger.info(DateFormat.getNowTime()+member.getMemberName()+"上传获奖情况");
             return isSuccess ? Msg.success() : Msg.fail().add("error", "发生未知错误!程序猿哥哥正在路上!");
         }
 
@@ -97,8 +102,9 @@ public class AdminAwardController {
      */
     @RequestMapping(value = "/{awardId}", method = RequestMethod.PUT)
     public Msg updateAward(@ModelAttribute(value = "award") @Valid Award award, BindingResult result,
-                           @PathVariable Integer awardId){
+                           @PathVariable Integer awardId, HttpServletRequest request){
 
+        Member member = (Member) request.getSession().getAttribute("member");
         //判断修改后的信息是否符合规范
         if(result.hasErrors()) {
             Msg msg = new Msg();
@@ -107,8 +113,10 @@ public class AdminAwardController {
             msg.setCode(100);
             msg.setMsg("修改失败");
             msg.add("error","发生错误!");
+            logger.error(msg.toString());
             return msg;
         }else{
+            logger.info(DateFormat.getNowTime()+member.getMemberName()+"修改获奖情况");
             boolean isSuccess = adminAwardService.updateAward(award, awardId);
             return isSuccess ? Msg.success() : Msg.fail().add("error", "发生未知错误!请重试!");
         }
@@ -126,8 +134,10 @@ public class AdminAwardController {
      * @return
      */
     @RequestMapping(value = "/{awardId}",method = RequestMethod.DELETE)
-    public Msg deleteAward(@PathVariable Integer awardId){
+    public Msg deleteAward(@PathVariable Integer awardId, HttpServletRequest request){
 
+        Member member = (Member) request.getSession().getAttribute("member");
+        logger.info(DateFormat.getNowTime()+member.getMemberName()+"修改获奖情况");
         boolean isSuccess = adminAwardService.deleteAward(awardId);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "删除失败!");
 
@@ -145,7 +155,7 @@ public class AdminAwardController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Msg getAward(@RequestParam(value = "pn", defaultValue = "1") Integer pn){
 
-        PageHelper.startPage(pn,5);
+        PageHelper.startPage(pn,10);
         List<Award> awards = adminAwardService.getAwards();
         PageInfo pageInfo = new PageInfo(awards, 3);
         return awards.size()!=0 ? Msg.success().add("pageInfo", pageInfo) :

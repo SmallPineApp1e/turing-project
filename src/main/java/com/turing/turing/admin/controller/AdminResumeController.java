@@ -3,6 +3,7 @@ package com.turing.turing.admin.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.turing.turing.admin.service.AdminResumeService;
+import com.turing.turing.entity.Member;
 import com.turing.turing.entity.Resume;
 import com.turing.turing.util.DateFormat;
 import com.turing.turing.util.Msg;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -40,15 +42,16 @@ public class AdminResumeController {
      * @return
      */
     @RequestMapping(value = "/{resuId}",method = RequestMethod.DELETE)
-    public Msg deleteResume(@PathVariable Integer resuId){
+    public Msg deleteResume(@PathVariable Integer resuId, HttpServletRequest request){
 
-        logger.info(DateFormat.getNowTime()+"删除简历");
+        Member member = (Member) request.getSession().getAttribute("member");
+        logger.info(DateFormat.getNowTime()+member.getMemberName()+"删除简历");
         boolean isSuccess = adminResumeService.deleteResume(resuId);
         return isSuccess ? Msg.success(): Msg.fail().add("error", "删除失败!");
 
     }
 
-    @ApiOperation(value = "获取所有简历", notes = "每页显示5条信息;", httpMethod = "GET")
+    @ApiOperation(value = "获取所有简历", notes = "每页显示10条信息;", httpMethod = "GET")
     @ApiImplicitParam(name = "pn", value = "分页参数",
             paramType = "query", dataType = "int",defaultValue = "1")
     /**
@@ -58,7 +61,7 @@ public class AdminResumeController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Msg getResume(@RequestParam(value = "pn", defaultValue = "1") Integer pn){
 
-        PageHelper.startPage(pn,5);
+        PageHelper.startPage(pn,10);
         List<Resume> resumes = adminResumeService.getResumes();
         PageInfo pageInfo = new PageInfo(resumes, 5);
         return Msg.success().add("pageInfo", pageInfo);
@@ -96,9 +99,10 @@ public class AdminResumeController {
      * @return
      */
     @RequestMapping(value = "/{resuId}", method = RequestMethod.POST)
-    public Msg collectResume(@PathVariable Integer resuId){
+    public Msg collectResume(@PathVariable Integer resuId, HttpServletRequest request){
 
-        logger.info(DateFormat.getNowTime()+"收藏简历");
+        Member member = (Member) request.getSession().getAttribute("member");
+        logger.info(DateFormat.getNowTime()+member.getMemberName()+"收藏简历");
         boolean isSuccess = adminResumeService.collectResume(resuId);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "收藏失败!请重试!");
 

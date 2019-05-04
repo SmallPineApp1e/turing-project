@@ -45,7 +45,27 @@ public class PageController {
         return "postResume";
     }
 
-    @RequestMapping("/backStage")
+    @RequestMapping("/pageAdminBackStage")
     public String pageBackStage(){return "backStage";}
 
+    @RequestMapping("/pageAdminPostResume")
+    public String pageAdminPostResume(){return "adminPostResume";}
+
+    @RequestMapping("/pageAdminCollectResume")
+    public String pageAdminCollectResume(){return "adminCollectResume";}
+
+    @RequestMapping("/pageAdminInform")
+    public String pageAdminInform(){return "adminInform";}
+
+    @RequestMapping("/pageAdminAward")
+    public String pageAdminAward(){return "adminAward";}
+
+    @RequestMapping("/pageAdminProject")
+    public String pageAdminProject(){return "adminProject";}
+
+    @RequestMapping("/pageAdminLive")
+    public String pageAdminLive(){return "adminLive";}
+
+    @RequestMapping("/pageAdminHistory")
+    public String pageAdminHistory(){return "adminHistory";}
 }

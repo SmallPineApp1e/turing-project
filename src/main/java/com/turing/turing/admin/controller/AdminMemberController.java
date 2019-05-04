@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -88,9 +89,9 @@ public class AdminMemberController {
      * @return
      */
     @RequestMapping(value = "/{memberId}", method = RequestMethod.DELETE)
-    public Msg deleteMember(@PathVariable Integer memberId){
-
-        logger.info(DateFormat.getNowTime()+"删除团队成员");
+    public Msg deleteMember(@PathVariable Integer memberId,HttpServletRequest request){
+        Member member = (Member) request.getSession().getAttribute("member");
+        logger.info(DateFormat.getNowTime()+member.getMemberName()+"删除团队成员");
         boolean isSuccess = adminMemberService.deleteMember(memberId);
         return isSuccess ? Msg.success():Msg.fail().add("error", "数据库无此成员信息");
 
@@ -143,7 +144,7 @@ public class AdminMemberController {
      */
     @RequestMapping(value = "/{memberId}", method = RequestMethod.PUT)
     public Msg updateMember(@ModelAttribute(value = "member")@Valid Member member, BindingResult result,
-                            @PathVariable Integer memberId){
+                            @PathVariable Integer memberId, HttpServletRequest request){
 
         if (result.hasErrors()) {
             Msg msg = new Msg();
@@ -151,10 +152,12 @@ public class AdminMemberController {
             msg.setMsg("修改失败");
             result.getAllErrors().forEach(objectError -> msg.add(objectError.getCode()
                     , objectError.getDefaultMessage()));
+            logger.error(msg.toString());
             return msg;
         }else{
             boolean isSuccess = adminMemberService.updateMember(member, memberId);
-            logger.info(DateFormat.getNowTime()+"修改团队成员信息");
+            Member loginMember = (Member) request.getSession().getAttribute("member");
+            logger.info(DateFormat.getNowTime()+loginMember.getMemberName()+"修改自己的成员信息");
             return isSuccess ? Msg.success() : Msg.fail();
         }
 

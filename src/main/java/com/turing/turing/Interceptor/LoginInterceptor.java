@@ -20,7 +20,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         HttpSession session = httpServletRequest.getSession();
         Member member = (Member) session.getAttribute("member");
         if (member == null){
-            httpServletRequest.getRequestDispatcher("login.html").forward(httpServletRequest,httpServletResponse);
+            httpServletResponse.sendRedirect("/login");
             return false;
         }else {
             return true;
