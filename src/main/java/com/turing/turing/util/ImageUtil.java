@@ -30,10 +30,13 @@ public class ImageUtil {
      * @param file 文件
      * @return
      */
-    public static void uploadPhoto(String pathName, MultipartFile file) throws IOException {
+    public static void uploadPhoto(String pathName, MultipartFile file, File uploadFile) throws IOException {
 
-        String filename = file.getOriginalFilename();
-        file.transferTo(new File(pathName + filename));
+        File filePath = new File(pathName);
+        if(!filePath.exists()){
+            filePath.mkdirs();
+        }
+        file.transferTo(uploadFile);
 
     }
 

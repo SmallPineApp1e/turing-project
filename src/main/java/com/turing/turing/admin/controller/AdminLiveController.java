@@ -13,15 +13,16 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Jack
@@ -34,6 +35,10 @@ public class AdminLiveController {
 
     @Autowired
     AdminLiveService adminLiveService;
+
+    //获取上传文件的目录
+    private String photoLocate = "/home/upload/";
+//    private String photoLocate = "d://upload/";
 
     private static Logger logger = LoggerFactory.getLogger(AdminLiveController.class);
 
@@ -102,16 +107,12 @@ public class AdminLiveController {
                     adminLiveService.addLive(live);
                     count++;
                 }
-                //取出图片的名字
-                String fileName = file.getOriginalFilename();
-                //将图片添加到项目指定目录下
-                String realPath = ResourceUtils.getURL("classpath:").getPath();
-                System.out.println(realPath);
-                //图片所在目录
-                String photoLocation = realPath + "static" +System.getProperty("file.separator")
-                        +"img"+System.getProperty("file.separator");
+                //取出图片后缀名
+                String suffix = ImageUtil.getSuffix(file);
+                String fileName = UUID.randomUUID().toString().replaceAll("-","") + suffix;
+                File uploadFile = new File(photoLocate+fileName);
                 //上传图片到指定目录下
-                ImageUtil.uploadPhoto(photoLocation, file);
+                ImageUtil.uploadPhoto(photoLocate, file, uploadFile);
                 //保存图片路径到数据库
                 String saveLocate = System.getProperty("file.separator")+ "static"+System.getProperty("file.separator")
                         +"img"+ System.getProperty("file.separator") + fileName;
@@ -155,8 +156,7 @@ public class AdminLiveController {
 
         Member member = (Member) request.getSession().getAttribute("member");
         logger.info(DateFormat.getNowTime()+member.getMemberName()+"删除团队生活及照片");
-        String realPath = request.getSession().getServletContext().getRealPath("/");
-        boolean isSuccess = adminLiveService.deleteLive(liveId, realPath);
+        boolean isSuccess = adminLiveService.deleteLive(liveId, photoLocate);
         return isSuccess ? Msg.success() : Msg.fail().add("error", "删除失败!请重试!");
 
     }
@@ -243,12 +243,13 @@ public class AdminLiveController {
                 + "static" + System.getProperty("file.separator")
                 + "img" + System.getProperty("file.separator");
         //图片的本地存储路径
-        String savePath = realPath + photoLoc;
         for (MultipartFile file :
                 files) {
             try {
+                String fileName = UUID.randomUUID().toString().replaceAll("-", "");
+                File uploadFile = new File(photoLocate+fileName);
                 //上传图片到存储路径下
-                ImageUtil.uploadPhoto(savePath, file);
+                ImageUtil.uploadPhoto(photoLocate, file, uploadFile);
                 //上传图片到数据库
                 boolean addLivePhoto = adminLiveService.addLivePhoto(photoLoc + file.getOriginalFilename(), live);
                 if (addLivePhoto){

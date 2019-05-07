@@ -6,15 +6,18 @@ spring:
     password: root
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/turing?characterEncoding=UTF-8
-    type: com.alibaba.druid.pool.DruidDataSource
+    type: com.alibaba.druid.pool.DruidDataSourceC3P0Adapter
   http:
     encoding:
       force: true
       charset: UTF-8
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
   mvc:
     static-path-pattern: /resources/**
     view:
-      prefix: /resources/
+      prefix: /html/
       suffix: .html
     favicon:
       enabled: false

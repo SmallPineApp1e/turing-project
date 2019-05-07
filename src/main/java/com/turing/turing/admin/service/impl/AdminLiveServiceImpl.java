@@ -58,14 +58,18 @@ public class AdminLiveServiceImpl implements AdminLiveService {
         }
         String liveName = live.getLiveName();
         int deleteLive = liveMapper.deleteByPrimaryKey(liveId);
-        //删除项目路径下的生活照
+
         PhotoExample photoExample = new PhotoExample();
         photoExample.createCriteria().andPhotoTypeEqualTo(liveName);
         List<Photo> photos = photoMapper.selectByExample(photoExample);
+        //删除本地磁盘的生活照
         for (Photo photo :
                 photos) {
+            //获取数据库中文件的路径名
             String photoLoc = photo.getPhotoLoc();
-            new File(realPath + photoLoc).delete();
+            //获取文件名字
+            String fileName = photoLoc.substring(photoLoc.lastIndexOf("/") + 1);
+            new File(realPath + fileName).delete();
         }
         //删除数据库中的照片
         int deletePhoto = photoMapper.deleteByExample(photoExample);
@@ -106,7 +110,7 @@ public class AdminLiveServiceImpl implements AdminLiveService {
     }
 
     @Override
-    public boolean deletePhoto(Integer liveId, String realPath) {
+    public boolean deletePhoto(Integer liveId, String photoLoc) {
 
         Live live = liveMapper.selectByPrimaryKey(liveId);
         String photoType = live.getLiveName();
@@ -116,7 +120,9 @@ public class AdminLiveServiceImpl implements AdminLiveService {
         //删除本地的照片
         for (Photo photo :
                 photos) {
-            new File(realPath + photo.getPhotoLoc()).delete();
+            String fileName = photo.getPhotoLoc().substring(photo.getPhotoLoc().lastIndexOf("/")+1);
+            System.out.println(fileName);
+            new File(photoLoc + fileName).delete();
         }
         //删除数据库中的照片
         int row = photoMapper.deleteByExample(photoExample);

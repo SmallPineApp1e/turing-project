@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>首页</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="曾智杰">
+	<!-- Bootstrap -->
+	<link href="../static/css/bootstrap.css" rel="stylesheet">
+	<link href="../static/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="../static/css/style.css" rel="stylesheet">
+	<!-- SCRIPT -->
+	<script src="../static/js/jquery.js"></script>
+	<script src="../static/js/bootstrap.min.js"></script>
+	<script src="../static/js/guest.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			getLive();
+			getAward();
+			getProject();
+			getInform();
+		});
+	</script>
+</head>
+
+<body style="font-family: Microsoft YaHei">
+	<div id="header-row">
+		<div id="inform" style="text-align:center"></div>
+	</div>
+	<!--HEADER ROW-->
+	<div id="header-row">
+		<div class="container">
+			<div class="row">
+				<!--LOGO-->
+				<div class="span3">
+					<a class="brand" href="index.html"><img src="../static/img/logo_small.png"
+							style="width:20%;height:20%" /></a>
+					<span style="margin-left: 10px;font-size:25px; color:black;">
+						图灵智能创新团队
+					</span>
+				</div>
+				<!-- /LOGO -->
+
+				<!-- MAIN NAVIGATION -->
+				<div class="span9">
+					<div class="navbar  pull-right">
+						<div class="navbar-inner">
+							<a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar">
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</a>
+							<div class="nav-collapse collapse navbar-responsive-collapse">
+								<ul class="nav">
+									<li style="margin-right:4px"><button id="introduce" class="btn btn-primary"
+											onclick="location.href='/about'">团队介绍</button></li>
+									<li style="margin-right:4px"><button class="btn btn-success"
+											onclick="location.href='/postResume'">加入我们</button></li>
+									<li><button class="btn btn-danger"><a target="_blank" href="/login"
+												style="color:white;text-decoration: none">管理员登陆</a></button></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- MAIN NAVIGATION -->
+			</div>
+		</div>
+	</div>
+	<!-- /HEADER ROW -->
+	<div id="my-container" class="container">
+		<!--Carouser-->
+		<div id="myCarousel" class="carousel slide">
+			<div id="my-carousel-inner" class="carousel-inner">
+
+				<div class="active item">
+					<div class="container">
+						<div class="row">
+							<div class="span6">
+								<div class="carousel-caption">
+									<h1>团建活动照</h1>
+									<p class="lead">我们不仅仅是一支专注于技术的团队，在这里，有愉快的团队氛围，每一位团队成员都会参与其中
+										，不定期地会一起出去玩耍，每周会有约饭、约跑、约球等活动！每个人不是一个人在奔跑！</p>
+								</div>
+							</div>
+							<div class="span6">
+								<img src="../static/img/团队活动.jpg">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				-<div class="item">
+					<div class="container">
+						<div class="row">
+							<div class="span6">
+								<div class="carousel-caption">
+									<h1>PRCV之旅</h1>
+									<p class="lead">
+										2018年11月23日，中国第一届PRCV在广州白云国际会议中心隆重举行。作为图灵智能创新团队骨干之一有幸参加这次的PRCV之旅，PRCV全称为Chinese
+										Conference on Pattern Recognition and Computer Vision(中国模式识别与计算机视觉学术会议)。</p>
+								</div>
+							</div>
+							<div class="span6" style="margin-top:100px"> <img src="../static/img/PRCV(1).jpg"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="item">
+					<div class="container">
+						<div class="row">
+							<div class="span6">
+								<div class="carousel-caption">
+									<h1>团队部分项目展示</h1>
+									<p class="lead">通过摄像头实时捕捉人体的姿态，传输到程序中进行动作判定并实时地响应给页面</p>
+								</div>
+							</div>
+							<div class="span6" style="margin-top:20px"> <img src="../static/img/体感游戏.jpg"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="item">
+					<div class="container">
+						<div class="row">
+							<div class="span6">
+								<div class="carousel-caption">
+									<h1>团队部分项目展示</h1>
+									<p class="lead">通过自然语言处理，实现人与机器的交流，并且机器回答问题的相关性较高，不会出现“鸡同鸭讲”的现象。</p>
+								</div>
+							</div>
+							<div class="span6" style="margin-top:5px"> <img src="../static/img/智能问答系统.jpg"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Carousel nav -->
+			<a class="carousel-control left " href="#myCarousel" data-slide="prev"><i class="icon-chevron-left"></i></a>
+			<a class="carousel-control right" href="#myCarousel" data-slide="next"><i
+					class="icon-chevron-right"></i></a>
+			<!-- /.Carousel nav -->
+
+		</div>
+		<!-- /Carousel -->
+		<!-- Feature -->
+		<div class="row feature-box">
+			<div class="span12 cnt-title">
+				<h1>团队主要学习方向</h1>
+				<span
+					style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">The
+					main learning direction of the team
+				</span>
+				<h4>(点击图片可查看团队成员)</h4>
+			</div>
+			<div class="span4">
+				<a href="/ai"><img src="../static/img/ai.jpg" class="img-circle" style="width:182px;height:182px"></a>
+				<h2>人工智能</h2>
+				<p class="lead">
+					专注于计算机视觉、自然语言处理两大模块，拥有扎实的数学基础
+				</p>
+			</div>
+			<div class="span4">
+				<a href="/backside"><img src="../static/img/backstage.jpg " class="img-circle"
+						style="width:182px;height:182px"></a>
+				<h2>后台开发</h2>
+				<p class="lead">
+					专注于后台服务器的业务逻辑实现，Java、Python什么的，真香~
+				</p>
+			</div>
+			<div class="span4">
+				<a href="/frontside"><img src="../static/img/front-end.jpg" class="img-circle"
+						style="width:182px;height:182px"></a>
+				<h2>前端开发</h2>
+				<p class="lead">
+					专注于Web前端开发与小程序开发
+				</p>
+			</div>
+		</div>
+		<!-- /.Feature -->
+		<div class="hr-divider"></div>
+		<!-- Row View -->
+		<div class="row">
+			<div class="span5"><img src="../static/img/获奖情况.jpg"></div>
+
+			<div class="span6">
+				<h1>团队的获奖情况</h1>
+				<p class="lead">团队成立于2018年，在这一年来，经过团队成员的不断努力，已经收获了许多奖项，大家都非常地努力，为了团队，为了自己，继续加油！</p>
+				<div id="award"></div>
+			</div>
+		</div>
+
+	</div>
+	<!-- /.Row View -->
+
+	<!--Footer-->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="span6">团队位于就业楼101、110室，欢迎前来参观！<button onclick="location.href='postResume.html'"
+						class="btn btn-success">加入我们</button>
+				</div>
+				<div class="span6">
+					<div class="social pull-right">
+						<div>联系人:曾智杰</div>
+						<div>联系方式:13710691066</div>
+						<div>学习方向：JAVA后台</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--/Footer-->
+
+</body>
+
+</html>

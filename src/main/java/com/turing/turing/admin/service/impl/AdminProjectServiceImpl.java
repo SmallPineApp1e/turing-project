@@ -35,7 +35,7 @@ public class AdminProjectServiceImpl implements AdminProjectService {
     }
 
     @Override
-    public boolean deleteProject(Integer proId, String realPath) {
+    public boolean deleteProject(Integer proId, String photoLoc) {
 
         Project project = projectMapper.selectByPrimaryKey(proId);
         String projectName = project.getProName();
@@ -45,8 +45,9 @@ public class AdminProjectServiceImpl implements AdminProjectService {
         List<Photo> photos = photoMapper.selectByExample(photoExample);
         for (Photo photo :
                 photos) {
+            String fileName = photo.getPhotoLoc().substring(photo.getPhotoLoc().lastIndexOf("/")+1);
             //删除本地图片
-          new File(realPath + photo.getPhotoLoc()).delete();
+          new File(photoLoc + fileName).delete();
         }
         int deletePhoto = photoMapper.deleteByExample(photoExample);
         //删除项目
